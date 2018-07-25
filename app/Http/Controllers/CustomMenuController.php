@@ -27,11 +27,65 @@ class CustomMenuController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $user = $this->wxapp->user->get("o1siQ0TJfaFjIdoAJvzxGQHCVQJM");
-        dd($user);
         $model = new MenuModel();
         $menuList = $model->getList(["*"], ['isDel' => 0]);
         return view("weixin/custom-menu", ['menuList' => $menuList]);
+    }
+
+    /**
+     * 编辑菜单
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Request $request) {
+        $id = $request->get("id");
+        if (empty($id)) {
+            redirect("/weixin/custom-menu");
+        }
+
+        $model = new MenuModel();
+        $row = $model->getOne("*", ['id' => $id]);
+
+        return view('/weixin/custom-menu-edit', ['row' => $row]);
+    }
+
+    /**
+     * 提交编辑
+     * @param Request $request
+     * @return null
+     */
+    public function doEdit(Request $request) {
+        $model = new MenuModel();
+        $id = $request->post("id");
+        $name = $request->post("name");
+        $url = $request->post("url");
+        if (empty($id) || empty($name)) {
+            redirect("/weixin/custom-menu");
+        }
+        $menus = $model->getList('*', [['id', '<>', $id], 'isDel' => 0]);
+
+        $buttons = [];
+        foreach ($menus as $menu) {
+            $buttons[] = [
+                "type" => $menu->type,
+                "name" => $menu->name,
+                "url"  => $menu->url
+            ];
+        }
+        $menuData = [
+            "type" => "view",
+            "name" => $name,
+            "url"  => $url
+        ];
+        $buttons[] = $menuData;
+        //触发接口
+        $result = $this->wxapp->menu->create($buttons);
+        if (empty($result['errcode'])) {
+            $model->updateData($menuData, ['id' => $id]);
+            return redirect('/weixin/custom-menu');
+        } else {
+            return $result['errmsg'];
+        }
     }
 
     /**
@@ -81,10 +135,32 @@ class CustomMenuController extends Controller
     /**
      * 删除全部自定义菜单
      */
-    public function del() {
+    public function del(Request $request) {
+        $id = $request->post("id");
+        if (empty($id)) {
+            exit(json_encode(['code' => 100, 'msg' => 'id为空'], JSON_UNESCAPED_UNICODE));
+        }
+
+        //获取原有的菜单
         $model = new MenuModel();
-        $model->updateData(['isDel' => 1], ['isDel' => 0]);
-        return $this->wxapp->menu->delete();
+        $menuList = $model->getList(["*"], [['id', '<>', $id], 'isDel' => 0]);
+        $buttons = [];
+        foreach ($menuList as $menu) {
+            $buttons[] = [
+                "type" => $menu->type,
+                "name" => $menu->name,
+                "url"  => $menu->url
+            ];
+        }
+
+        //触发接口
+        $result = $this->wxapp->menu->create($buttons);
+        if (empty($result['errcode'])) {
+            $model->updateData(['isDel' => 1], ['id' => $id]);
+            return ['code' => 0, 'msg' => 'ok'];
+        } else {
+            return ['code' => 100, 'msg' => $result['errmsg'] || 'Failed'];
+        }
     }
 
 }

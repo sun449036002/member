@@ -1138,3 +1138,109 @@ Content-Length: 479
 {"subscribe":1,"openid":"o1siQ0TJfaFjIdoAJvzxGQHCVQJM","nickname":"明月清风[机智]","sex":1,"language":"zh_CN","city":"杭州","province":"浙江","country":"中国","headimgurl":"http:\/\/thirdwx.qlogo.cn\/mmopen\/PiajxSqBRaEKWibQ1GDdLxWa618Tlvl95LJtMn7aknMicQZeNI9Cria3KBq1ViasT4ibp23kAzTtob9wbWoHV0JJibzicn9NVhBRYfDHDiaCvw2TfJQo\/132","subscribe_time":1532441259,"remark":"","groupid":0,"tagid_list":[],"subscribe_scene":"ADD_SCENE_SEARCH","qr_scene":0,"qr_scene_str":""}
 --------
 NULL  
+[2018-07-25 09:12:38] NULL.INFO: >>>>>>>>
+GET /cgi-bin/user/info?access_token=12_LA_XGpdeYsgnTJ4-BmJnj1rr-ZJU4pSCuJ__-EaWzr5GUbjAEGp6qTbBKYETXoLacwS09dPY2_iRUKr_yiTHFwCr8uRjE0T6nMF0-0NfRkLm5CLeybCrNXGxF9rqRS1Zdhlh35Yp0X01VnlIMOLcAHAHJG&openid=o1siQ0TJfaFjIdoAJvzxGQHCVQJM&lang=zh_CN HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Wed, 25 Jul 2018 09:12:40 GMT
+Content-Length: 479
+
+{"subscribe":1,"openid":"o1siQ0TJfaFjIdoAJvzxGQHCVQJM","nickname":"明月清风[机智]","sex":1,"language":"zh_CN","city":"杭州","province":"浙江","country":"中国","headimgurl":"http:\/\/thirdwx.qlogo.cn\/mmopen\/PiajxSqBRaEKWibQ1GDdLxWa618Tlvl95LJtMn7aknMicQZeNI9Cria3KBq1ViasT4ibp23kAzTtob9wbWoHV0JJibzicn9NVhBRYfDHDiaCvw2TfJQo\/132","subscribe_time":1532441887,"remark":"","groupid":0,"tagid_list":[],"subscribe_scene":"ADD_SCENE_SEARCH","qr_scene":0,"qr_scene_str":""}
+--------
+NULL  
+[2018-07-25 09:59:08] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=12_LA_XGpdeYsgnTJ4-BmJnj1rr-ZJU4pSCuJ__-EaWzr5GUbjAEGp6qTbBKYETXoLacwS09dPY2_iRUKr_yiTHFwCr8uRjE0T6nMF0-0NfRkLm5CLeybCrNXGxF9rqRS1Zdhlh35Yp0X01VnlIMOLcAHAHJG HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 133
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"主页","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"QQ","url":"http:\/\/www.qq.com"}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Wed, 25 Jul 2018 09:59:10 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-07-25 12:55:03] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=12_4HwI8x0tmZK7PfNpgMu_WyYedf1Qfm0VpZNCCp9VMs-d4o2BnaTyOUW-j4kXBumkJOa8mWiGaQtB7ZTMg6bB0YMrod-nfui9cVJocJBhKjr9Bjqwat-wAE8HZbDZdjjxK40sBc-WOAK_CJxBVVFaAGAPPZ HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 207
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"主页","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"QQ","url":"http:\/\/www.qq.com"},{"type":"view","name":"晴朗工作室","url":"http:\/\/wx.whatareu.top"}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Wed, 25 Jul 2018 12:55:06 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-07-25 12:55:28] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=12_4HwI8x0tmZK7PfNpgMu_WyYedf1Qfm0VpZNCCp9VMs-d4o2BnaTyOUW-j4kXBumkJOa8mWiGaQtB7ZTMg6bB0YMrod-nfui9cVJocJBhKjr9Bjqwat-wAE8HZbDZdjjxK40sBc-WOAK_CJxBVVFaAGAPPZ HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 207
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"主页","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"QQ","url":"http:\/\/www.qq.com"},{"type":"view","name":"晴朗工作室","url":"http:\/\/wx.whatareu.top"}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Wed, 25 Jul 2018 12:55:31 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-07-25 12:58:14] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=12_4HwI8x0tmZK7PfNpgMu_WyYedf1Qfm0VpZNCCp9VMs-d4o2BnaTyOUW-j4kXBumkJOa8mWiGaQtB7ZTMg6bB0YMrod-nfui9cVJocJBhKjr9Bjqwat-wAE8HZbDZdjjxK40sBc-WOAK_CJxBVVFaAGAPPZ HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 233
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"主页","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"晴朗工作室","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"朝秦暮楚载","url":"http:\/\/wx.anlaosun.xyz\/96.php"}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Wed, 25 Jul 2018 12:58:17 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-07-25 12:59:49] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=12_4HwI8x0tmZK7PfNpgMu_WyYedf1Qfm0VpZNCCp9VMs-d4o2BnaTyOUW-j4kXBumkJOa8mWiGaQtB7ZTMg6bB0YMrod-nfui9cVJocJBhKjr9Bjqwat-wAE8HZbDZdjjxK40sBc-WOAK_CJxBVVFaAGAPPZ HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 151
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"主页","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"晴朗工作室","url":"http:\/\/wx.whatareu.top"}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Wed, 25 Jul 2018 12:59:51 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  

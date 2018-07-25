@@ -21,5 +21,7 @@ Route::post("/doLogin", "Auth\LoginController@doLogin");
 Route::get("/weixin/custom-menu", "CustomMenuController@index");
 Route::post("/weixin/custom-menu-create", "CustomMenuController@create");
 Route::post("/weixin/custom-menu-del", "CustomMenuController@del");
+Route::get("/weixin/custom-menu-edit", "CustomMenuController@edit");
+Route::post("/weixin/custom-menu-do-edit", "CustomMenuController@doEdit");
 
 
