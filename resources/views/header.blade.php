@@ -25,6 +25,24 @@
     <script src="../js/jquery-2.1.1.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
+    <!-- Toastr -->
+    <script src="../js/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 4000
+            };
+            @if(count($errors)>0)
+                @foreach($errors->all() as $value)
+                    toastr.error('{{$value}}', '错误提示');
+                @endforeach
+            @endif
+        });
+    </script>
+
 </head>
 
 <body>
@@ -52,10 +70,16 @@
                     </div>
                 </li>
                 <li class="active">
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="active"><a href="/weixin/custom-menu">微信自定义菜单设置</a></li>
                         <li class="active"><a href="/">智付-微信支付对接</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">栏目管理</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/hub">栏目列表</a></li>
                     </ul>
                 </li>
             </ul>
