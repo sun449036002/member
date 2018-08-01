@@ -19,3 +19,13 @@ function getWxConfig() {
         ],
     ];
 }
+
+/**
+ * 输出界面
+ * @param $pagePath
+ * @param array $pageData
+ * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+ */
+function SView($pagePath, $pageData = []) {
+    return view($pagePath, $pageData);
+}

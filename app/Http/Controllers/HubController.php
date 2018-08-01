@@ -70,11 +70,37 @@ class HubController extends Controller
             $row['subName'] = $subRow->name;
         }
 
-        return view("/hub/edit", ['data' => $row]);
+        //取得一级栏目名称 排除自身
+        $list = $model->getHubList();
+        foreach ($list as $key => $val) {
+            if ($val->id == $row->id) unset($list[$key]);
+        }
+
+        return view("/hub/edit", ['row' => $row, 'list' => $list]);
     }
 
-    public function doEdit() {
+    public function doEdit(Request $request) {
+        $data = $request->all();
+        $rule = [
+            'id' => 'required',
+            'name' => 'required',
+        ];
+        $message = [
+            'id.required' => 'ID不得为空',
+            'name.required' => '栏目名称必填',
+        ];
+        $validate = Validator::make($data, $rule, $message);
+        if (!$validate->passes()) {
+            return back()->withErrors($validate);
+        }
 
+        $model = new HubModel();
+        $model->updateData([
+            'name' => $data['name'],
+            'pid' => $data['pid']
+        ], ['id' => $data['id']]);
+
+        return redirect('/hub');
     }
 
     public function del() {

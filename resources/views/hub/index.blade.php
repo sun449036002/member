@@ -29,6 +29,7 @@
                     <thead>
                     <tr>
                         <th>栏目名称 </th>
+                        <th>子级栏目 </th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -36,6 +37,30 @@
                     @foreach($list as $item)
                         <tr>
                             <td>{{$item->name}}</td>
+                            <td>
+                                @if(!empty($item->sublist))
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>栏目名称 </th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @foreach($item->sublist as $subItem)
+                                        <tr>
+                                            <td>{{$subItem->name}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$subItem->id}}">编辑</button>
+                                                <button type="button" class="btn btn-primary btn-to-del" data-id="{{$subItem->id}}">删除</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                                @endif
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                 <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
@@ -86,7 +111,7 @@
                         <select class="form-control m-b" name="pid">
                             <option value="0">-- ROOT --</option>
                             @foreach($list as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                <option value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -110,7 +135,7 @@
 $(document).ready(function() {
     //TO 编辑
     $(".btn.btn-to-edit").on("click", function(){
-    window.location.href = "/weixin/custom-menu-edit?id=" + $(this).data("id");
+        window.location.href = "/hub/edit?id=" + $(this).data("id");
     });
 
     //TO 删除
