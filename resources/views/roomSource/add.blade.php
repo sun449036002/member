@@ -6,7 +6,7 @@
                         <h5>房源添加</h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" class="form-horizontal" action="/roomSource/doAdd">
+                        <form id="roomSourceForm" method="post" class="form-horizontal" action="/roomSource/doAdd">
                             {{csrf_field()}}
                             <div class="form-group"><label class="col-sm-2 control-label">楼盘名称</label>
                                 <div class="col-sm-5"><input type="text" class="form-control" name="name" value=""></div>
@@ -120,6 +120,17 @@
 </div>
 
 <script>
+    //添加图片到Form中
+    var appendImgToForm = function (response, keyName) {
+        if (response.code > 0) {
+            swal(response.msg || "Upload Failed");
+            return false;
+        }
+        $(response.imgs).each(function (k,v) {
+            $("#roomSourceForm").append("<input type='hidden' name='" + keyName + "' value='" + v + "'/>");
+        })
+    };
+
     $(document).ready(function() {
         $('.summernote').summernote();
 
@@ -144,23 +155,25 @@
 
                 this.on("sendingmultiple", function() {
                 });
+                this.on("success", function(files, response) {
+                    appendImgToForm(response, "cover");
+                });
                 this.on("successmultiple", function(files, response) {
-                    console.log(files, response);
                 });
                 this.on("errormultiple", function(files, response) {
                 });
             }
         };
 
-        //封面图片上传
+        //其他图片上传
         Dropzone.options.imgs = {
             url:"/img/upload",
             paramName:"imgs",
             headers:{"X-CSRF-TOKEN" : "{{csrf_token()}}"},
             autoProcessQueue: true,
             uploadMultiple: true,
-            parallelUploads: 5,
-            maxFiles: 5,
+            parallelUploads: 100,
+            maxFiles: 100,
 
             // Dropzone settings
             init: function() {
@@ -169,7 +182,7 @@
                 this.on("sendingmultiple", function() {
                 });
                 this.on("successmultiple", function(files, response) {
-                    console.log(files, response);
+                    appendImgToForm(response, "imgs[]");
                 });
                 this.on("errormultiple", function(files, response) {
                 });

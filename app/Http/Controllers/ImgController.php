@@ -20,18 +20,37 @@ class ImgController
      * @return false|string|array
      */
     public function upload(Request $request) {
+        $result = ['code' => 0, 'msg' => 'ok', 'imgs' => []];
+
         $data = $request->all();
-        $dirName = "/images/room-source/" . date("Ymd");
+        $destinationPath = "/images/room-source/" . date("Ymd");
         if (!empty($data['cover'])) {
-            $filePath = $request->file("cover")->store($dirName);
-            return $filePath;
+            $filePath = $request->file("cover")->store($destinationPath);
+            $result['imgs'][] = "/" . ltrim($filePath, "/");
+            return $result;
         } else if (!empty($data['imgs'])) {
             $filePath = [];
             foreach ($data['imgs'] as $key => $img) {
-                $filePath[] = $request->file($key)->store($dirName);
+                // 判断图片上传中是否出错
+                if (!$img->isValid()) {
+                    $result['code'] = 100;
+                    $result['msg'] = '上传图片出错，请重试';
+                }
+                if(!empty($img)){//此处防止没有多文件上传的情况
+                    $allowed_extensions = ["png", "jpg", "gif"];
+                    if ($img->getClientOriginalExtension() && !in_array($img->getClientOriginalExtension(), $allowed_extensions)) {
+                        $result['code'] = 100;
+                        $result['msg'] = '您只能上传PNG、JPG或GIF格式的图片！';
+                    }
+                    $extension = $img->getClientOriginalExtension();   // 上传文件后缀
+                    $fileName = date('YmdHis').mt_rand(100,999) . '.'.$extension; // 重命名
+                    $img->move($destinationPath, $fileName); // 保存图片
+                    $filePath[] = $destinationPath.'/'.$fileName;
+                }
             }
-            return $filePath;
+            $result['imgs'] = $filePath;
+            return $result;
         }
-        return '';
+        return $result;
     }
 }
