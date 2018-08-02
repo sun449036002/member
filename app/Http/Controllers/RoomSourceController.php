@@ -20,13 +20,13 @@ class RoomSourceController extends Controller
     public function index() {
         $list = (new RoomSourceModel())->getList(['*'], ['isDel' => 0]);
         $this->pageData['list'] = $list;
-        return SView("RoomSource/index", $this->pageData);
+        return SView("roomSource/index", $this->pageData);
     }
 
     public function add() {
         $model = new RoomCategoryModel();
         $this->pageData['categoryList'] = $model->getList(['*'], ['isDel' => 0]);
-        return SView("RoomSource/add", $this->pageData);
+        return SView("roomSource/add", $this->pageData);
     }
 
     public function doAdd(Request $request) {
@@ -44,7 +44,7 @@ class RoomSourceController extends Controller
         $model = new RoomSourceModel();
         $model->insert(['name' => $data['name']]);
 
-        return redirect("/RoomSource");
+        return redirect("/roomSource");
     }
 
     public function edit(Request $request) {
@@ -62,7 +62,7 @@ class RoomSourceController extends Controller
         $model = new RoomSourceModel();
         $this->pageData['row'] = $model->getOne(['*'], ['id' => $data['id']]);
 
-        return SView('/RoomSource/edit', $this->pageData);
+        return SView('/roomSource/edit', $this->pageData);
     }
 
     public function doEdit(Request $request) {
@@ -82,7 +82,7 @@ class RoomSourceController extends Controller
         $model = new RoomSourceModel();
         $model->updateData(['name' => $data['name']], ['id' => $data['id']]);
 
-        return redirect("/RoomSource");
+        return redirect("/roomSource");
     }
 
     public function del(Request $request) {
