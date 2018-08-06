@@ -31,6 +31,11 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">楼盘地域</label>
+                                <div class="col-sm-5"><input type="text" class="form-control" name="area" value=""></div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">楼盘分类</label>
                                 <div class="col-sm-5">
                                     <select name="roomCategoryId" class="form-control m-b">
@@ -182,55 +187,8 @@
            return false;
         });
 
-        //封面图片上传
-        Dropzone.options.cover = {
-            url:"/img/upload",
-            paramName:"cover",
-            headers:{"X-CSRF-TOKEN" : "{{csrf_token()}}"},
-            autoProcessQueue: true,
-            uploadMultiple: false,
-            parallelUploads: 1,
-            maxFiles: 1,
-
-            // Dropzone settings
-            init: function() {
-                var myDropzone = this;
-
-                this.on("sendingmultiple", function() {
-                });
-                this.on("success", function(files, response) {
-                    appendImgToForm(response, "cover");
-                });
-                this.on("successmultiple", function(files, response) {
-                });
-                this.on("errormultiple", function(files, response) {
-                });
-            }
-        };
-
-        //其他图片上传
-        Dropzone.options.imgs = {
-            url:"/img/upload",
-            paramName:"imgs",
-            headers:{"X-CSRF-TOKEN" : "{{csrf_token()}}"},
-            autoProcessQueue: true,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 100,
-
-            // Dropzone settings
-            init: function() {
-                var myDropzone = this;
-
-                this.on("sendingmultiple", function() {
-                });
-                this.on("successmultiple", function(files, response) {
-                    appendImgToForm(response, "imgs[]");
-                });
-                this.on("errormultiple", function(files, response) {
-                });
-            }
-        };
+        initCover(appendImgToForm, "{{csrf_token()}}");
+        initImgs(appendImgToForm, "{{csrf_token()}}");
     });
 </script>
 </body>

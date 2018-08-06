@@ -84,7 +84,10 @@ class RoomSourceController extends Controller
         $this->pageData['categoryList'] = $model->getList(['*'], ['isDel' => 0]);
 
         $model = new RoomSourceModel();
-        $this->pageData['row'] = $model->getOne(['*'], ['id' => $data['id']]);
+        $row = $model->getOne(['*'], ['id' => $data['id']]);
+        $this->pageData['row'] = $row;
+
+        dd($this->pageData['row']);
 
         return SView('/roomSource/edit', $this->pageData);
     }
@@ -103,8 +106,36 @@ class RoomSourceController extends Controller
         if (!$validate->passes()) {
             return back()->withErrors($validate);
         }
+
         $model = new RoomSourceModel();
-        $model->updateData(['name' => $data['name']], ['id' => $data['id']]);
+        $row = $model->getOne(['imgJson'], ['id' => $data['id']]);
+        $updateData = [
+            'name' => $data['name'],
+            'type' => $data['type'],
+            'area' => $data['area'] ?? "",
+            'roomCategoryId' => $data['roomCategoryId'],
+            'avgPrice' => $data['avgPrice'],
+            'acreage' => $data['acreage'],
+            'houseType' => $data['houseType'],
+            'reportTemplate' => $data['reportTemplate'],
+            'contacts' => $data['contacts'],
+            'tel' => $data['tel'],
+            'commission' => $data['commission'],
+            'rewardPolicy' => $data['rewardPolicy'],
+            'desc' => $data['desc']
+        ];
+        if (!empty($data['cover'])) {
+            $row->cover = $data['cover'];
+        }
+        if (!empty($data['imgs'])) {
+            $row->imgs = $data['imgs'];
+        }
+        $updateData['imgJson'] = json_encode([
+            'cover' => $row->cover,
+            'imgs' => $row->imgs
+        ], JSON_UNESCAPED_UNICODE);
+
+        $model->updateData($updateData, ['id' => $data['id']]);
 
         return redirect("/roomSource");
     }

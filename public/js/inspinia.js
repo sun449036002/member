@@ -291,4 +291,76 @@ function WinMove() {
         .disableSelection();
 }
 
+//HTML反转义
+function htmlDecode(text) {
+    var temp = document.createElement("div");
+    temp.innerHTML = text;
+    var output = temp.innerText || temp.textContent;
+    temp = null;
+    return output;
+}
 
+//添加图片到Form中
+function appendImgToForm (response, keyName) {
+    if (response.code > 0) {
+        swal(response.msg || "Upload Failed");
+        return false;
+    }
+    $(response.imgs).each(function (k,v) {
+        $("#roomSourceForm").append("<input type='hidden' name='" + keyName + "' value='" + v + "'/>");
+    })
+}
+
+//封面图片上传
+function initCover(successCallback, csrf_token) {
+    Dropzone.options.cover = {
+        url:"/img/upload",
+        paramName:"cover",
+        headers:{"X-CSRF-TOKEN" : csrf_token},
+        autoProcessQueue: true,
+        uploadMultiple: false,
+        parallelUploads: 1,
+        maxFiles: 1,
+
+        // Dropzone settings
+        init: function() {
+            var myDropzone = this;
+
+            this.on("sendingmultiple", function() {
+            });
+            this.on("success", function(files, response) {
+                successCallback(response, "cover");
+            });
+            this.on("successmultiple", function(files, response) {
+            });
+            this.on("errormultiple", function(files, response) {
+            });
+        }
+    };
+}
+
+//其他图片上传
+function initImgs(mSuccessCallback, csrf_token) {
+    Dropzone.options.imgs = {
+        url:"/img/upload",
+        paramName:"imgs",
+        headers:{"X-CSRF-TOKEN" : csrf_token},
+        autoProcessQueue: true,
+        uploadMultiple: true,
+        parallelUploads: 100,
+        maxFiles: 100,
+
+        // Dropzone settings
+        init: function() {
+            var myDropzone = this;
+
+            this.on("sendingmultiple", function() {
+            });
+            this.on("successmultiple", function(files, response) {
+                mSuccessCallback(response, "imgs[]");
+            });
+            this.on("errormultiple", function(files, response) {
+            });
+        }
+    };
+}

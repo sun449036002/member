@@ -32,6 +32,11 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">楼盘地域</label>
+                        <div class="col-sm-5"><input type="text" class="form-control" name="area" value="{{$row->area}}"></div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">楼盘分类</label>
                         <div class="col-sm-5">
                             <select name="roomCategoryId" class="form-control m-b">
@@ -92,14 +97,45 @@
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">封面</label>
-                        <div class="col-sm-5 dropzone" id="cover">
+                        @if(!empty($row->cover))
+                        <div class="col-sm-5">
+                            <img src="{{$row->cover}}" />
+                        </div>
+                        @endif
+                        <div class="col-sm-4 dropzone" id="cover">
                             <div class="dropzone-previews"></div>
                         </div>
                     </div>
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">其他图片</label>
-                        <div class="col-sm-5 dropzone" id="imgs">
+                        <div class="col-sm-5">
+                            <div class="carousel slide" id="carousel1">
+                                <ol class="carousel-indicators">
+                                    @if(!empty($row->imgs))
+                                    @foreach($row->imgs as $key => $img)
+                                    <li data-slide-to="{{$key}}" data-target="#carousel1"  class="{{$key == 0 ? 'active' : ''}}"></li>
+                                    @endforeach
+                                    @endif
+                                </ol>
+                                <div class="carousel-inner">
+                                    @if(!empty($row->imgs))
+                                    @foreach($row->imgs as $key => $img)
+                                    <div class="item {{$key == 0 ? 'active' : ''}}">
+                                        <img alt="image"  class="img-responsive" src="{{$img}}">
+                                    </div>
+                                    @endforeach
+                                    @endif
+                                </div>
+                                <a data-slide="prev" href="#carousel1" class="left carousel-control">
+                                    <span class="icon-prev"></span>
+                                </a>
+                                <a data-slide="next" href="#carousel1" class="right carousel-control">
+                                    <span class="icon-next"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 dropzone" id="imgs">
                             <div class="dropzone-previews"></div>
                         </div>
                     </div>
@@ -121,29 +157,9 @@
 </div>
 
 <script>
-    //添加图片到Form中
-    var appendImgToForm = function (response, keyName) {
-        if (response.code > 0) {
-            swal(response.msg || "Upload Failed");
-            return false;
-        }
-        $(response.imgs).each(function (k,v) {
-            $("#roomSourceForm").append("<input type='hidden' name='" + keyName + "' value='" + v + "'/>");
-        })
-    };
-
-    //HTML反转义
-    function HTMLDecode(text) {
-        var temp = document.createElement("div");
-        temp.innerHTML = text;
-        var output = temp.innerText || temp.textContent;
-        temp = null;
-        return output;
-    }
-
     $(document).ready(function() {
         @if(!empty($row->desc))
-        $(".summernote").append(HTMLDecode("{{$row->desc}}"));
+        $(".summernote").append(htmlDecode("{{$row->desc}}"));
         @endif
 
         $('.summernote').summernote();
@@ -183,7 +199,7 @@
             //Ajax提交表单
             $.ajax({
                 type : 'post',
-                url : "/roomSource/doAdd",
+                url : "/roomSource/doEdit",
                 data : _dataList,
                 dataType : "json",
                 headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
@@ -196,55 +212,8 @@
             return false;
         });
 
-        //封面图片上传
-        Dropzone.options.cover = {
-            url:"/img/upload",
-            paramName:"cover",
-            headers:{"X-CSRF-TOKEN" : "{{csrf_token()}}"},
-            autoProcessQueue: true,
-            uploadMultiple: false,
-            parallelUploads: 1,
-            maxFiles: 1,
-
-            // Dropzone settings
-            init: function() {
-                var myDropzone = this;
-
-                this.on("sendingmultiple", function() {
-                });
-                this.on("success", function(files, response) {
-                    appendImgToForm(response, "cover");
-                });
-                this.on("successmultiple", function(files, response) {
-                });
-                this.on("errormultiple", function(files, response) {
-                });
-            }
-        };
-
-        //其他图片上传
-        Dropzone.options.imgs = {
-            url:"/img/upload",
-            paramName:"imgs",
-            headers:{"X-CSRF-TOKEN" : "{{csrf_token()}}"},
-            autoProcessQueue: true,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 100,
-
-            // Dropzone settings
-            init: function() {
-                var myDropzone = this;
-
-                this.on("sendingmultiple", function() {
-                });
-                this.on("successmultiple", function(files, response) {
-                    appendImgToForm(response, "imgs[]");
-                });
-                this.on("errormultiple", function(files, response) {
-                });
-            }
-        };
+        initCover(appendImgToForm, "{{csrf_token()}}");
+        initImgs(appendImgToForm, "{{csrf_token()}}");
     });
 </script>
 </body>

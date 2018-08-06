@@ -40,6 +40,7 @@
     <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="../js/inspinia.js"></script>
 
+
     <!-- Sweet alert -->
     <script src="../js/plugins/sweetalert/sweetalert.min.js"></script>
 
@@ -51,6 +52,8 @@
 
     <!-- DROPZONE -->
     <script src="../js/plugins/dropzone/dropzone.js"></script>
+
+    <script src="../js/plugins/pace/pace.min.js"></script>
 
     <!-- Toastr -->
     <script src="../js/plugins/toastr/toastr.min.js"></script>
