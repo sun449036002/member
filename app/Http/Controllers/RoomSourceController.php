@@ -73,12 +73,16 @@ class RoomSourceController extends Controller
             'id' => 'required',
         ];
         $message = [
-            'id.required' => '房源类别ID必填',
+            'id.required' => '房源ID必填',
         ];
         $validate = Validator::make($data, $rule, $message);
         if (!$validate->passes()) {
             return back()->withErrors($validate);
         }
+
+        $model = new RoomCategoryModel();
+        $this->pageData['categoryList'] = $model->getList(['*'], ['isDel' => 0]);
+
         $model = new RoomSourceModel();
         $this->pageData['row'] = $model->getOne(['*'], ['id' => $data['id']]);
 

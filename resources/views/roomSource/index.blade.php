@@ -50,7 +50,7 @@
 $(document).ready(function() {
     //TO 编辑
     $(".btn.btn-to-edit").on("click", function(){
-        window.location.href = "/roomCategory/edit?id=" + $(this).data("id");
+        window.location.href = "/roomSource/edit?id=" + $(this).data("id");
     });
 
     //TO 删除
@@ -67,7 +67,7 @@ $(document).ready(function() {
         }, function () {
             $.ajax({
                 type : 'post',
-                url : "/roomCategory/del",
+                url : "/roomSource/del",
                 data : {
                     id : self.data("id") || 0
                 },
