@@ -4,15 +4,18 @@
 <div class="col-lg-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>房源类别列表</h5>
+            <h5>房源列表</h5>
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th>分类ID </th>
-                        <th>分类名称 </th>
+                        <th>楼盘ID </th>
+                        <th>楼盘名称 </th>
+                        <th>楼盘地域 </th>
+                        <th>楼盘面积 </th>
+                        <th>楼盘均价 </th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -21,6 +24,9 @@
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->name}}</td>
+                            <td>{{$item->area}}</td>
+                            <td>{{$item->acreage}}</td>
+                            <td>{{$item->avgPrice}}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                 <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>

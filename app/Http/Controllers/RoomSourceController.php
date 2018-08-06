@@ -42,9 +42,29 @@ class RoomSourceController extends Controller
             return back()->withErrors($validate);
         }
         $model = new RoomSourceModel();
-        $model->insert(['name' => $data['name']]);
+        $model->insert([
+            'name' => $data['name'],
+            'type' => $data['type'],
+            'area' => $data['area'] ?? "",
+            'roomCategoryId' => $data['roomCategoryId'],
+            'avgPrice' => $data['avgPrice'],
+            'acreage' => $data['acreage'],
+            'houseType' => $data['houseType'],
+            'reportTemplate' => $data['reportTemplate'],
+            'contacts' => $data['contacts'],
+            'tel' => $data['tel'],
+            'commission' => $data['commission'],
+            'rewardPolicy' => $data['rewardPolicy'],
+            'desc' => $data['desc'],
+            'imgJson' => json_encode([
+                'cover' => $data['cover'],
+                'imgs' => $data['imgs'] ?? []
+            ], JSON_UNESCAPED_UNICODE),
+            'createTime' => time(),
+            'status' => ROOM_SOURCE_STATUS_PASS,
+        ]);
 
-        return redirect("/roomSource");
+        return json_encode(['code' => 0, 'msg' => '房源添加成功'],JSON_UNESCAPED_UNICODE);
     }
 
     public function edit(Request $request) {

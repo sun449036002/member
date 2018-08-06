@@ -6,7 +6,7 @@
                         <h5>房源添加</h5>
                     </div>
                     <div class="ibox-content">
-                        <form id="roomSourceForm" method="post" class="form-horizontal" action="/roomSource/doAdd">
+                        <form id="roomSourceForm" method="post" class="form-horizontal" action="#">
                             {{csrf_field()}}
                             <div class="form-group"><label class="col-sm-2 control-label">楼盘名称</label>
                                 <div class="col-sm-5"><input type="text" class="form-control" name="name" value=""></div>
@@ -16,17 +16,17 @@
                             <div class="form-group"><label class="col-sm-2 control-label">楼盘类型</label>
                                 <div class="col-sm-10">
                                     <div class="radio radio-info radio-inline">
-                                        <input type="radio" id="inlineRadio1" value="1" name="type">
+                                        <input type="radio" id="inlineRadio1" value="1" name="type" checked>
                                         <label for="inlineRadio1"> 新房 </label>
                                     </div>
-                                    <div class="radio radio-info radio-inline">
-                                        <input type="radio" id="inlineRadio1" value="2" name="type">
-                                        <label for="inlineRadio1"> 二手房 </label>
-                                    </div>
-                                    <div class="radio radio-info radio-inline">
-                                        <input type="radio" id="inlineRadio1" value="3" name="type">
-                                        <label for="inlineRadio1"> 出租房 </label>
-                                    </div>
+                                    {{--<div class="radio radio-info radio-inline">--}}
+                                        {{--<input type="radio" id="inlineRadio1" value="2" name="type">--}}
+                                        {{--<label for="inlineRadio1"> 二手房 </label>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="radio radio-info radio-inline">--}}
+                                        {{--<input type="radio" id="inlineRadio1" value="3" name="type">--}}
+                                        {{--<label for="inlineRadio1"> 出租房 </label>--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
 
@@ -145,14 +145,12 @@
 
             //富文本编辑器内容
             var aHTML = $('.summernote').code(); //save HTML If you need(aHTML: array).
-            _findError = aHTML === '<p><br></p>';
-            if (_findError) {
-                swal("描述内容不得为空");
-//                return false;
-            }
+            aHTML =  aHTML === '<p><br></p>' ? "" : aHTML;
 
             var _dataList = $(this).serializeArray();
-            var _fields = {"name":"楼盘名称", "roomCategoryId":"楼盘类型", "avgPrice":"楼盘均价", "acreage":"楼盘面积", "houseType":"户型"};
+            _dataList.push({name:"desc", value:aHTML});
+            console.log(_dataList);
+            var _fields = {"name":"楼盘名称", "roomCategoryId":"楼盘类型", "avgPrice":"楼盘均价", "acreage":"楼盘面积", "houseType":"户型", "desc":"楼盘描述"};
             var _keys = Object.keys(_fields);
             $(_dataList).each(function(k, item){
                 if (_keys.indexOf(item.name) > -1) {
@@ -164,7 +162,24 @@
                 }
             });
 
-           return !_findError;
+            if (_findError) {
+                return false;
+            }
+
+            //Ajax提交表单
+            $.ajax({
+                type : 'post',
+                url : "/roomSource/doAdd",
+                data : _dataList,
+                dataType : "json",
+                headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
+                success : function(res){
+                    swal(res.msg);
+                    window.location.href = "/roomSource";
+                }
+            });
+
+           return false;
         });
 
         //封面图片上传
