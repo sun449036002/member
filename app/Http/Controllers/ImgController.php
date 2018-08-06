@@ -26,7 +26,7 @@ class ImgController
         $destinationPath = "/images/room-source/" . date("Ymd");
         if (!empty($data['cover'])) {
             $filePath = $request->file("cover")->store($destinationPath);
-            $result['imgs'][] = "/" . ltrim($filePath, "/");
+            $result['imgs'][] = env('IMG_URL') . "/" . ltrim($filePath, "/");
             return $result;
         } else if (!empty($data['imgs'])) {
             $filePath = [];
@@ -45,7 +45,7 @@ class ImgController
                     $extension = $img->getClientOriginalExtension();   // 上传文件后缀
                     $fileName = date('YmdHis').mt_rand(100,999) . '.'.$extension; // 重命名
                     $img->move($destinationPath, $fileName); // 保存图片
-                    $filePath[] = $destinationPath.'/'.$fileName;
+                    $filePath[] = env('IMG_URL') . $destinationPath.'/'.$fileName;
                 }
             }
             $result['imgs'] = $filePath;

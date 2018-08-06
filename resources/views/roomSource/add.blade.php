@@ -107,7 +107,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-white" type="submit">取消</button>
+                                    <button class="btn btn-white btn-submit" type="submit">取消</button>
                                     <button class="btn btn-primary" type="submit">保存</button>
                                 </div>
                             </div>
@@ -137,6 +137,34 @@
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green'
+        });
+
+        //表单提交
+        $("#roomSourceForm").on("submit", function(){
+            var _findError = false;
+
+            //富文本编辑器内容
+            var aHTML = $('.summernote').code(); //save HTML If you need(aHTML: array).
+            _findError = aHTML === '<p><br></p>';
+            if (_findError) {
+                swal("描述内容不得为空");
+//                return false;
+            }
+
+            var _dataList = $(this).serializeArray();
+            var _fields = {"name":"楼盘名称", "roomCategoryId":"楼盘类型", "avgPrice":"楼盘均价", "acreage":"楼盘面积", "houseType":"户型"};
+            var _keys = Object.keys(_fields);
+            $(_dataList).each(function(k, item){
+                if (_keys.indexOf(item.name) > -1) {
+                    if (item.value === "") {
+                        _findError = true;
+                        swal((_fields[item.name] || "") + "字段不得为空");
+                        return false;
+                    }
+                }
+            });
+
+           return !_findError;
         });
 
         //封面图片上传

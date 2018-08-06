@@ -1244,3 +1244,21 @@ Content-Length: 27
 {"errcode":0,"errmsg":"ok"}
 --------
 NULL  
+[2018-08-04 05:51:05] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=12_L1tiAFhKbO3ILosvXOb_w7WqY1bI0bKrfwd1Yse_k8eibgXPJe7eKjc2MOCs9xJBEJ5B0Ta_mrpkd0BQrBE1gmFtLd86IvzLCGsIWucGSly8ZH1WcAKOYNoym_yR2e5ND16NCI6cXavuf9dcBEHjAGAUXA HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 263
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"主页","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"晴朗工作室","url":"http:\/\/wx.whatareu.top"},{"type":"view","name":"领现金红包","url":"http:\/\/wx.whatareu.top\/cash-red-pack-info?from=cash-receive"}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sat, 04 Aug 2018 05:51:12 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
