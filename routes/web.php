@@ -50,4 +50,12 @@ Route::get("/roomSource/edit", "RoomSourceController@edit");
 Route::post("/roomSource/doEdit", "RoomSourceController@doEdit");
 Route::post("/roomSource/del", "RoomSourceController@del");
 
+//微信用户管理
+Route::get("/user", "UserController@index");
+Route::get("/user/detail", "UserController@detail");
+
+//红包配置
+Route::get("/redPack/config", "RedPackController@config");
+Route::post("/redPack/saveConfig", "RedPackController@saveConfig");
+
 

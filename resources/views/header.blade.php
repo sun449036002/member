@@ -33,6 +33,8 @@
     <link href="../css/plugins/dropzone/basic.css" rel="stylesheet">
     <link href="../css/plugins/dropzone/dropzone.css" rel="stylesheet">
 
+    <link href="../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
     <!-- Mainly scripts -->
     <script src="../js/jquery-2.1.1.js"></script>
     <script src="../js/bootstrap.min.js"></script>
@@ -54,6 +56,9 @@
     <script src="../js/plugins/dropzone/dropzone.js"></script>
 
     <script src="../js/plugins/pace/pace.min.js"></script>
+
+    <!-- dataTables  -->
+    <script src="../js/plugins/dataTables/datatables.min.js"></script>
 
     <!-- Toastr -->
     <script src="../js/plugins/toastr/toastr.min.js"></script>
@@ -100,34 +105,70 @@
                     </div>
                 </li>
                 <li class="active">
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/weixin/custom-menu">微信自定义菜单设置</a></li>
-                        <li class="active"><a href="/">智付-微信支付对接</a></li>
-                    </ul>
+                    <a href="/"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
                 </li>
+                {{--<li>--}}
+                    {{--<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">栏目管理</span> <span class="fa arrow"></span></a>--}}
+                    {{--<ul class="nav nav-second-level">--}}
+                        {{--<li class="active"><a href="/hub">栏目列表</a></li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
                 <li>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">栏目管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/hub">栏目列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">房源分类管理</span> <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">房源分类管理</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="active"><a href="/roomCategory">分类列表</a></li>
                         <li class="active"><a href="/roomCategory/add">添加分类</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">房源管理</span> <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-pie-chart"></i> <span class="nav-label">房源管理</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="active"><a href="/roomSource">房源列表</a></li>
+                        <li class="active"><a href="/bespeak">预约列表</a></li>
                         <li class="active"><a href="/roomSource/add">添加房源</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">红包管理</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/redPack/config">红包配置</a></li>
+                        <li class="active"><a href="/redPack/statistics">红包数据统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-globe"></i> <span class="nav-label">微信用户管理</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/user">用户列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">客服管理</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/customService">客服列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">业务员管理</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/salesman">业务员列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">管理员管理</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/admins">管理员列表</a></li>
+                        <li class="active"><a href="/admins/add">添加管理员</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">权限管理</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/authority">权限列表</a></li>
+                        <li class="active"><a href="/authority/add">添加权限</a></li>
+                        <li class="active"><a href="/authority/config">权限设置</a></li>
+                    </ul>
+                </li>
             </ul>
-
         </div>
     </nav>
 

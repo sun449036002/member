@@ -80,6 +80,10 @@ class BaseModel extends Model
      * @return \Illuminate\Database\Query\Builder
      */
     private function getBuilder(){
-        return DB::table($this->table);
+        if (!empty($this->getConnectionName())) {
+            return DB::connection($this->getConnectionName())->table($this->table);
+        } else {
+            return DB::table($this->table);
+        }
     }
 }

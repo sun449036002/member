@@ -4,15 +4,18 @@
 <div class="col-lg-12">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>房源类别列表</h5>
+            <h5>微信用户列表</h5>
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover dataTables-sym">
                     <thead>
                     <tr>
-                        <th>分类ID </th>
-                        <th>分类名称 </th>
+                        <th>用户ID </th>
+                        <th>用户URI </th>
+                        <th>用户名称 </th>
+                        <th>openid </th>
+                        <th>关注状态 </th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -20,10 +23,19 @@
                     @foreach($list as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->name}}</td>
+                            <td>{{$item->uri}}</td>
+                            <td>{{$item->username}}</td>
+                            <td>{{$item->openid}}</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
-                                <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
+                                @if(!empty($item->is_subscribe))
+                                    <span class="badge badge-success">关注</span>
+                                    @else
+                                    <span class="badge">未关注</span>
+                                @endif
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-to-detail" data-id="{{$item->id}}">详情</button>
+                                <button type="button" class="btn btn-primary btn-to-lock" data-id="{{$item->id}}">冻结</button>
                             </td>
                         </tr>
                     @endforeach
@@ -42,17 +54,19 @@
 
 <script>
 $(document).ready(function() {
-    //TO 编辑
-    $(".btn.btn-to-edit").on("click", function(){
-        window.location.href = "/roomCategory/edit?id=" + $(this).data("id");
+    initDataTable();
+
+    //TO 详情
+    $(".btn-to-detail").on("click", function () {
+        window.location.href = "/user/detail?id=" + $(this).data("id");
     });
 
     //TO 删除
-    $(".btn.btn-to-del").on("click", function(){
+    $(".btn.btn-to-lock").on("click", function(){
         var self = $(this);
         swal({
-            title: "确定要删除吗?",
-            text: "删除后将不能恢复!",
+            title: "确定要冻结吗?",
+            text: "冻结后可在此恢复!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
@@ -61,7 +75,7 @@ $(document).ready(function() {
         }, function () {
             $.ajax({
                 type : 'post',
-                url : "/roomCategory/del",
+                url : "/user/lock",
                 data : {
                     id : self.data("id") || 0
                 },

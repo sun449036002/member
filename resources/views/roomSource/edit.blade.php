@@ -1,4 +1,19 @@
 @include('header')
+<style type="text/css">
+    .carousel .btn-del-img {
+        position: absolute;
+        border: 1px solid #cecece;
+        top: 5px;
+        right: 5px;
+        z-index: 999;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        padding: 5px 15px;
+        font-size: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+</style>
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
@@ -99,7 +114,8 @@
                     <div class="form-group"><label class="col-sm-2 control-label">封面</label>
                         @if(!empty($row->cover))
                         <div class="col-sm-5">
-                            <img src="{{$row->cover}}" />
+                            <input type="hidden" name="cover" value="{{$row->cover}}" />
+                            <img src="{{$row->cover}}" width="100%"/>
                         </div>
                         @endif
                         <div class="col-sm-4 dropzone" id="cover">
@@ -109,23 +125,23 @@
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">其他图片</label>
+
+                        @if(!empty($row->imgs))
                         <div class="col-sm-5">
                             <div class="carousel slide" id="carousel1">
                                 <ol class="carousel-indicators">
-                                    @if(!empty($row->imgs))
                                     @foreach($row->imgs as $key => $img)
                                     <li data-slide-to="{{$key}}" data-target="#carousel1"  class="{{$key == 0 ? 'active' : ''}}"></li>
                                     @endforeach
-                                    @endif
                                 </ol>
+                                <div class="btn-del-img">删除</div>
                                 <div class="carousel-inner">
-                                    @if(!empty($row->imgs))
                                     @foreach($row->imgs as $key => $img)
                                     <div class="item {{$key == 0 ? 'active' : ''}}">
+                                        <input type="hidden" name="imgs[]" value="{{$img}}"/>
                                         <img alt="image"  class="img-responsive" src="{{$img}}">
                                     </div>
                                     @endforeach
-                                    @endif
                                 </div>
                                 <a data-slide="prev" href="#carousel1" class="left carousel-control">
                                     <span class="icon-prev"></span>
@@ -135,6 +151,8 @@
                                 </a>
                             </div>
                         </div>
+                        @endif
+
                         <div class="col-sm-4 dropzone" id="imgs">
                             <div class="dropzone-previews"></div>
                         </div>
@@ -210,6 +228,42 @@
             });
 
             return false;
+        });
+
+        //图片删除
+        $(".carousel .btn-del-img").on("click", function(){
+            var self = $(this);
+            swal({
+                title: "确定要删除吗?",
+                text: "删除后将不能恢复!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: true
+            }, function () {
+                //移除图片
+                var willRemoveDiv = $(".carousel-inner div.active");
+                if (willRemoveDiv.next("div").length) {
+                    willRemoveDiv.next("div").addClass("active");
+                    willRemoveDiv.remove();
+                } else if (willRemoveDiv.prev("div").length){
+                    willRemoveDiv.prev("div").addClass("active");
+                    willRemoveDiv.remove();
+                }
+
+                //移除圆点
+                var willRemoveLi = $(".carousel-indicators li.active");
+                if (willRemoveLi.next("li").length) {
+                    willRemoveLi.next("li").addClass("active");
+                    willRemoveLi.remove();
+                } else if (willRemoveLi.prev("li").length){
+                    willRemoveLi.prev("li").addClass("active");
+                    willRemoveLi.remove();
+                } else {
+                    $("#carousel1").parent().remove();
+                }
+            });
         });
 
         initCover(appendImgToForm, "{{csrf_token()}}");

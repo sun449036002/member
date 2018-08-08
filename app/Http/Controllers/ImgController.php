@@ -44,7 +44,8 @@ class ImgController
                     }
                     $extension = $img->getClientOriginalExtension();   // 上传文件后缀
                     $fileName = date('YmdHis').mt_rand(100,999) . '.'.$extension; // 重命名
-                    $img->move($destinationPath, $fileName); // 保存图片
+                    $ok = $img->move(storage_path() . "/app" . $destinationPath, $fileName); // 保存图片
+                    $result['isOk'][] = $ok;
                     $filePath[] = env('IMG_URL') . $destinationPath.'/'.$fileName;
                 }
             }

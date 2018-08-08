@@ -87,7 +87,7 @@ class RoomSourceController extends Controller
         $row = $model->getOne(['*'], ['id' => $data['id']]);
         $this->pageData['row'] = $row;
 
-        dd($this->pageData['row']);
+//        dd($this->pageData['row']);
 
         return SView('/roomSource/edit', $this->pageData);
     }
@@ -108,7 +108,6 @@ class RoomSourceController extends Controller
         }
 
         $model = new RoomSourceModel();
-        $row = $model->getOne(['imgJson'], ['id' => $data['id']]);
         $updateData = [
             'name' => $data['name'],
             'type' => $data['type'],
@@ -122,22 +121,17 @@ class RoomSourceController extends Controller
             'tel' => $data['tel'],
             'commission' => $data['commission'],
             'rewardPolicy' => $data['rewardPolicy'],
-            'desc' => $data['desc']
+            'desc' => $data['desc'],
+            'imgJson' => json_encode([
+                'cover' => $data['cover'],
+                'imgs' => $data['imgs'] ?? []
+            ], JSON_UNESCAPED_UNICODE),
         ];
-        if (!empty($data['cover'])) {
-            $row->cover = $data['cover'];
-        }
-        if (!empty($data['imgs'])) {
-            $row->imgs = $data['imgs'];
-        }
-        $updateData['imgJson'] = json_encode([
-            'cover' => $row->cover,
-            'imgs' => $row->imgs
-        ], JSON_UNESCAPED_UNICODE);
+
 
         $model->updateData($updateData, ['id' => $data['id']]);
 
-        return redirect("/roomSource");
+        return json_encode(['code' => 0, 'msg' => '房源编辑成功'],JSON_UNESCAPED_UNICODE);
     }
 
     public function del(Request $request) {

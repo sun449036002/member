@@ -8,7 +8,7 @@
         </div>
         <div class="ibox-content">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered table-hover dataTables-sym">
                     <thead>
                     <tr>
                         <th>楼盘ID </th>
@@ -48,6 +48,8 @@
 
 <script>
 $(document).ready(function() {
+    initDataTable();
+
     //TO 编辑
     $(".btn.btn-to-edit").on("click", function(){
         window.location.href = "/roomSource/edit?id=" + $(this).data("id");
