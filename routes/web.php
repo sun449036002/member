@@ -13,9 +13,23 @@
 
 use \Illuminate\Support\Facades\Route;
 
-Route::get('/', "IndexController@index");
-Route::get("/login", "Auth\LoginController@login");
-Route::post("/doLogin", "Auth\LoginController@doLogin");
+Auth::routes();
+
+/**
+ * 资源类路由
+ */
+Route::resources([
+    //管理员管理
+    "admins" => 'AdminController',
+
+    //管理组管理
+    'adminGroups' => 'AdminGroupController',
+
+    //权限管理
+]);
+
+
+Route::get('/', "IndexController@index")->middleware('auth');
 
 //微信自定义菜单
 Route::get("/weixin/custom-menu", "CustomMenuController@index");
@@ -57,5 +71,3 @@ Route::get("/user/detail", "UserController@detail");
 //红包配置
 Route::get("/redPack/config", "RedPackController@config");
 Route::post("/redPack/saveConfig", "RedPackController@saveConfig");
-
-

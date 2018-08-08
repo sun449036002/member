@@ -90,15 +90,8 @@
                             <img alt="image" class="img-circle" src="../img/profile_small.jpg" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">王昆</strong>
-                             </span> <span class="text-muted text-xs block">管理员 <b class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="profile.html">个人信息</a></li>
-                            <li><a href="contacts.html">联系方式</a></li>
-                            <li><a href="mailbox.html">邮箱</a></li>
-                            <li class="divider"></li>
-                            <li><a href="login.html">退出登录</a></li>
-                        </ul>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$admin->name}}</strong>
+                             </span> <span class="text-muted text-xs block">管理员 </span> </span> </a>
                     </div>
                     <div class="logo-element">
                         IN+
@@ -157,15 +150,23 @@
                     <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">管理员管理</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="active"><a href="/admins">管理员列表</a></li>
-                        <li class="active"><a href="/admins/add">添加管理员</a></li>
+                        <li class="active"><a href="/admins/create">添加管理员</a></li>
+                        <li class="active"><a href="/adminGroups">管理组列表</a></li>
+                        <li class="active"><a href="/adminGroups/create">添加管理组</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-table"></i> <span class="nav-label">权限管理</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="active"><a href="/authority">权限列表</a></li>
-                        <li class="active"><a href="/authority/add">添加权限</a></li>
+                        <li class="active"><a href="/authority/create">添加权限</a></li>
                         <li class="active"><a href="/authority/config">权限设置</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">系统设置</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li class="active"><a href="/pwd">密码管理</a></li>
                     </ul>
                 </li>
             </ul>
@@ -180,9 +181,12 @@
                         <span class="m-r-sm text-muted welcome-message">欢迎来到管理后台</span>
                     </li>
                     <li>
-                        <a href="login.html">
+                        <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <i class="fa fa-sign-out"></i> 退出登录
                         </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{csrf_field()}}
+                        </form>
                     </li>
                 </ul>
 
