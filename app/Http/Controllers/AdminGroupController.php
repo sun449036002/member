@@ -92,10 +92,8 @@ class AdminGroupController extends Controller
      */
     public function destroy($id)
     {
-        //
         $model = new AdminGroupModel();
-        dd($model->where(['id' => $id]));
-        $ok = $model->find($id)->delete();
-        exit(json_encode(['code' => 0, 'msg' => '删除成功:']));
+        $model->updateData(['isDel' => 1], ['id' => $id]);
+        exit(json_encode(['code' => 0, 'msg' => '删除成功']));
     }
 }

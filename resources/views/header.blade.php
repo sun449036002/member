@@ -34,6 +34,7 @@
     <link href="{{asset("css/plugins/dropzone/dropzone.css")}}" rel="stylesheet">
 
     <link href="{{asset("css/plugins/dataTables/datatables.min.css")}}" rel="stylesheet">
+    <link href="{{asset("css/plugins/jsTree/style.min.css")}}" rel="stylesheet">
 
     <!-- Mainly scripts -->
     <script src="{{asset("js/jquery-2.1.1.js")}}"></script>
@@ -59,6 +60,9 @@
 
     <!-- dataTables  -->
     <script src="{{asset("js/plugins/dataTables/datatables.min.js")}}"></script>
+
+    <!-- JS Tree -->
+    <script src="{{asset("js/plugins/jsTree/jstree.min.js")}}"></script>
 
     <!-- Toastr -->
     <script src="{{asset("js/plugins/toastr/toastr.min.js")}}"></script>
@@ -97,76 +101,20 @@
                         IN+
                     </div>
                 </li>
-                <li class="active">
-                    <a href="/"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
-                </li>
-                {{--<li>--}}
-                    {{--<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">栏目管理</span> <span class="fa arrow"></span></a>--}}
-                    {{--<ul class="nav nav-second-level">--}}
-                        {{--<li class="active"><a href="/hub">栏目列表</a></li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-                <li>
-                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">房源分类管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/roomCategory">分类列表</a></li>
-                        <li class="active"><a href="/roomCategory/add">添加分类</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-pie-chart"></i> <span class="nav-label">房源管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/roomSource">房源列表</a></li>
-                        <li class="active"><a href="/bespeak">预约列表</a></li>
-                        <li class="active"><a href="/roomSource/add">添加房源</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">红包管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/redPack/config">红包配置</a></li>
-                        <li class="active"><a href="/redPack/statistics">红包数据统计</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-globe"></i> <span class="nav-label">微信用户管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/user">用户列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">客服管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/customService">客服列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">业务员管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/salesman">业务员列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">管理员管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/admins">管理员列表</a></li>
-                        <li class="active"><a href="/adminGroups">管理组列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">权限管理</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/authority">权限列表</a></li>
-                        <li class="active"><a href="/authority/create">添加权限</a></li>
-                        <li class="active"><a href="/authority/config">权限设置</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-table"></i> <span class="nav-label">系统设置</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li class="active"><a href="/pwd">密码管理</a></li>
-                    </ul>
-                </li>
+                @if(!empty($menuList))
+                    @foreach($menuList as $menu)
+                    <li class="{{($menu['active'] ?? 0) ? "active" : ""}}">
+                        <a href="{{$menu['route']}}"><i class="fa {{$menu['icon'] ?? 'fa-desktop'}}"></i> <span class="nav-label">{{$menu['title']}}</span> <span class="fa arrow"></span></a>
+                        @if(!empty($menu['subMenuList']))
+                        <ul class="nav nav-second-level">
+                            @foreach($menu['subMenuList'] as $subMenu)
+                            <li class="active"><a href="{{$subMenu['route']}}">{{$subMenu['title']}}</a></li>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </li>
+                    @endforeach
+                @endif
             </ul>
         </div>
     </nav>

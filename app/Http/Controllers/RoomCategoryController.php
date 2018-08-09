@@ -22,7 +22,7 @@ class RoomCategoryController extends Controller
     }
 
     public function add() {
-        return SView("roomCategory/add");
+        return SView("roomCategory/add", $this->pageData);
     }
 
     public function doAdd(Request $request) {

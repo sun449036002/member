@@ -39,16 +39,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -87,17 +77,6 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -105,7 +84,11 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $groupModel = new AdminGroupModel();
+        $groupList = $groupModel->getList(['*'], ['isDel' => 0]);
+        $this->pageData['groupList'] = $groupList;
+        $this->pageData['row'] = (new AdminModel())->getOne($this->fields, ['id' => $id]);
+        return view('admin/edit', $this->pageData);
     }
 
     /**
@@ -117,6 +100,35 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
+        $rule = [
+            'name' => 'required',
+            'group_id' => 'required',
+        ];
+        $message = [
+            'name.required' => '姓名必填',
+            'group_id.required' => '用户组必填',
+        ];
+        $validate = Validator::make($data, $rule, $message);
+        if (!$validate->passes()) {
+            return back()->withErrors($validate);
+        }
+
+        $model = new AdminModel();
+        $model->updateData([
+            'name' => $data['name'],
+            'group_id' => $data['group_id'],
+        ], ['id' => $id]);
+
+        return redirect('admins');
+    }
+
+    /**
+     * 重置密码
+     * @param Request $request
+     */
+    public function resetPwd(Request $request) {
+        $id = $request->post("id");
         $model = new AdminModel();
         $pwd = mt_rand(100000, 999999);
         $model->updateData(['password' => Hash::make($pwd)], ['id' => $id]);
@@ -131,9 +143,7 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
         $model = new AdminModel();
-        dd($model->where(['id' => $id]));
         $ok = $model->find($id)->delete();
         exit(json_encode(['code' => 0, 'msg' => '删除成功:']));
     }

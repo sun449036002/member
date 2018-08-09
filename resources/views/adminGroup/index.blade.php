@@ -22,6 +22,7 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
+                                    <button type="button" class="btn btn-primary btn-to-auth" data-id="{{$item->id}}">权限管理</button>
                                     <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                     <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
                                 </td>
@@ -63,6 +64,10 @@
 
 <script>
 $(document).ready(function() {
+    //TO 权限管理
+    $(".btn.btn-to-auth").on("click", function(){
+        window.location.href = "/authority/" + $(this).data("id") + "/edit";
+    });
     //TO 编辑
     $(".btn.btn-to-edit").on("click", function(){
         var self = $(this);

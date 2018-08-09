@@ -28,7 +28,8 @@
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">重置密码</button>
+                                    <button type="button" class="btn btn-primary btn-to-reset" data-id="{{$item->id}}">重置密码</button>
+                                    <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                     <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
                                 </td>
                             </tr>
@@ -99,6 +100,11 @@
 $(document).ready(function() {
     //TO 编辑
     $(".btn.btn-to-edit").on("click", function(){
+       window.location.href = "/admins/" + $(this).data("id") + "/edit";
+    });
+
+    //重置密码
+    $(".btn.btn-to-reset").on("click", function(){
         var self = $(this);
         swal({
             title: "确定要重置密码吗?",
@@ -110,8 +116,11 @@ $(document).ready(function() {
             closeOnConfirm: false
         }, function () {
             $.ajax({
-                type : 'put',
-                url : "/admins/" + self.data("id") || 0,
+                type : 'post',
+                url : "/admins/resetPwd",
+                data : {
+                    id : self.data("id") || 0
+                },
                 dataType : "json",
                 headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
                 success : function(res){

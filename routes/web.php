@@ -26,10 +26,14 @@ Route::resources([
     'adminGroups' => 'AdminGroupController',
 
     //权限管理
+    'authority' => 'AuthorityController',
 ]);
 
 
-Route::get('/', "IndexController@index")->middleware('auth');
+Route::get('/', "IndexController@index");
+
+//重置管理员密码
+Route::post('/admins/resetPwd', "AdminController@resetPwd");
 
 //微信自定义菜单
 Route::get("/weixin/custom-menu", "CustomMenuController@index");
