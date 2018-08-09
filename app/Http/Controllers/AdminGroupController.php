@@ -54,7 +54,7 @@ class AdminGroupController extends Controller
     public function edit($id)
     {
         $this->pageData['row'] = (new AdminGroupModel())->getOne(['*'], ['id' => $id]);
-        return SView('adminGroup/edit', $this->pageData);
+        return view('adminGroup/edit', $this->pageData);
     }
 
     /**
@@ -66,10 +66,22 @@ class AdminGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
+        $rule = [
+            'name' => 'required',
+        ];
+        $message = [
+            'name.required' => '分组名称必填',
+        ];
+        $validate = Validator::make($data, $rule, $message);
+        if (!$validate->passes()) {
+            return back()->withErrors($validate);
+        }
+
         $model = new AdminGroupModel();
-        $pwd = mt_rand(100000, 999999);
-        $model->updateData(['password' => Hash::make($pwd)], ['id' => $id]);
-        exit(json_encode(['code' => 0, 'msg' => '密码已经重置，默认密码为:' . $pwd]));
+        $model->updateData(['name' => $data['name']], ['id' => $id]);
+
+        return redirect('adminGroups');
     }
 
     /**

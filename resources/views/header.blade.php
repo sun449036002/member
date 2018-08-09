@@ -9,59 +9,59 @@
 
     <title>首页</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/animate.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="{{asset("css/bootstrap.min.css")}}" rel="stylesheet">
+    <link href="{{asset("css/animate.css")}}" rel="stylesheet">
+    <link href="{{asset("css/style.css")}}" rel="stylesheet">
+    <link href="{{asset("css/style.css")}}" rel="stylesheet">
+    <link href="{{asset("font-awesome/css/font-awesome.css")}}" rel="stylesheet">
 
     <!-- Toastr style -->
-    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="{{asset("css/plugins/toastr/toastr.min.css")}}" rel="stylesheet">
 
     <!-- Gritter -->
-    <link href="../js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="{{asset("js/plugins/gritter/jquery.gritter.css")}}" rel="stylesheet">
 
     <!-- Sweet Alert -->
-    <link href="../css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-    <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="{{asset("css/plugins/sweetalert/sweetalert.css")}}" rel="stylesheet">
+    <link href="{{asset("css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css")}}" rel="stylesheet">
 
-    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{{asset("css/plugins/iCheck/custom.css")}}" rel="stylesheet">
 
-    <link href="../css/plugins/summernote/summernote.css" rel="stylesheet">
-    <link href="../css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <link href="{{asset("css/plugins/summernote/summernote.css")}}" rel="stylesheet">
+    <link href="{{asset("css/plugins/summernote/summernote-bs3.css")}}" rel="stylesheet">
 
-    <link href="../css/plugins/dropzone/basic.css" rel="stylesheet">
-    <link href="../css/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link href="{{asset("css/plugins/dropzone/basic.css")}}" rel="stylesheet">
+    <link href="{{asset("css/plugins/dropzone/dropzone.css")}}" rel="stylesheet">
 
-    <link href="../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="{{asset("css/plugins/dataTables/datatables.min.css")}}" rel="stylesheet">
 
     <!-- Mainly scripts -->
-    <script src="../js/jquery-2.1.1.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="../js/inspinia.js"></script>
+    <script src="{{asset("js/jquery-2.1.1.js")}}"></script>
+    <script src="{{asset("js/bootstrap.min.js")}}"></script>
+    <script src="{{asset("js/plugins/metisMenu/jquery.metisMenu.js")}}"></script>
+    <script src="{{asset("js/plugins/slimscroll/jquery.slimscroll.min.js")}}"></script>
+    <script src="{{asset("js/inspinia.js")}}"></script>
 
 
     <!-- Sweet alert -->
-    <script src="../js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="{{asset("js/plugins/sweetalert/sweetalert.min.js")}}"></script>
 
     <!-- iCheck -->
-    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{{asset("js/plugins/iCheck/icheck.min.js")}}"></script>
 
     <!-- SUMMERNOTE -->
-    <script src="../js/plugins/summernote/summernote.min.js"></script>
+    <script src="{{asset("js/plugins/summernote/summernote.min.js")}}"></script>
 
     <!-- DROPZONE -->
-    <script src="../js/plugins/dropzone/dropzone.js"></script>
+    <script src="{{asset("js/plugins/dropzone/dropzone.js")}}"></script>
 
-    <script src="../js/plugins/pace/pace.min.js"></script>
+    <script src="{{asset("js/plugins/pace/pace.min.js")}}"></script>
 
     <!-- dataTables  -->
-    <script src="../js/plugins/dataTables/datatables.min.js"></script>
+    <script src="{{asset("js/plugins/dataTables/datatables.min.js")}}"></script>
 
     <!-- Toastr -->
-    <script src="../js/plugins/toastr/toastr.min.js"></script>
+    <script src="{{asset("js/plugins/toastr/toastr.min.js")}}"></script>
     <script>
         $(document).ready(function(){
             toastr.options = {
@@ -87,7 +87,7 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="../img/profile_small.jpg" />
+                            <img alt="image" class="img-circle" src="{{asset("img/profile_small.jpg")}}" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$admin->name}}</strong>
@@ -150,9 +150,7 @@
                     <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">管理员管理</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li class="active"><a href="/admins">管理员列表</a></li>
-                        <li class="active"><a href="/admins/create">添加管理员</a></li>
                         <li class="active"><a href="/adminGroups">管理组列表</a></li>
-                        <li class="active"><a href="/adminGroups/create">添加管理组</a></li>
                     </ul>
                 </li>
                 <li>

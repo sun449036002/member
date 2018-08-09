@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Controller extends BaseController
 {
@@ -20,6 +21,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
+//        dd(Hash::make(123456));
         /**
          * 构造函数当中使用Session在Laravel以前的版本中，你可以在控制器构造函数中获取session变量或者认证后的用户实例。
          * 框架从未打算具有如此明显的特性。在Laravel 5.3中，你在控制器构造函数中不再能够直接获取到session变量或认证后的用户实例，因为中间件还未启动。

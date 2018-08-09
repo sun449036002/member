@@ -4,13 +4,13 @@
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>房源类别编辑</h5>
+                        <h5>用户组编辑</h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" class="form-horizontal" action="/roomCategory/doEdit">
-                            {{csrf_field()}}
-                            <input  type="hidden" name="id" value="{{$row->id}}" />
-                            <div class="form-group"><label class="col-sm-2 control-label">类别名称</label>
+                        <form method="post" class="form-horizontal" action="/adminGroups/{{$row->id}}">
+                            @method("PUT")
+                            @csrf
+                            <div class="form-group"><label class="col-sm-2 control-label">用户组名称</label>
 
                                 <div class="col-sm-10"><input type="text" class="form-control" name="name" value="{{$row->name}}"></div>
                             </div>
@@ -30,10 +30,6 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
 
-    });
-</script>
 </body>
 </html>

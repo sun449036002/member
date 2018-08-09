@@ -12,4 +12,6 @@ namespace App\Model;
 class AdminModel extends BaseModel
 {
     protected $table = "admins";
+
+    public $timestamps = false;
 }
