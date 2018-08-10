@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\AdminGroupModel;
+use App\Model\GroupRouteModel;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -17,12 +19,15 @@ class Controller extends BaseController
 
     public $admin = null;
 
+    //当前用户组，可访问的路由
+    public $allowRoutes = [];
+
     private $notAllowLoginMethods = ["showLoginForm", "login"];
+
 
     public function __construct()
     {
 //        dd(Hash::make(123456));
-
 
         /**
          * 构造函数当中使用Session在Laravel以前的版本中，你可以在控制器构造函数中获取session变量或者认证后的用户实例。
@@ -40,18 +45,41 @@ class Controller extends BaseController
 
             $this->admin = Auth::user();
             $this->pageData['admin'] = $this->admin;
+            $groupRow = (new AdminGroupModel())->getOne(['name'], ['id' => $this->admin->group_id]);
+            $this->pageData['adminGroupName'] = $groupRow->name ?? "";
+
+            //用户组权限
+            $groupAuthModel = new GroupRouteModel();
+            $groupAuthList = $groupAuthModel->getList(['route'], ['groupId' => $this->admin->group_id]);
+            $this->allowRoutes = array_column(json_decode(json_encode($groupAuthList), true), 'route');
+
+            //遍历菜单，处理权限
             $menuList = $this->getMenuList();
             foreach ($menuList as $key => $item) {
                 if ($item['route'] == $request->getPathInfo()) {
                     $menuList[$key]['active'] = true;
-                    break;
                 }
 
-                foreach ($item['subMenuList'] ?? [] as $subMenu) {
+                foreach ($item['subMenuList'] ?? [] as $subKey => $subMenu) {
+                    if (!in_array($subMenu['route'], $this->allowRoutes)) {
+                        unset($menuList[$key]['subMenuList'][$subKey]);
+                        continue;
+                    }
                     if ($subMenu['route'] == $request->getPathInfo()) {
                         $menuList[$key]['active'] = true;
-                        break;
                     }
+                }
+
+                //没有子级，则不显示父级
+                if ($item['route'] != "/") {
+                    if (empty($menuList[$key]['subMenuList'])) {
+                        unset($menuList[$key]);
+                    }
+                } else {
+                    //是否默认展示首页
+//                    if (!in_array($item['route'], $this->allowRoutes)) {
+//                        unset($menuList[$key]);
+//                    }
                 }
             }
 

@@ -95,7 +95,7 @@
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{$admin->name}}</strong>
-                             </span> <span class="text-muted text-xs block">管理员 </span> </span> </a>
+                             </span> <span class="text-muted text-xs block">{{$adminGroupName}} </span> </span> </a>
                     </div>
                     <div class="logo-element">
                         IN+

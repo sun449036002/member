@@ -66,7 +66,29 @@ class UserController extends Controller
         $recordList = $recordModel->getList(['id'], ["userId" => $user->id]);
         $this->pageData['recordCount'] = count($recordList);
 
-        return SView("/user/detail", $this->pageData);
+        return SView("user/detail", $this->pageData);
+    }
+
+    //冻结用户
+    public function lock(Request $request) {
+        $data = $request->all();
+        $rule = [
+            'id' => 'required'
+        ];
+        $message = [
+            'id.required' => '用户ID必填'
+        ];
+        $validate = Validator::make($data, $rule, $message);
+        if (!$validate->passes()) {
+            return back()->withErrors($validate);
+        }
+
+        $model = new UserModel();
+        $where = ['id' => $data['id']];
+        $row = $model->getOne(['lock'], $where);
+        $model->updateData(['lock' => !$row->lock], $where);
+
+        return ResultClientJson(0, '操作成功');
     }
 
 }

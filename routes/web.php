@@ -71,6 +71,7 @@ Route::post("/roomSource/del", "RoomSourceController@del");
 //微信用户管理
 Route::get("/user", "UserController@index");
 Route::get("/user/detail", "UserController@detail");
+Route::post("/user/lock", "UserController@lock");
 
 //红包配置
 Route::get("/redPack/config", "RedPackController@config");

@@ -15,7 +15,7 @@
                         <th>用户URI </th>
                         <th>用户名称 </th>
                         <th>openid </th>
-                        <th>关注状态 </th>
+                        <th>状态 </th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -27,15 +27,12 @@
                             <td>{{$item->username}}</td>
                             <td>{{$item->openid}}</td>
                             <td>
-                                @if(!empty($item->is_subscribe))
-                                    <span class="badge badge-success">关注</span>
-                                    @else
-                                    <span class="badge">未关注</span>
-                                @endif
+                                <span class="badge {{$item->is_subscribe ? "badge-success" : ""}}">{{$item->is_subscribe ? "已关注" : "未关注"}}</span>
+                                <span class="badge {{$item->lock ? "badge-warning" : "badge-success"}}">{{$item->lock ? "冻结中" : "正常"}}</span>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-to-detail" data-id="{{$item->id}}">详情</button>
-                                <button type="button" class="btn btn-primary btn-to-lock" data-id="{{$item->id}}">冻结</button>
+                                <button type="button" class="btn btn-primary btn-to-lock" data-id="{{$item->id}}">{{$item->lock ? "解冻" : "冻结"}}</button>
                             </td>
                         </tr>
                     @endforeach
@@ -61,16 +58,18 @@ $(document).ready(function() {
         window.location.href = "/user/detail?id=" + $(this).data("id");
     });
 
-    //TO 删除
+    //TO 冻结
     $(".btn.btn-to-lock").on("click", function(){
         var self = $(this);
+        var optName = self.text();
         swal({
-            title: "确定要冻结吗?",
-            text: "冻结后可在此恢复!",
+            title: "确定要" + optName + "吗?",
+            text: optName + "后可在此恢复!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "确定!",
+            cancelButtonText:"取消",
             closeOnConfirm: false
         }, function () {
             $.ajax({
