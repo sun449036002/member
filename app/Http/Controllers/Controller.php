@@ -136,6 +136,10 @@ class Controller extends BaseController
                             'route' => '/redPack/config',
                         ],
                         [
+                            'title' => '红包返现申请列表',
+                            'route' => '/',
+                        ],
+                        [
                             'title' => '红包数据统计',
                             'route' => '/redPack/statistics',
                         ]
@@ -192,7 +196,15 @@ class Controller extends BaseController
                         [
                             'title' => '密码管理',
                             'route' => '/pwd',
-                        ]
+                        ],
+                        [
+                            'title' => '广告管理',
+                            'route' => '/',
+                        ],
+                        [
+                            'title' => '公众号二维码管理',
+                            'route' => '/',
+                        ],
                     ]
                 ],
             ];
