@@ -98,6 +98,8 @@
 
 <script>
 $(document).ready(function() {
+    initDataTable();
+
     //TO 编辑
     $(".btn.btn-to-edit").on("click", function(){
        window.location.href = "/admins/" + $(this).data("id") + "/edit";

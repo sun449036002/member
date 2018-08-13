@@ -27,6 +27,9 @@ Route::resources([
 
     //权限管理
     'authority' => 'AuthorityController',
+
+    //广告管理
+    'ads' => 'AdsController',
 ]);
 
 

@@ -312,7 +312,10 @@ function appendImgToForm (response, keyName) {
 }
 
 //封面图片上传
-function initCover(successCallback, csrf_token) {
+function initCover(successCallback, csrf_token, keyName) {
+    if (!keyName) {
+        keyName = 'cover';
+    }
     Dropzone.options.cover = {
         url:"/img/upload",
         paramName:"cover",
@@ -329,7 +332,7 @@ function initCover(successCallback, csrf_token) {
             this.on("sendingmultiple", function() {
             });
             this.on("success", function(files, response) {
-                successCallback(response, "cover");
+                successCallback(response, keyName);
             });
             this.on("successmultiple", function(files, response) {
             });

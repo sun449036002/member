@@ -138,17 +138,6 @@
 </div>
 
 <script>
-    //添加图片到Form中
-    var appendImgToForm = function (response, keyName) {
-        if (response.code > 0) {
-            swal(response.msg || "Upload Failed");
-            return false;
-        }
-        $(response.imgs).each(function (k,v) {
-            $("#roomSourceForm").append("<input type='hidden' name='" + keyName + "' value='" + v + "'/>");
-        })
-    };
-
     $(document).ready(function() {
         $('.summernote').summernote();
 

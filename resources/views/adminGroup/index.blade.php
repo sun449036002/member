@@ -64,6 +64,8 @@
 
 <script>
 $(document).ready(function() {
+    initDataTable();
+
     //TO 权限管理
     $(".btn.btn-to-auth").on("click", function(){
         window.location.href = "/authority/" + $(this).data("id") + "/edit";

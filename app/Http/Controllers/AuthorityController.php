@@ -28,7 +28,7 @@ class AuthorityController extends Controller
         }
 
         //遍历所有权限，生成  js tree 数据
-        foreach ($this->pageData['menuList'] as $menu) {
+        foreach ($this->pageData['allMenuList'] as $menu) {
             $subList = [];
             foreach ($menu['subMenuList'] ?? [] as $subMenu) {
                 $subList[] = [

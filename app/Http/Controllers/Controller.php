@@ -53,8 +53,12 @@ class Controller extends BaseController
             $groupAuthList = $groupAuthModel->getList(['route'], ['groupId' => $this->admin->group_id]);
             $this->allowRoutes = array_column(json_decode(json_encode($groupAuthList), true), 'route');
 
-            //遍历菜单，处理权限
-            $menuList = $this->getMenuList();
+            //所有菜单
+            $allMenuList = $this->getMenuList();
+            $this->pageData['allMenuList'] = $allMenuList;
+
+            //遍历菜单，处理权限,取得当前用户能够访问的菜单
+            $menuList = $allMenuList;
             foreach ($menuList as $key => $item) {
                 if ($item['route'] == $request->getPathInfo()) {
                     $menuList[$key]['active'] = true;
@@ -172,7 +176,11 @@ class Controller extends BaseController
                         [
                             'title' => '业务员列表',
                             'route' => '/salesman',
-                        ]
+                        ],
+                        [
+                            'title' => '业务员专属链接生成',
+                            'route' => '/salesman',
+                        ],
                     ]
                 ],
                 [
@@ -190,16 +198,26 @@ class Controller extends BaseController
                     ]
                 ],
                 [
+                    'title' => '广告管理',
+                    'route' => '#',
+                    'subMenuList' => [
+                        [
+                            'title' => '广告列表',
+                            'route' => '/ads',
+                        ],
+                        [
+                            'title' => '添加广告',
+                            'route' => '/ads/create',
+                        ],
+                    ]
+                ],
+                [
                     'title' => '系统设置',
                     'route' => '#',
                     'subMenuList' => [
                         [
                             'title' => '密码管理',
                             'route' => '/pwd',
-                        ],
-                        [
-                            'title' => '广告管理',
-                            'route' => '/',
                         ],
                         [
                             'title' => '公众号二维码管理',
