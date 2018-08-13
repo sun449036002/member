@@ -49,7 +49,20 @@
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">楼盘均价</label>
-                                <div class="col-sm-5"><input type="number" class="form-control" name="avgPrice" value=""></div>
+                                <div class="col-sm-4">
+                                    <div class="input-group m-b">
+                                        <input type="number" class="form-control" name="avgPrice" value="">
+                                        <span class="input-group-addon">元 / m²</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">楼盘总价</label>
+                                <div class="input-group m-b">
+                                    <input type="number" class="form-control" name="totalPrice" value="">
+                                    <span class="input-group-addon">万元</span>
+                                </div>
                             </div>
 
                             <div class="hr-line-dashed"></div>
