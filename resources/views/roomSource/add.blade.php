@@ -32,7 +32,14 @@
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">楼盘地域</label>
-                                <div class="col-sm-5"><input type="text" class="form-control" name="area" value=""></div>
+                                <div class="col-sm-5">
+                                    <select name="areaId" class="form-control m-b">
+                                        <option value="0">请选择楼盘地域</option>
+                                        @foreach($areaList as $area)
+                                            <option value="{{$area->id}}">{{$area->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="hr-line-dashed"></div>
@@ -72,7 +79,14 @@
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">户型</label>
-                                <div class="col-sm-5"><input type="text" class="form-control" name="houseType" value=""></div>
+                                <div class="col-sm-5">
+                                    <select name="houseTypeId" class="form-control m-b">
+                                        <option value="0">请选择户型</option>
+                                        @foreach($houseTypeList as $houseType)
+                                            <option value="{{$houseType->id}}">{{$houseType->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="hr-line-dashed"></div>

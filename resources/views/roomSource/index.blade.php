@@ -14,6 +14,7 @@
                         <th>楼盘ID </th>
                         <th>楼盘名称 </th>
                         <th>楼盘地域 </th>
+                        <th>楼盘户型 </th>
                         <th>楼盘面积 </th>
                         <th>楼盘均价 </th>
                         <th>操作</th>
@@ -25,6 +26,7 @@
                             <td>{{$item->id}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->area}}</td>
+                            <td>{{$item->houseType}}</td>
                             <td>{{$item->acreage}}</td>
                             <td>{{$item->avgPrice}}</td>
                             <td>

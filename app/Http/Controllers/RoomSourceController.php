@@ -9,6 +9,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Model\AreaModel;
+use App\Model\HouseTypeModel;
 use App\Model\RoomCategoryModel;
 use App\Model\RoomSourceModel;
 use Illuminate\Http\Request;
@@ -16,9 +18,31 @@ use Illuminate\Support\Facades\Validator;
 
 class RoomSourceController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->pageData['areaList'] = $this->getAreaList();
+        $this->pageData['houseTypeList'] = $this->getHouseTypeList();
+    }
+
     //房源分类列表
     public function index() {
+        $areaArr = [];
+        foreach ($this->pageData['areaList'] as $area) {
+            $areaArr[$area->id] = $area->name;
+        }
+
+        $houseTypeArr = [];
+        foreach ($this->pageData['houseTypeList'] as $houseType) {
+            $houseTypeArr[$houseType->id] = $houseType->name;
+        }
+
         $list = (new RoomSourceModel())->getList(['*'], ['isDel' => 0]);
+        foreach ($list as $item) {
+            $item->area = $areaArr[$item->areaId] ?? "未知";
+            $item->houseType = $houseTypeArr[$item->houseTypeId] ?? "未知";
+        }
         $this->pageData['list'] = $list;
         return SView("roomSource/index", $this->pageData);
     }
@@ -45,12 +69,12 @@ class RoomSourceController extends Controller
         $model->insert([
             'name' => $data['name'],
             'type' => $data['type'],
-            'area' => $data['area'] ?? "",
+            'areaId' => $data['areaId'],
             'roomCategoryId' => $data['roomCategoryId'],
             'totalPrice' => $data['totalPrice'],
             'avgPrice' => $data['avgPrice'],
             'acreage' => $data['acreage'],
-            'houseType' => $data['houseType'],
+            'houseTypeId' => $data['houseTypeId'],
             'reportTemplate' => $data['reportTemplate'],
             'contacts' => $data['contacts'],
             'tel' => $data['tel'],
@@ -112,12 +136,12 @@ class RoomSourceController extends Controller
         $updateData = [
             'name' => $data['name'],
             'type' => $data['type'],
-            'area' => $data['area'] ?? "",
+            'areaId' => $data['areaId'],
             'roomCategoryId' => $data['roomCategoryId'],
             'totalPrice' => $data['totalPrice'],
             'avgPrice' => $data['avgPrice'],
             'acreage' => $data['acreage'],
-            'houseType' => $data['houseType'],
+            'houseTypeId' => $data['houseTypeId'],
             'reportTemplate' => $data['reportTemplate'],
             'contacts' => $data['contacts'],
             'tel' => $data['tel'],
@@ -148,4 +172,20 @@ class RoomSourceController extends Controller
         exit(json_encode(['code' => 0, 'msg' => '删除成功'], JSON_UNESCAPED_UNICODE));
     }
 
+
+    /**
+     * 地域列表
+     * @return array
+     */
+    private function getAreaList() {
+        return (new AreaModel())->getList(['*'], ['isDel' => 0]);
+    }
+
+    /**
+     * 户型列表
+     * @return array
+     */
+    private function getHouseTypeList() {
+        return (new HouseTypeModel())->getList(['*'], ['isDel' => 0]);
+    }
 }
