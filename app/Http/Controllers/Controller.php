@@ -122,12 +122,20 @@ class Controller extends BaseController
                             'route' => '/roomSource',
                         ],
                         [
+                            'title' => '添加房源',
+                            'route' => '/roomSource/add',
+                        ],
+                        [
                             'title' => '预约列表',
                             'route' => '/bespeak',
                         ],
                         [
-                            'title' => '添加房源',
-                            'route' => '/roomSource/add',
+                            'title' => '地域列表',
+                            'route' => '/area',
+                        ],
+                        [
+                            'title' => '户型列表',
+                            'route' => '/houseType',
                         ],
                     ]
                 ],

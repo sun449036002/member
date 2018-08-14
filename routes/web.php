@@ -30,6 +30,12 @@ Route::resources([
 
     //广告管理
     'ads' => 'AdsController',
+
+    //地域管理
+    'area' => 'AreaController',
+
+    //户型管理
+    'houseType' => 'houseTypeController',
 ]);
 
 
