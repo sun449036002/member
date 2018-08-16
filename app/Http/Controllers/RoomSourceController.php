@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Logic\BespeakLogic;
 use App\Model\AreaModel;
 use App\Model\BespeakModel;
 use App\Model\HouseTypeModel;
@@ -173,9 +174,12 @@ class RoomSourceController extends Controller
         exit(json_encode(['code' => 0, 'msg' => '删除成功'], JSON_UNESCAPED_UNICODE));
     }
 
+    /***
+     * 预约列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function bespeakList() {
-
-        $this->pageData['list'] = (new BespeakModel())->getList(['*']);
+        $this->pageData['list'] = (new BespeakLogic())->getBespeakList();
         return SView('roomSource/speaklist', $this->pageData);
     }
 

@@ -11,7 +11,7 @@
                 <table class="table table-striped table-bordered table-hover dataTables-sym">
                     <thead>
                     <tr>
-                        <th>楼盘ID </th>
+                        <th>楼盘名称 </th>
                         <th>预约人 </th>
                         <th>预约电话 </th>
                         <th>预约人数 </th>
@@ -24,7 +24,7 @@
                     <tbody>
                     @foreach($list as $item)
                         <tr>
-                            <td>{{$item->roomId}}</td>
+                            <td>{{$item->roomSourceName}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->tel}}</td>
                             <td>{{$item->num}}</td>
