@@ -69,6 +69,7 @@ Route::get("/roomCategory/edit", "RoomCategoryController@edit");
 Route::post("/roomCategory/doEdit", "RoomCategoryController@doEdit");
 Route::post("/roomCategory/del", "RoomCategoryController@del");
 
+
 //房源
 Route::get("/roomSource", "RoomSourceController@index");
 Route::get("/roomSource/add", "RoomSourceController@add");
@@ -76,6 +77,10 @@ Route::post("/roomSource/doAdd", "RoomSourceController@doAdd");
 Route::get("/roomSource/edit", "RoomSourceController@edit");
 Route::post("/roomSource/doEdit", "RoomSourceController@doEdit");
 Route::post("/roomSource/del", "RoomSourceController@del");
+
+//预约管理
+Route::get("/bespeak", "RoomSourceController@bespeakList");
+Route::get("/bespeak/change", "RoomSourceController@bespeakChange");
 
 //微信用户管理
 Route::get("/user", "UserController@index");

@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Model\AreaModel;
+use App\Model\BespeakModel;
 use App\Model\HouseTypeModel;
 use App\Model\RoomCategoryModel;
 use App\Model\RoomSourceModel;
@@ -172,6 +173,28 @@ class RoomSourceController extends Controller
         exit(json_encode(['code' => 0, 'msg' => '删除成功'], JSON_UNESCAPED_UNICODE));
     }
 
+    public function bespeakList() {
+
+        $this->pageData['list'] = (new BespeakModel())->getList(['*']);
+        return SView('roomSource/speaklist', $this->pageData);
+    }
+
+    /**
+     * 预约状态变更
+     * @param Request $request
+     * @return string
+     */
+    public function bespeakChange(Request $request) {
+        $id = $request->get("id");
+        $status = $request->get("status", 0);
+        if (empty($id)) {
+            return ResultClientJson(100, '操作的预约ID错误');
+        }
+
+        (new BespeakModel())->updateData(['status' => $status], ['id' => $id]);
+
+        return ResultClientJson(0, '操作成功');
+    }
 
     /**
      * 地域列表
