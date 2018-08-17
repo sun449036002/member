@@ -149,7 +149,7 @@ class Controller extends BaseController
                         ],
                         [
                             'title' => '红包返现申请列表',
-                            'route' => '/',
+                            'route' => '/cashBack',
                         ],
                         [
                             'title' => '红包数据统计',

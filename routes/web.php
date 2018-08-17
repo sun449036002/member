@@ -90,3 +90,5 @@ Route::post("/user/lock", "UserController@lock");
 //红包配置
 Route::get("/redPack/config", "RedPackController@config");
 Route::post("/redPack/saveConfig", "RedPackController@saveConfig");
+Route::get("/cashBack", "RedPackController@cashBack");
+Route::get("/cashBack/detail", "RedPackController@cashBackDetail");

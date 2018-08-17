@@ -1,4 +1,14 @@
 @include('header')
+<style type="text/css">
+    #qrcode {
+        display: flex;
+    }
+
+    #qrcode canvas {
+        margin: auto;
+    }
+</style>
+<script type="text/javascript" src="{{asset('js/jquery.qrcode.min.js')}}"></script>
 
 <div class="row">
     <div class="col-lg-8">
@@ -23,14 +33,17 @@
                         @foreach($list as $item)
                             <tr>
                                 <td>{{$item->id}}</td>
-                                <td>{{$item->name}}</td>
+                                <td class="td-name">{{$item->name}}</td>
                                 <td>{{$item->group_name ?? "未分配"}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->created_at}}</td>
                                 <td>
+                                    @if(!empty($item->is_spread))
+                                    <button type="button" class="btn btn-success btn-to-spread" data-toggle="modal" data-target="#myModal5" data-id="{{$item->id}}">推广链接</button>
+                                    @endif
                                     <button type="button" class="btn btn-primary btn-to-reset" data-id="{{$item->id}}">重置密码</button>
                                     <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
-                                    <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
+                                    <button type="button" class="btn btn-danger btn-to-del" data-id="{{$item->id}}">删除</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -80,6 +93,15 @@
                     </div>
                     <div class="hr-line-dashed"></div>
 
+                    <div class="form-group"><label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <div class="i-checks">
+                                <label> <input type="checkbox" name="is_spread" value="1"> <i></i> 开通推广功能 </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
                             <button class="btn btn-white" type="submit">取消</button>
@@ -93,12 +115,43 @@
 
 </div>
 
+<div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"></h4>
+                <small class="font-bold">这是您的推广二维码，微信扫码后分享后推广</small>
+            </div>
+            <div class="modal-body">
+                <div id="qrcode"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 </div>
 
 <script>
 $(document).ready(function() {
     initDataTable();
+
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green'
+    });
+
+    //展示推广链接
+    $(".btn.btn-to-spread").on("click", function(){
+        $("#qrcode").empty();
+        var name = $(this).parent().parent("tr").find(".td-name").html();
+        $("#myModal5").find("h4").html(name);
+        $("#qrcode").qrcode('{{env('APP_URL') . "/cash-red-pack?adminId="}}' + $(this).data("id"));
+    });
 
     //TO 编辑
     $(".btn.btn-to-edit").on("click", function(){

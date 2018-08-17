@@ -32,6 +32,15 @@
                                 </div>
                             </div>
 
+                            <div class="form-group"><label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+                                    <div class="i-checks">
+                                        <label> <input type="checkbox" name="is_spread" value="1" {{$row->is_spread ? "checked" : ""}}> <i></i> 开通推广功能 </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
@@ -47,6 +56,13 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green'
+        });
+    });
+</script>
 
 </body>
 </html>
