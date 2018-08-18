@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ImgController
 {
@@ -23,10 +24,17 @@ class ImgController
         $result = ['code' => 0, 'msg' => 'ok', 'imgs' => []];
 
         $data = $request->all();
-        $destinationPath = "/images/room-source/" . date("Ymd");
+        $destinationPath = str_replace("/", DIRECTORY_SEPARATOR, "/images/room-source/" . date("Ymd"));
         if (!empty($data['cover'])) {
             $filePath = $request->file("cover")->store($destinationPath);
             $result['imgs'][] = "/" . ltrim($filePath, "/");
+
+            //缩略图
+            $thumbnail_file_path = storage_path() . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . str_replace("room-source", 'room-source-thumbnail', $filePath);
+            $image = Image::make($data['cover'])->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($thumbnail_file_path);
+
             return $result;
         } else if (!empty($data['imgs'])) {
             $filePath = [];
