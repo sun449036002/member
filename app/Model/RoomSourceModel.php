@@ -24,10 +24,12 @@ class RoomSourceModel extends BaseModel
         $row = parent::getOne($columns, $where, $order, $group);
         if (!empty($row->imgJson)) {
             $imgs = json_decode($row->imgJson);
-            $row->cover = env("MEMBER_IMG_DOMAIN") . $imgs->cover ?? "";
+            $row->cover = $imgs->cover ?? "";
+            $row->originCover = empty($imgs->cover) ? "" : env("MEMBER_IMG_DOMAIN") . $imgs->cover;
             $row->imgs = $imgs->imgs ?? [];
+            $row->originImgs = [];
             foreach ($row->imgs as $k => $img) {
-                $row->imgs[$k] = env("MEMBER_IMG_DOMAIN") . $img;
+                $row->originImgs[$k] = env("MEMBER_IMG_DOMAIN") . $img;
             }
             unset($row->imgJson);
         }

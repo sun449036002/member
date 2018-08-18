@@ -143,7 +143,7 @@
                     <div class="form-group"><label class="col-sm-2 control-label">封面</label>
                         @if(!empty($row->cover))
                         <div class="col-sm-5">
-                            <input type="hidden" name="cover" value="{{$row->cover}}" />
+                            <input type="hidden" name="cover" value="{{$row->originCover}}" />
                             <img src="{{$row->cover}}" width="100%"/>
                         </div>
                         @endif
@@ -168,7 +168,7 @@
                                     @foreach($row->imgs as $key => $img)
                                     <div class="item {{$key == 0 ? 'active' : ''}}">
                                         <input type="hidden" name="imgs[]" value="{{$img}}"/>
-                                        <img alt="image"  class="img-responsive" src="{{$img}}">
+                                        <img alt="image"  class="img-responsive" src="{{$row->originImgs[$key]}}">
                                     </div>
                                     @endforeach
                                 </div>
