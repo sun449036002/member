@@ -34,7 +34,8 @@ class ImgController
             //缩略图
             $thumbnail_file_path = storage_path() .  "/app/" . str_replace("room-source", 'room-source-thumbnail', $filePath);
             var_dump($thumbnail_file_path);
-            Storage::makeDirectory(dirname($thumbnail_file_path));
+            $mkOk = Storage::makeDirectory(dirname($thumbnail_file_path));
+            var_dump($mkOk);
             $image = Image::make($data['cover'])->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($thumbnail_file_path);
