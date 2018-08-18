@@ -24,6 +24,8 @@ class ImgController
     public function upload(Request $request) {
         $result = ['code' => 0, 'msg' => 'ok', 'imgs' => []];
 
+        ini_set('memory_limit','100M');
+
         $data = $request->all();
         $destinationPath = "/images/room-source/" . date("Ymd");
         //先创建缩略图文件夹，否则缩略图不能正常生成
