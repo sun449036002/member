@@ -25,24 +25,23 @@ class ImgController
         $result = ['code' => 0, 'msg' => 'ok', 'imgs' => []];
 
         $data = $request->all();
-//        $destinationPath = str_replace("/", DIRECTORY_SEPARATOR, "/images/room-source/" . date("Ymd"));
         $destinationPath = "/images/room-source/" . date("Ymd");
+        //先创建缩略图文件夹，否则缩略图不能正常生成
+        $thumbnail_file_dir = "/images/room-source-thumbnail/" . date("Ymd");
+        Storage::makeDirectory($thumbnail_file_dir);
         if (!empty($data['cover'])) {
             $filePath = $request->file("cover")->store($destinationPath);
             $result['imgs'][] = "/" . ltrim($filePath, "/");
 
             //缩略图
             $thumbnail_file_path = storage_path() .  "/app/" . str_replace("room-source", 'room-source-thumbnail', $filePath);
-            var_dump($thumbnail_file_path);
-            $mkOk = Storage::makeDirectory(dirname($thumbnail_file_path));
-            var_dump($mkOk);
-            $image = Image::make($data['cover'])->resize(200, null, function ($constraint) {
+            Image::make($data['cover'])->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($thumbnail_file_path);
 
             return $result;
         } else if (!empty($data['imgs'])) {
-            $filePath = [];
+            $filePathList = [];
             foreach ($data['imgs'] as $key => $img) {
                 // 判断图片上传中是否出错
                 if (!$img->isValid()) {
@@ -57,12 +56,12 @@ class ImgController
                     }
                     $extension = $img->getClientOriginalExtension();   // 上传文件后缀
                     $fileName = date('YmdHis').mt_rand(100,999) . '.'.$extension; // 重命名
-                    $ok = $img->move(storage_path() . "/app" . $destinationPath, $fileName); // 保存图片
-                    $result['isOk'][] = $ok;
-                    $filePath[] = $destinationPath.'/'.$fileName;
+                    $img->move(storage_path() . "/app" . $destinationPath, $fileName); // 保存图片
+                    $filePath = $destinationPath.'/'.$fileName;
+                    $filePathList[] = $filePath;
                 }
             }
-            $result['imgs'] = $filePath;
+            $result['imgs'] = $filePathList;
             return $result;
         }
         return $result;
