@@ -167,8 +167,8 @@
                                 <div class="carousel-inner">
                                     @foreach($row->imgs as $key => $img)
                                     <div class="item {{$key == 0 ? 'active' : ''}}">
-                                        <input type="hidden" name="imgs[]" value="{{$img}}"/>
-                                        <img alt="image"  class="img-responsive" src="{{$row->originImgs[$key]}}">
+                                        <input type="hidden" name="imgs[]" value="{{$row->originImgs[$key]}}"/>
+                                        <img alt="image"  class="img-responsive" src="{{$img}}">
                                     </div>
                                     @endforeach
                                 </div>
