@@ -32,7 +32,7 @@ class ImgController
             $result['imgs'][] = "/" . ltrim($filePath, "/");
 
             //缩略图
-            $thumbnail_file_path = storage_path() .  "/app" . str_replace("room-source", 'room-source-thumbnail', $filePath);
+            $thumbnail_file_path = storage_path() .  "/app/" . str_replace("room-source", 'room-source-thumbnail', $filePath);
             var_dump($thumbnail_file_path);
             Storage::makeDirectory(dirname($thumbnail_file_path));
             $image = Image::make($data['cover'])->resize(200, null, function ($constraint) {
