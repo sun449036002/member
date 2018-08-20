@@ -24,16 +24,24 @@ class RoomSourceModel extends BaseModel
         $row = parent::getOne($columns, $where, $order, $group);
         if (!empty($row->imgJson)) {
             $imgs = json_decode($row->imgJson);
+
             //封面
             $row->cover = $imgs->cover ?? "";
             $row->originCover = $row->cover;
             $row->cover = empty($imgs->cover) ? "" : env("MEMBER_IMG_DOMAIN") . $imgs->cover;
-            //其他图片
+            //详情轮播图
             $row->imgs = $imgs->imgs ?? [];
             $row->originImgs = $row->imgs;
             foreach ($row->imgs as $k => $img) {
                 $row->imgs[$k] = env("MEMBER_IMG_DOMAIN") . $img;
             }
+            //户型图
+            $row->houseTypeImgs = $imgs->houseTypeImgs ?? [];
+            $row->originHouseTypeImgs = $row->houseTypeImgs;
+            foreach ($row->houseTypeImgs as $k => $img) {
+                $row->houseTypeImgs[$k] = env("MEMBER_IMG_DOMAIN") . $img;
+            }
+
             unset($row->imgJson);
         }
         return $row;

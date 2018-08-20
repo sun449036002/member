@@ -205,15 +205,15 @@
                             <div class="col-sm-5">
                                 <div class="carousel slide" id="carousel2">
                                     <ol class="carousel-indicators">
-                                        @foreach($row->imgs as $key => $img)
+                                        @foreach($row->houseTypeImgs as $key => $img)
                                             <li data-slide-to="{{$key}}" data-target="#carousel2"  class="{{$key == 0 ? 'active' : ''}}"></li>
                                         @endforeach
                                     </ol>
                                     <div class="btn-del-img">删除</div>
                                     <div class="carousel-inner">
-                                        @foreach($row->imgs as $key => $img)
+                                        @foreach($row->houseTypeImgs as $key => $img)
                                             <div class="item {{$key == 0 ? 'active' : ''}}">
-                                                <input type="hidden" name="imgs[]" value="{{$row->originImgs[$key]}}"/>
+                                                <input type="hidden" name="houseTypeImgs[]" value="{{$row->originHouseTypeImgs[$key]}}"/>
                                                 <img alt="image"  class="img-responsive" src="{{$img}}">
                                             </div>
                                         @endforeach
@@ -308,38 +308,29 @@
         //图片删除
         $(".carousel .btn-del-img").on("click", function(){
             var self = $(this);
-            swal({
-                title: "确定要删除吗?",
-                text: "删除后将不能恢复!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
-                closeOnConfirm: true
-            }, function () {
-                var parentTarget = self.parent();
-                //移除图片
-                var willRemoveDiv = parentTarget.find(".carousel-inner div.active");
-                if (willRemoveDiv.next("div").length) {
-                    willRemoveDiv.next("div").addClass("active");
-                    willRemoveDiv.remove();
-                } else if (willRemoveDiv.prev("div").length){
-                    willRemoveDiv.prev("div").addClass("active");
-                    willRemoveDiv.remove();
-                }
 
-                //移除圆点
-                var willRemoveLi = parentTarget.find(".carousel-indicators li.active");
-                if (willRemoveLi.next("li").length) {
-                    willRemoveLi.next("li").addClass("active");
-                    willRemoveLi.remove();
-                } else if (willRemoveLi.prev("li").length){
-                    willRemoveLi.prev("li").addClass("active");
-                    willRemoveLi.remove();
-                } else {
-                    parentTarget.parent().remove();
-                }
-            });
+            var parentTarget = self.parent();
+            //移除图片
+            var willRemoveDiv = parentTarget.find(".carousel-inner div.active");
+            if (willRemoveDiv.next("div").length) {
+                willRemoveDiv.next("div").addClass("active");
+                willRemoveDiv.remove();
+            } else if (willRemoveDiv.prev("div").length){
+                willRemoveDiv.prev("div").addClass("active");
+                willRemoveDiv.remove();
+            }
+
+            //移除圆点
+            var willRemoveLi = parentTarget.find(".carousel-indicators li.active");
+            if (willRemoveLi.next("li").length) {
+                willRemoveLi.next("li").addClass("active");
+                willRemoveLi.remove();
+            } else if (willRemoveLi.prev("li").length){
+                willRemoveLi.prev("li").addClass("active");
+                willRemoveLi.remove();
+            } else {
+                parentTarget.parent().remove();
+            }
         });
 
         //封面图
