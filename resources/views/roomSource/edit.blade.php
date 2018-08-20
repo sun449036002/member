@@ -164,8 +164,8 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">其他图片</label>
-
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">详情轮播图</label>
                         @if(!empty($row->imgs))
                         <div class="col-sm-5">
                             <div class="carousel slide" id="carousel1">
@@ -194,6 +194,41 @@
                         @endif
 
                         <div class="col-sm-4 dropzone" id="imgs">
+                            <div class="dropzone-previews"></div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">户型图</label>
+                        @if(!empty($row->houseTypeImgs))
+                            <div class="col-sm-5">
+                                <div class="carousel slide" id="carousel2">
+                                    <ol class="carousel-indicators">
+                                        @foreach($row->imgs as $key => $img)
+                                            <li data-slide-to="{{$key}}" data-target="#carousel2"  class="{{$key == 0 ? 'active' : ''}}"></li>
+                                        @endforeach
+                                    </ol>
+                                    <div class="btn-del-img">删除</div>
+                                    <div class="carousel-inner">
+                                        @foreach($row->imgs as $key => $img)
+                                            <div class="item {{$key == 0 ? 'active' : ''}}">
+                                                <input type="hidden" name="imgs[]" value="{{$row->originImgs[$key]}}"/>
+                                                <img alt="image"  class="img-responsive" src="{{$img}}">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                                        <span class="icon-prev"></span>
+                                    </a>
+                                    <a data-slide="next" href="#carousel2" class="right carousel-control">
+                                        <span class="icon-next"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="col-sm-4 dropzone" id="houseTypeImgs">
                             <div class="dropzone-previews"></div>
                         </div>
                     </div>
@@ -282,8 +317,9 @@
                 confirmButtonText: "Yes, delete it!",
                 closeOnConfirm: true
             }, function () {
+                var parentTarget = self.parent();
                 //移除图片
-                var willRemoveDiv = $(".carousel-inner div.active");
+                var willRemoveDiv = parentTarget.find(".carousel-inner div.active");
                 if (willRemoveDiv.next("div").length) {
                     willRemoveDiv.next("div").addClass("active");
                     willRemoveDiv.remove();
@@ -293,7 +329,7 @@
                 }
 
                 //移除圆点
-                var willRemoveLi = $(".carousel-indicators li.active");
+                var willRemoveLi = parentTarget.find(".carousel-indicators li.active");
                 if (willRemoveLi.next("li").length) {
                     willRemoveLi.next("li").addClass("active");
                     willRemoveLi.remove();
@@ -301,13 +337,17 @@
                     willRemoveLi.prev("li").addClass("active");
                     willRemoveLi.remove();
                 } else {
-                    $("#carousel1").parent().remove();
+                    parentTarget.parent().remove();
                 }
             });
         });
 
+        //封面图
         initCover(appendImgToForm, "{{csrf_token()}}");
+        //详情轮播图
         initImgs(appendImgToForm, "{{csrf_token()}}");
+        //户型图
+        initHouseTypeImgs(appendImgToForm, "{{csrf_token()}}");
     });
 </script>
 </body>

@@ -54,12 +54,12 @@ $(document).ready(function() {
     initDataTable();
 
     //TO 详情
-    $(".btn-to-detail").on("click", function () {
+    $(".dataTables-sym").on("click", ".btn-to-detail", function () {
         window.location.href = "/user/detail?id=" + $(this).data("id");
     });
 
     //TO 冻结
-    $(".btn.btn-to-lock").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-lock", function(){
         var self = $(this);
         var optName = self.text();
         swal({

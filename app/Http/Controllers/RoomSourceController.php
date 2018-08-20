@@ -86,7 +86,8 @@ class RoomSourceController extends Controller
             'desc' => $data['desc'],
             'imgJson' => json_encode([
                 'cover' => $data['cover'],
-                'imgs' => $data['imgs'] ?? []
+                'imgs' => $data['imgs'] ?? [],
+                'houseTypeImgs' => $data['houseTypeImgs'] ?? [],
             ], JSON_UNESCAPED_UNICODE),
             'createTime' => time(),
             'status' => ROOM_SOURCE_STATUS_PASS,
@@ -154,7 +155,8 @@ class RoomSourceController extends Controller
             'desc' => $data['desc'],
             'imgJson' => json_encode([
                 'cover' => $data['cover'],
-                'imgs' => $data['imgs'] ?? []
+                'imgs' => $data['imgs'] ?? [],
+                'houseTypeImgs' => $data['houseTypeImgs'] ?? []
             ], JSON_UNESCAPED_UNICODE),
         ];
 

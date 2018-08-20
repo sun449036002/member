@@ -146,7 +146,7 @@ $(document).ready(function() {
     });
 
     //展示推广链接
-    $(".btn.btn-to-spread").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-spread", function(){
         $("#qrcode").empty();
         var name = $(this).parent().parent("tr").find(".td-name").html();
         $("#myModal5").find("h4").html(name);
@@ -154,12 +154,12 @@ $(document).ready(function() {
     });
 
     //TO 编辑
-    $(".btn.btn-to-edit").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-edit", function(){
        window.location.href = "/admins/" + $(this).data("id") + "/edit";
     });
 
     //重置密码
-    $(".btn.btn-to-reset").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-reset", function(){
         var self = $(this);
         swal({
             title: "确定要重置密码吗?",
@@ -186,7 +186,7 @@ $(document).ready(function() {
     });
 
     //TO 删除
-    $(".btn.btn-to-del").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-del", function(){
         var self = $(this);
         swal({
             title: "确定要删除吗?",

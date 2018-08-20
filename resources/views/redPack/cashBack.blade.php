@@ -56,7 +56,7 @@ $(document).ready(function() {
     initDataTable();
 
     //TO 详情
-    $(".btn.btn-to-detail").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-detail", function(){
         window.location.href = "/cashBack/detail?id=" + $(this).data("id");
     });
 });

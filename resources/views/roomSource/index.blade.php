@@ -53,12 +53,13 @@ $(document).ready(function() {
     initDataTable();
 
     //TO 编辑
-    $(".btn.btn-to-edit").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-edit", function(e){
+        console.log(e);
         window.location.href = "/roomSource/edit?id=" + $(this).data("id");
     });
 
     //TO 删除
-    $(".btn.btn-to-del").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-del", function(){
         var self = $(this);
         swal({
             title: "确定要删除吗?",

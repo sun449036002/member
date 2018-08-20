@@ -342,7 +342,7 @@ function initCover(successCallback, csrf_token, keyName) {
     };
 }
 
-//其他图片上传
+//详情轮播图上传
 function initImgs(mSuccessCallback, csrf_token) {
     Dropzone.options.imgs = {
         url:"/img/upload",
@@ -361,6 +361,32 @@ function initImgs(mSuccessCallback, csrf_token) {
             });
             this.on("successmultiple", function(files, response) {
                 mSuccessCallback(response, "imgs[]");
+            });
+            this.on("errormultiple", function(files, response) {
+            });
+        }
+    };
+}
+
+//户型图上传
+function initHouseTypeImgs(mSuccessCallback, csrf_token) {
+    Dropzone.options.houseTypeImgs = {
+        url:"/img/upload",
+        paramName:"imgs",
+        headers:{"X-CSRF-TOKEN" : csrf_token},
+        autoProcessQueue: true,
+        uploadMultiple: true,
+        parallelUploads: 100,
+        maxFiles: 100,
+
+        // Dropzone settings
+        init: function() {
+            var myDropzone = this;
+
+            this.on("sendingmultiple", function() {
+            });
+            this.on("successmultiple", function(files, response) {
+                mSuccessCallback(response, "houseTypeImgs[]");
             });
             this.on("errormultiple", function(files, response) {
             });

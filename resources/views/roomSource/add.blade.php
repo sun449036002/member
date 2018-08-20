@@ -143,8 +143,15 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">其他图片</label>
+                            <div class="form-group"><label class="col-sm-2 control-label">详情轮播图</label>
                                 <div class="col-sm-5 dropzone" id="imgs">
+                                    <div class="dropzone-previews"></div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">户型图</label>
+                                <div class="col-sm-5 dropzone" id="houseTypeImgs">
                                     <div class="dropzone-previews"></div>
                                 </div>
                             </div>
@@ -217,8 +224,12 @@
            return false;
         });
 
+        //封面图
         initCover(appendImgToForm, "{{csrf_token()}}");
+        //详情轮播图
         initImgs(appendImgToForm, "{{csrf_token()}}");
+        //户型图
+        initHouseTypeImgs(appendImgToForm, "{{csrf_token()}}");
     });
 </script>
 </body>

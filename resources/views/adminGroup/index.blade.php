@@ -67,17 +67,17 @@ $(document).ready(function() {
     initDataTable();
 
     //TO 权限管理
-    $(".btn.btn-to-auth").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-auth", function(){
         window.location.href = "/authority/" + $(this).data("id") + "/edit";
     });
     //TO 编辑
-    $(".btn.btn-to-edit").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-edit", function(){
         var self = $(this);
         window.location.href = "/adminGroups/" + self.data("id") + "/edit";
     });
 
     //TO 删除
-    $(".btn.btn-to-del").on("click", function(){
+    $(".dataTables-sym").on("click", ".btn.btn-to-del", function(){
         var self = $(this);
         swal({
             title: "确定要删除吗?",
