@@ -82,9 +82,20 @@
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">楼盘总价</label>
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <div class="input-group m-b">
                                 <input type="number" class="form-control" name="totalPrice" value="{{$row->totalPrice}}">
+                                <span class="input-group-addon">万元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">首付金额</label>
+                        <div class="col-sm-4">
+                            <div class="input-group m-b">
+                                <input type="number" class="form-control" name="firstPay" value="{{$row->firstPay}}">
                                 <span class="input-group-addon">万元</span>
                             </div>
                         </div>
