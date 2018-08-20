@@ -78,6 +78,13 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">规则</label>
+                        <div class="col-sm-8">
+                            <div class="summernote"></div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
                             <button class="btn btn-white btn-submit" type="submit">取消</button>
@@ -92,8 +99,21 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        @if(!empty($rdConfig->rule))
+        $(".summernote").append(htmlDecode("{{$rdConfig->rule}}"));
+        @endif
+
+        $('.summernote').summernote();
+
+        //提交表单
         $("#redPackConfigForm").on("submit", function(){
+            //富文本编辑器内容
+            var aHTML = $('.summernote').code(); //save HTML If you need(aHTML: array).
+            aHTML =  aHTML === '<p><br></p>' ? "" : aHTML;
+
             var _data = $(this).serializeArray();
+            _data.push({name:"rule", value:aHTML});
+
             //Ajax提交表单
             $.ajax({
                 type : 'post',
