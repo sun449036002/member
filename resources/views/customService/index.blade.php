@@ -34,7 +34,7 @@
                                 <td>{{$item->id}}</td>
                                 <td class="td-name">{{$item->name}}</td>
                                 <td>{{$item->tel}}</td>
-                                <td>{{date("Y-m-d H:i:s", $item->creatTime)}}</td>
+                                <td>{{date("Y-m-d H:i:s", $item->createTime)}}</td>
                                 <td>
                                     <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                     <button type="button" class="btn btn-danger btn-to-del" data-id="{{$item->id}}">删除</button>

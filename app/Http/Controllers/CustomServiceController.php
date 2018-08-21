@@ -45,6 +45,7 @@ class CustomServiceController extends Controller
         (new CustomServiceModel())->insert([
             'name' => $data['name'],
             'tel' => $data['tel'],
+            'createTime' => time(),
         ]);
 
         return redirect("customService");
@@ -92,7 +93,7 @@ class CustomServiceController extends Controller
             'tel' => $data['tel'],
         ], ['id' => $id]);
 
-        return redirect('adminGroups');
+        return redirect('customService');
     }
 
     /**
