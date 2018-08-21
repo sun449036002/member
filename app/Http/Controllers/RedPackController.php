@@ -63,7 +63,14 @@ class RedPackController extends Controller
             return back()->withErrors("不存在此返现详情");
         }
 
-        $row->imgs = json_decode($row->imgs, true);
+        $imgs = json_decode($row->imgs, true);
+        if (!empty($imgs)) {
+            foreach($imgs as $key => $img) {
+                $imgs[$key] = env('APP_IMG_DOMAIN') . $img;
+            }
+        }
+        $row->imgs = $imgs;
+
         $row->paymentMethodList = json_decode($row->paymentMethod);
         $this->pageData['row'] = $row;
 
