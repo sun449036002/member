@@ -37,7 +37,7 @@
                         <label class="col-sm-2 control-label">购房金额</label>
                         <div class="col-sm-3 radio radio-info radio-inline"> {{$row->amount}} 万元</div>
                         <label class="col-sm-2 control-label">付款方式</label>
-                        <div class="col-sm-3 radio radio-info radio-inline"> {{$row->type ? "全额" : "按揭"}}</div>
+                        <div class="col-sm-3 radio radio-info radio-inline"> {{$row->type ? "按揭" : "全额"}}</div>
                     </div>
 
                     <div class="hr-line-dashed"></div>

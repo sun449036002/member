@@ -32,7 +32,7 @@
                             <td>{{$item->amount}}</td>
                             <td>{{$item->buyTime}}</td>
                             <td>{{$item->tel}}</td>
-                            <td>{{$item->type ? "全额" : "按揭"}}</td>
+                            <td>{{$item->type ? "按揭" : "全额"}}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-to-detail" data-id="{{$item->id}}">查看详情</button>
                             </td>
