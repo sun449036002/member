@@ -41,7 +41,7 @@ class BaseModel extends Model
             $this->bindWhere($where, $builder);
         }
         if (!empty($order)) {
-            $builder->orderBy($order[0], $order[1]);
+            $builder->orderBy($order[0], $order[1] ?? 'ASC');
         }
         $rows = $builder->get();
         if (!empty($rows)) {
