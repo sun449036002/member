@@ -13,6 +13,7 @@ use App\Consts\StateConst;
 use App\Model\CashbackModel;
 use App\Model\RedPackConfigModel;
 use App\Model\RedPackModel;
+use App\Model\UserModel;
 use Illuminate\Http\Request;
 
 class RedPackController extends Controller
@@ -76,7 +77,7 @@ class RedPackController extends Controller
         //红包信息
         $model = new RedPackModel();
         if (!empty($row->redPackIds) || !empty($row->friendRedPackIds)) {
-            $redPackIds = array_merge(explode(',', $row->redPackIds), explode(',', $row->friendRedPackIds));
+            $redPackIds = array_filter(array_merge(explode(',', $row->redPackIds), explode(',', $row->friendRedPackIds)));
             $redPackList = $model->getList(['id', 'userId', 'fromUserId', 'total', 'received', 'status', 'useExpiredTime'], [['id', 'in', $redPackIds]]);
             $this->pageData['redPackList'] = $redPackList;
         }
@@ -109,6 +110,52 @@ class RedPackController extends Controller
         //更新申请状态
         $model->updateData(['status' => 1], ['id' => $id]);
         return ResultClientJson(0, '操作成功');
+    }
+
+    /**
+     * 红包数据统计
+     */
+    public function statistics() {
+        $model = new RedPackModel();
+
+        $list = $model->getList(['*'], null, ['id', 'DESC']);
+
+        $userIds = [];
+        foreach ($list as $item) {
+            if (!in_array($item->userId, $userIds)) {
+                $userIds[] = $item->userId;
+            }
+        }
+
+        //找红包的所属用户
+        $userModel = new UserModel();
+        $userList = $userModel->getList(['id', 'username'], [["id", "in", $userIds]]);
+        $users = [];
+        foreach ($userList as $user) {
+            $users[$user->id] = $user->username;
+        }
+
+        //置入列表
+        foreach ($list as $item) {
+            $item->username = $users[$item->userId] ?? "";
+        }
+
+        $this->pageData['list'] = $list;
+
+        return SView('redPack/statistics', $this->pageData);
+    }
+
+    /**
+     * 红包数据统计2 图表
+     */
+    public function statistics2() {
+        //近七天的红包数据
+        $model = new RedPackModel();
+        $beforeSevenDayTime = date("Y-m-d H:i:s", strtotime(date("Y-m-d 00:00:00", strtotime("-7 days"))));
+
+//        $model->getList(['id'], [''])
+
+        return SView('redPack/statistics2', $this->pageData);
     }
 
 }

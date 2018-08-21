@@ -234,6 +234,10 @@ class Controller extends BaseController
                     'title' => '系统设置',
                     'route' => '#',
                     'subMenuList' => [
+                        [
+                            'title' => '基本信息配置',
+                            'route' => '/system/aboutUs',
+                        ],
                     ]
                 ],
             ];

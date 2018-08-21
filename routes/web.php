@@ -95,6 +95,11 @@ Route::get("/redPack/config", "RedPackController@config");
 Route::post("/redPack/saveConfig", "RedPackController@saveConfig");
 Route::get("/redPack/cashBack", "RedPackController@cashBack");
 Route::get("/redPack/cashBackDetail", "RedPackController@cashBackDetail");
+Route::get("/redPack/statistics", "RedPackController@statistics");
 
 //红包返现审核通过
 Route::post("/redPack/cashBackExamine", "RedPackController@cashBackExamine");
+
+//系统管理
+Route::get("/system/aboutUs", "SystemController@aboutUs");
+Route::post("/system/saveAboutUs", "SystemController@saveAboutUs");
