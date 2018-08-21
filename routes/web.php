@@ -36,6 +36,9 @@ Route::resources([
 
     //户型管理
     'houseType' => 'houseTypeController',
+
+    //客服管理
+    'customService' => 'customServiceController',
 ]);
 
 
@@ -90,5 +93,8 @@ Route::post("/user/lock", "UserController@lock");
 //红包配置
 Route::get("/redPack/config", "RedPackController@config");
 Route::post("/redPack/saveConfig", "RedPackController@saveConfig");
-Route::get("/cashBack", "RedPackController@cashBack");
-Route::get("/cashBack/detail", "RedPackController@cashBackDetail");
+Route::get("/redPack/cashBack", "RedPackController@cashBack");
+Route::get("/redPack/cashBackDetail", "RedPackController@cashBackDetail");
+
+//红包返现审核通过
+Route::post("/redPack/cashBackExamine", "RedPackController@cashBackExamine");

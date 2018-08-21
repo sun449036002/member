@@ -38,7 +38,10 @@ class BaseModel extends Model
         $builder = $this->getBuilder();
         $builder->select($columns);
         if(!empty($where)) {
-            $builder->where($where);
+            $this->bindWhere($where, $builder);
+        }
+        if (!empty($order)) {
+            $builder->orderBy($order[0], $order[1]);
         }
         $rows = $builder->get();
         if (!empty($rows)) {
@@ -71,7 +74,8 @@ class BaseModel extends Model
         }
 
         $builder = $this->getBuilder();
-        $affectedRows = $builder->where($where)->update($data);
+        $this->bindWhere($where, $builder);
+        $affectedRows = $builder->update($data);
         return $affectedRows;
     }
 
@@ -84,6 +88,36 @@ class BaseModel extends Model
             return DB::connection($this->getConnectionName())->table($this->table);
         } else {
             return DB::table($this->table);
+        }
+    }
+
+    /**
+     * 处理 WHERE 条件
+     * @param $where
+     * @param $builder
+     */
+    private function bindWhere($where, &$builder) {
+        foreach ($where as $key => $item) {
+            if (is_array($item)) {
+                if (count($item) == 3) {
+                    list($field, $option, $val) = $item;
+                    if (strtoupper($item[1]) == 'IN') {
+                        if (!is_array($val)) {
+                            $val[] = $val;
+                        }
+                        $builder->whereIn($field, $val);
+                    } else if (strtoupper($item[1]) == 'NOT IN'){
+                        if (!is_array($val)) {
+                            $val[] = $val;
+                        }
+                        $builder->whereNotIn($field, $val);
+                    } else {
+                        $builder->where($field, $option, $val);
+                    }
+                }
+            } else {
+                $builder->where($key, $item);
+            }
         }
     }
 }

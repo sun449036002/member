@@ -40,7 +40,7 @@ class RoomSourceController extends Controller
             $houseTypeArr[$houseType->id] = $houseType->name;
         }
 
-        $list = (new RoomSourceModel())->getList(['*'], ['isDel' => 0]);
+        $list = (new RoomSourceModel())->getList(['*'], ['isDel' => 0], ['id', "desc"]);
         foreach ($list as $item) {
             $item->area = $areaArr[$item->areaId] ?? "未知";
             $item->houseType = $houseTypeArr[$item->houseTypeId] ?? "未知";

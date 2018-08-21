@@ -8,7 +8,6 @@
             </div>
             <div class="ibox-content">
                 <form id="roomSourceForm" method="post" class="form-horizontal" action="#">
-                    <input type="hidden" name="id" value="{{$row->id}}" />
                     <div class="form-group">
                         <label class="col-sm-2 control-label">楼盘名称</label>
                         <div class="col-sm-3 radio radio-info radio-inline"> {{$row->roomSourceName}}</div>
@@ -61,8 +60,22 @@
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">使用红包金额</label>
-                        <div class="col-sm-3 radio radio-info radio-inline">xxxx 元</div>
+                        <label class="col-sm-2 control-label">使用的红包</label>
+                        <div class="col-sm-3">
+                            @if(!empty($redPackList))
+                            <ul class="sortable-list connectList agile-list" id="completed">
+                                @foreach($redPackList as $item)
+                                <li class="{{$redPackStatusConfig[$item->status]['element-class']}}-element" id="task15">
+                                    {{$item->received . " / " . $item->total}} 元
+                                    <div class="agile-detail">
+                                        <a href="#" class="pull-right btn btn-xs btn-white">{{$item->fromUserId > 0 ? "朋友赠送的" : "自己的"}}</a>
+                                        <i class="fa fa-clock-o"></i> 红包状态:{{$redPackStatusConfig[$item->status]['status'] ?? '未知道'}}, {{$item->useExpiredTime ?? 0 > time() ? "未过期" : "已过期"}}
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="hr-line-dashed"></div>
@@ -102,8 +115,7 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
-                            <button class="btn btn-white btn-submit" type="submit">取消</button>
-                            <button class="btn btn-primary" type="submit">保存</button>
+                            <button class="btn btn-primary btn-pass" type="button">通过</button>
                         </div>
                     </div>
                 </form>
@@ -116,7 +128,32 @@
 
 <script>
     $(document).ready(function() {
-
+        $(".btn.btn-pass").on("click", function() {
+            var self = $(this);
+            swal({
+                title: "确定要通过审核吗?",
+                text: "通过后若有红包，则红包的状态将置为已使用状态，且不能恢复!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定!",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type : 'post',
+                    url : "/redPack/cashBackExamine",
+                    data : {
+                        id : "{{$row->id}}"
+                    },
+                    dataType : "json",
+                    headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
+                    success : function(res){
+                        swal(res.msg);
+                        window.location.href = "/redPack/cashBack";
+                    }
+                });
+            });
+        })
     });
 </script>
 </body>

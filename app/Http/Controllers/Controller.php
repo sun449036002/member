@@ -24,6 +24,30 @@ class Controller extends BaseController
 
     private $notAllowLoginMethods = ["showLoginForm", "login"];
 
+    //红包各个状态信息
+    private $redPackStatusConfig = [
+        0 => [
+            'status' => '未完成',
+            'element-class' => 'warning'
+        ],
+        1 => [
+            'status' => '可使用',
+            'element-class' => 'info'
+        ],
+        2 => [
+            'status' => '使用中',
+            'element-class' => 'success'
+        ],
+        3 => [
+            'status' => '已使用',
+            'element-class' => 'danger'
+        ],
+        4 => [
+            'status' => '作废',
+            'element-class' => 'danger'
+        ],
+    ];
+
 
     public function __construct()
     {
@@ -88,6 +112,7 @@ class Controller extends BaseController
             }
 
             $this->pageData['menuList'] = $menuList;
+            $this->pageData['redPackStatusConfig'] = $this->redPackStatusConfig;
 
             return $next($request);
         })->except($this->notAllowLoginMethods);
@@ -149,7 +174,7 @@ class Controller extends BaseController
                         ],
                         [
                             'title' => '红包返现申请列表',
-                            'route' => '/cashBack',
+                            'route' => '/redPack/cashBack',
                         ],
                         [
                             'title' => '红包数据统计',
@@ -175,20 +200,6 @@ class Controller extends BaseController
                             'title' => '客服列表',
                             'route' => '/customService',
                         ]
-                    ]
-                ],
-                [
-                    'title' => '业务员管理',
-                    'route' => '#',
-                    'subMenuList' => [
-                        [
-                            'title' => '业务员列表',
-                            'route' => '/salesman',
-                        ],
-                        [
-                            'title' => '业务员专属链接生成',
-                            'route' => '/salesman',
-                        ],
                     ]
                 ],
                 [
@@ -223,14 +234,6 @@ class Controller extends BaseController
                     'title' => '系统设置',
                     'route' => '#',
                     'subMenuList' => [
-                        [
-                            'title' => '密码管理',
-                            'route' => '/pwd',
-                        ],
-                        [
-                            'title' => '公众号二维码管理',
-                            'route' => '/',
-                        ],
                     ]
                 ],
             ];
