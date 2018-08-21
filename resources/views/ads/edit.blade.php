@@ -23,7 +23,7 @@
                         @if(!empty($row->img))
                             <div class="col-sm-3">
                                 <input type="hidden" name="img" value="{{$row->img}}" />
-                                <img src="{{$row->img}}" width="200px"/>
+                                <img src="{{env('MEMBER_IMG_DOMAIN') . $row->img}}" width="200px"/>
                             </div>
                         @endif
                         <div class="col-sm-4">
