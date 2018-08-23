@@ -58,8 +58,17 @@ class ImgController
                     }
                     $extension = $img->getClientOriginalExtension();   // 上传文件后缀
                     $fileName = date('YmdHis').mt_rand(100,999) . '.'.$extension; // 重命名
-                    $img->move(storage_path() . "/app" . $destinationPath, $fileName); // 保存图片
                     $filePath = $destinationPath.'/'.$fileName;
+
+                    //缩略图
+                    $thumbnail_file_path = storage_path() .  "/app/" . str_replace("room-source", 'room-source-thumbnail', $filePath);
+                    Image::make($img)->resize(200, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($thumbnail_file_path);
+
+                    //移动保存原始图片
+                    $img->move(storage_path() . "/app" . $destinationPath, $fileName);
+
                     $filePathList[] = $filePath;
                 }
             }
