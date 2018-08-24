@@ -35,13 +35,13 @@ Route::resources([
     'area' => 'AreaController',
 
     //户型管理
-    'houseType' => 'houseTypeController',
+    'houseType' => 'HouseTypeController',
 
     //房源标签
     'roomTag' => 'RoomTagController',
 
     //客服管理
-    'customService' => 'customServiceController',
+    'customService' => 'CustomServiceController',
 ]);
 
 
