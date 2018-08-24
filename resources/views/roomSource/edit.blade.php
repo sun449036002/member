@@ -47,6 +47,20 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">装修</label>
+                        <div class="col-sm-10">
+                            <div class="radio radio-info radio-inline">
+                                <input type="radio" id="inlineRadio4" value="0" name="decoration" {{$row->decoration ? "" : "checked"}} required>
+                                <label for="inlineRadio4"> 毛柸 </label>
+                            </div>
+                            <div class="radio radio-info radio-inline">
+                                <input type="radio" id="inlineRadio5" value="1" name="decoration" {{$row->decoration ? "checked" : ""}} required>
+                                <label for="inlineRadio5"> 精装 </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">地域</label>
                         <div class="col-sm-5">
                             <select name="areaId" class="form-control m-b">

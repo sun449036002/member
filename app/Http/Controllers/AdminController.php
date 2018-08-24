@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    private $fields = ['id', "group_id", "name", "email", "created_at", "is_spread"];
+    private $fields = ['id', "group_id", "name", "email", "created_at", "is_spread", "tel"];
 
     /**
      * Display a listing of the resource.
@@ -70,6 +70,7 @@ class AdminController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'tel' => $data['tel'],
             'is_spread' => $data['is_spread'] ?? 0,
             'created_at' => date("Y-m-d H:i:s"),
         ]);
@@ -119,6 +120,7 @@ class AdminController extends Controller
         $model->updateData([
             'name' => $data['name'],
             'group_id' => $data['group_id'],
+            'tel' => $data['tel'],
             'is_spread' => $data['is_spread'] ?? 0,
         ], ['id' => $id]);
 

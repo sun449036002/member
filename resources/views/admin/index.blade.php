@@ -25,7 +25,7 @@
                             <th>姓名 </th>
                             <th>用户组 </th>
                             <th>登录名 </th>
-                            <th>创建时间 </th>
+                            <th>电话 </th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -36,7 +36,7 @@
                                 <td class="td-name">{{$item->name}}</td>
                                 <td>{{$item->group_name ?? "未分配"}}</td>
                                 <td>{{$item->email}}</td>
-                                <td>{{$item->created_at}}</td>
+                                <td>{{$item->tel}}</td>
                                 <td>
                                     @if(!empty($item->is_spread))
                                     <button type="button" class="btn btn-success btn-to-spread" data-toggle="modal" data-target="#myModal5" data-id="{{$item->id}}">推广链接</button>
@@ -89,6 +89,13 @@
                     <div class="form-group"><label class="col-sm-2 control-label">登录密码</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control" name="password" value="" required>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group"><label class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="tel" value="">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>

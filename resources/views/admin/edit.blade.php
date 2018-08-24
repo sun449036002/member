@@ -14,14 +14,15 @@
 
                                 <div class="col-sm-10"><input type="text" class="form-control" name="name" value="{{$row->name}}" required></div>
                             </div>
+                            <div class="hr-line-dashed"></div>
 
                             <div class="form-group"><label class="col-sm-2 control-label">登录邮箱</label>
 
                                 <div class="col-sm-10"><input type="email" class="form-control" name="email" value="{{$row->email}}" required readonly></div>
                             </div>
+                            <div class="hr-line-dashed"></div>
 
                             <div class="form-group"><label class="col-sm-2 control-label">用户组</label>
-
                                 <div class="col-sm-10">
                                     <select name="group_id" class="form-control m-b" required>
                                         <option value="">请选择用户分组</option>
@@ -31,15 +32,28 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="hr-line-dashed"></div>
 
-                            <div class="form-group"><label class="col-sm-2 control-label"></label>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">电话</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="tel" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
                                     <div class="i-checks">
                                         <label> <input type="checkbox" name="is_spread" value="1" {{$row->is_spread ? "checked" : ""}}> <i></i> 开通推广功能 </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="hr-line-dashed"></div>
+
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">

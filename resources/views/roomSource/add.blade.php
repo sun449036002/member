@@ -20,13 +20,27 @@
                                         <label for="inlineRadio1"> 新房 </label>
                                     </div>
                                     {{--<div class="radio radio-info radio-inline">--}}
-                                        {{--<input type="radio" id="inlineRadio1" value="2" name="type">--}}
-                                        {{--<label for="inlineRadio1"> 二手房 </label>--}}
+                                        {{--<input type="radio" id="inlineRadio2" value="2" name="type">--}}
+                                        {{--<label for="inlineRadio2"> 二手房 </label>--}}
                                     {{--</div>--}}
                                     {{--<div class="radio radio-info radio-inline">--}}
-                                        {{--<input type="radio" id="inlineRadio1" value="3" name="type">--}}
-                                        {{--<label for="inlineRadio1"> 出租房 </label>--}}
+                                        {{--<input type="radio" id="inlineRadio3" value="3" name="type">--}}
+                                        {{--<label for="inlineRadio3"> 出租房 </label>--}}
                                     {{--</div>--}}
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-sm-2 control-label">装修</label>
+                                <div class="col-sm-10">
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" id="inlineRadio4" value="0" name="decoration" required>
+                                        <label for="inlineRadio4"> 毛柸 </label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input type="radio" id="inlineRadio5" value="1" name="decoration" required>
+                                        <label for="inlineRadio5"> 精装 </label>
+                                    </div>
                                 </div>
                             </div>
 

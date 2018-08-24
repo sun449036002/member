@@ -13,6 +13,7 @@
                     <tr>
                         <th>预约ID </th>
                         <th>楼盘名称 </th>
+                        <th>推广员 </th>
                         <th>预约人 </th>
                         <th>预约电话 </th>
                         <th>预约人数 </th>
@@ -27,6 +28,7 @@
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->roomSourceName}}</td>
+                            <td>{{$item->adminName}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->tel}}</td>
                             <td>{{$item->num}}</td>
