@@ -17,6 +17,7 @@
                         <th>楼盘户型 </th>
                         <th>楼盘面积 </th>
                         <th>楼盘均价 </th>
+                        <th>更新时间 </th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -29,6 +30,7 @@
                             <td>{{$item->houseType}}</td>
                             <td>{{$item->acreage}}</td>
                             <td>{{$item->avgPrice}}</td>
+                            <td>{{date("Y-m-d H:i:s", $item->updateTime)}}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                 <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
@@ -50,7 +52,7 @@
 
 <script>
 $(document).ready(function() {
-    initDataTable();
+    initDataTable(6);
 
     //TO 编辑
     $(".dataTables-sym").on("click", ".btn.btn-to-edit", function(e){
@@ -67,7 +69,7 @@ $(document).ready(function() {
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "确定!",
             closeOnConfirm: false
         }, function () {
             $.ajax({

@@ -395,9 +395,10 @@ function initHouseTypeImgs(mSuccessCallback, csrf_token) {
 }
 
 //初始化数据表格
-function initDataTable() {
+function initDataTable(orderIndex) {
+    if (!orderIndex) orderIndex = 0;
     $('.dataTables-sym').DataTable({
-        'order':[[0, "desc"]],
+        'order':[[orderIndex, "desc"]],
         "oLanguage": { // 语言设置
             "sLengthMenu": "每页显示 _MENU_ 条记录",
             "sInfo": "从 _START_ 到 _END_ /共 _TOTAL_ 条数据",

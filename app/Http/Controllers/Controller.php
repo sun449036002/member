@@ -162,6 +162,10 @@ class Controller extends BaseController
                             'title' => '户型列表',
                             'route' => '/houseType',
                         ],
+                        [
+                            'title' => '标签管理',
+                            'route' => '/roomTag',
+                        ],
                     ]
                 ],
                 [

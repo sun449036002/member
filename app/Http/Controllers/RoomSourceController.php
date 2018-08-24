@@ -15,6 +15,7 @@ use App\Model\BespeakModel;
 use App\Model\HouseTypeModel;
 use App\Model\RoomCategoryModel;
 use App\Model\RoomSourceModel;
+use App\Model\RoomTagModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,6 +27,7 @@ class RoomSourceController extends Controller
         
         $this->pageData['areaList'] = $this->getAreaList();
         $this->pageData['houseTypeList'] = $this->getHouseTypeList();
+        $this->pageData['roomTags'] = $this->getTags();
     }
 
     //房源分类列表
@@ -78,6 +80,7 @@ class RoomSourceController extends Controller
             'acreage' => $data['acreage'],
             'firstPay' => $data['firstPay'],
             'houseTypeId' => $data['houseTypeId'],
+            'roomTagIds' => $data['tagIds'],
             'reportTemplate' => $data['reportTemplate'],
             'contacts' => $data['contacts'],
             'tel' => $data['tel'],
@@ -85,11 +88,12 @@ class RoomSourceController extends Controller
             'rewardPolicy' => $data['rewardPolicy'],
             'desc' => $data['desc'],
             'imgJson' => json_encode([
-                'cover' => $data['cover'],
+                'cover' => $data['cover'] ?? "",
                 'imgs' => $data['imgs'] ?? [],
                 'houseTypeImgs' => $data['houseTypeImgs'] ?? [],
             ], JSON_UNESCAPED_UNICODE),
             'createTime' => time(),
+            'updateTime' => time(),
             'status' => ROOM_SOURCE_STATUS_PASS,
         ]);
 
@@ -115,6 +119,8 @@ class RoomSourceController extends Controller
         $model = new RoomSourceModel();
         $row = $model->getOne(['*'], ['id' => $data['id']]);
         $this->pageData['row'] = $row;
+
+        $this->pageData['roomTagIds'] = empty($row->roomTagIds) ? [] : explode(",", $row->roomTagIds);
 
 //        dd($this->pageData['row']);
 
@@ -147,6 +153,7 @@ class RoomSourceController extends Controller
             'acreage' => $data['acreage'],
             'firstPay' => $data['firstPay'],
             'houseTypeId' => $data['houseTypeId'],
+            'roomTagIds' => $data['tagIds'],
             'reportTemplate' => $data['reportTemplate'],
             'contacts' => $data['contacts'],
             'tel' => $data['tel'],
@@ -154,10 +161,11 @@ class RoomSourceController extends Controller
             'rewardPolicy' => $data['rewardPolicy'],
             'desc' => $data['desc'],
             'imgJson' => json_encode([
-                'cover' => $data['cover'],
+                'cover' => $data['cover'] ?? "",
                 'imgs' => $data['imgs'] ?? [],
                 'houseTypeImgs' => $data['houseTypeImgs'] ?? []
             ], JSON_UNESCAPED_UNICODE),
+            'updateTime' => time(),
         ];
 
 
@@ -218,5 +226,13 @@ class RoomSourceController extends Controller
      */
     private function getHouseTypeList() {
         return (new HouseTypeModel())->getList(['*'], ['isDel' => 0]);
+    }
+
+    /**
+     * 标签列表
+     * @return array
+     */
+    private function getTags() {
+        return (new RoomTagModel())->getList(['*'], ['isDel' => 0]);
     }
 }

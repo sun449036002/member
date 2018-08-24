@@ -62,7 +62,7 @@ $(document).ready(function() {
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "确定!",
             closeOnConfirm: false
         }, function () {
             $.ajax({

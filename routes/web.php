@@ -37,6 +37,9 @@ Route::resources([
     //户型管理
     'houseType' => 'houseTypeController',
 
+    //房源标签
+    'roomTag' => 'RoomTagController',
+
     //客服管理
     'customService' => 'customServiceController',
 ]);

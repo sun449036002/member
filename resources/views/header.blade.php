@@ -12,7 +12,7 @@
     <link href="{{asset("css/bootstrap.min.css")}}" rel="stylesheet">
     <link href="{{asset("css/animate.css")}}" rel="stylesheet">
     <link href="{{asset("css/style.css")}}" rel="stylesheet">
-    <link href="{{asset("css/style.css")}}" rel="stylesheet">
+
     <link href="{{asset("font-awesome/css/font-awesome.css")}}" rel="stylesheet">
 
     <!-- Toastr style -->
@@ -35,6 +35,10 @@
 
     <link href="{{asset("css/plugins/dataTables/datatables.min.css")}}" rel="stylesheet">
     <link href="{{asset("css/plugins/jsTree/style.min.css")}}" rel="stylesheet">
+
+    <link href="{{asset("css/plugins/select2/select2.min.css")}}" rel="stylesheet">
+    <link href="{{asset("css/plugins/chosen/chosen.css")}}" rel="stylesheet">
+
 
     <!-- Mainly scripts -->
     <script src="{{asset("js/jquery-2.1.1.js")}}"></script>
@@ -66,6 +70,10 @@
 
     <!-- Toastr -->
     <script src="{{asset("js/plugins/toastr/toastr.min.js")}}"></script>
+
+    <!-- Chosen -->
+    <script src="{{asset('js/plugins/chosen/chosen.jquery.js')}}"></script>
+
     <script>
         $(document).ready(function(){
             toastr.options = {

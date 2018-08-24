@@ -4,7 +4,7 @@
     <div class="col-lg-8">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>管理员组别列表</h5>
+                <h5>房源标签列表</h5>
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
@@ -12,7 +12,7 @@
                         <thead>
                         <tr>
                             <th>ID </th>
-                            <th>组名 </th>
+                            <th>名称 </th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -22,7 +22,6 @@
                                 <td>{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-to-auth" data-id="{{$item->id}}">权限管理</button>
                                     <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                     <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
                                 </td>
@@ -38,12 +37,12 @@
     <div class="col-lg-4">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>管理员组别添加</h5>
+                <h5>房源标签添加</h5>
             </div>
             <div class="ibox-content">
-                <form method="post" class="form-horizontal" action="/adminGroups">
+                <form method="post" class="form-horizontal" action="/roomTag">
                     {{csrf_field()}}
-                    <div class="form-group"><label class="col-sm-2 control-label">分组名称</label>
+                    <div class="form-group"><label class="col-sm-2 control-label">标签名称</label>
                         <div class="col-sm-10"><input type="text" class="form-control" name="name" value=""></div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -66,14 +65,10 @@
 $(document).ready(function() {
     initDataTable();
 
-    //TO 权限管理
-    $(".dataTables-sym").on("click", ".btn.btn-to-auth", function(){
-        window.location.href = "/authority/" + $(this).data("id") + "/edit";
-    });
     //TO 编辑
     $(".dataTables-sym").on("click", ".btn.btn-to-edit", function(){
         var self = $(this);
-        window.location.href = "/adminGroups/" + self.data("id") + "/edit";
+        window.location.href = "/roomTag/" + self.data("id") + "/edit";
     });
 
     //TO 删除
@@ -90,7 +85,7 @@ $(document).ready(function() {
         }, function () {
             $.ajax({
                 type : 'delete',
-                url : "/adminGroups/" + self.data("id") || 0,
+                url : "/roomTag/" + self.data("id") || 0,
                 dataType : "json",
                 headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
                 success : function(res){

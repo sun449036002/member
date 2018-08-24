@@ -24,12 +24,12 @@
                 <form id="roomSourceForm" method="post" class="form-horizontal" action="#">
                     {{csrf_field()}}
                     <input type="hidden" name="id" value="{{$row->id}}" />
-                    <div class="form-group"><label class="col-sm-2 control-label">楼盘名称</label>
+                    <div class="form-group"><label class="col-sm-2 control-label">名称</label>
                         <div class="col-sm-5"><input type="text" class="form-control" name="name" value="{{$row->name}}"></div>
                     </div>
 
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">楼盘类型</label>
+                    <div class="form-group"><label class="col-sm-2 control-label">类型</label>
                         <div class="col-sm-10">
                             <div class="radio radio-info radio-inline">
                                 <input type="radio" id="inlineRadio1" value="1" name="type" checked>
@@ -47,10 +47,10 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">楼盘地域</label>
+                    <div class="form-group"><label class="col-sm-2 control-label">地域</label>
                         <div class="col-sm-5">
                             <select name="areaId" class="form-control m-b">
-                                <option value="0">请选择楼盘地域</option>
+                                <option value="0">请选择地域</option>
                                 @foreach($areaList as $area)
                                     <option value="{{$area->id}}" {{$area->id == $row->areaId ? "selected" : ""}}>{{$area->name}}</option>
                                 @endforeach
@@ -59,10 +59,10 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">楼盘分类</label>
+                    <div class="form-group"><label class="col-sm-2 control-label">分类</label>
                         <div class="col-sm-5">
                             <select name="roomCategoryId" class="form-control m-b">
-                                <option value="0">请选择楼盘分类</option>
+                                <option value="0">请选择分类</option>
                                 @foreach($categoryList as $category)
                                     <option value="{{$category->id}}" {{$category->id == $row->roomCategoryId ? "selected" : ""}}>{{$category->name}}</option>
                                 @endforeach
@@ -71,7 +71,30 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">楼盘均价</label>
+                    <div class="form-group"><label class="col-sm-2 control-label">户型</label>
+                        <div class="col-sm-5">
+                            <select name="houseTypeId" class="form-control m-b">
+                                <option value="0">请选择户型</option>
+                                @foreach($houseTypeList as $houseType)
+                                    <option value="{{$houseType->id}}" {{$houseType->id == $row->houseTypeId ? "selected" : ""}}>{{$houseType->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">标签</label>
+                        <div class="col-sm-5">
+                            <select class="chosen-select form-control m-b" multiple data-placeholder="请选择标签">
+                                @foreach($roomTags as $tag)
+                                    <option value="{{$tag->id}}" {{in_array($tag->id, $roomTagIds) ? "selected" : ""}}>{{$tag->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"><label class="col-sm-2 control-label">均价</label>
                         <div class="col-sm-5">
                             <div class="input-group m-b">
                                 <input type="number" class="form-control" name="avgPrice" value="{{$row->avgPrice}}">
@@ -81,11 +104,11 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">楼盘总价</label>
+                    <div class="form-group"><label class="col-sm-2 control-label">总价</label>
                         <div class="col-sm-4">
                             <div class="input-group m-b">
                                 <input type="number" class="form-control" name="totalPrice" value="{{$row->totalPrice}}">
-                                <span class="input-group-addon">万元</span>
+                                <span class="input-group-addon">万元 起</span>
                             </div>
                         </div>
                     </div>
@@ -102,20 +125,8 @@
                     </div>
 
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">楼盘面积</label>
-                        <div class="col-sm-5"><input type="number" class="form-control" name="acreage" value="{{$row->acreage}}"></div>
-                    </div>
-
-                    <div class="hr-line-dashed"></div>
-                    <div class="form-group"><label class="col-sm-2 control-label">户型</label>
-                        <div class="col-sm-5">
-                            <select name="houseTypeId" class="form-control m-b">
-                                <option value="0">请选择户型</option>
-                                @foreach($houseTypeList as $houseType)
-                                    <option value="{{$houseType->id}}" {{$houseType->id == $row->houseTypeId ? "selected" : ""}}>{{$houseType->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="form-group"><label class="col-sm-2 control-label">面积</label>
+                        <div class="col-sm-5"><input type="text" class="form-control" name="acreage" value="{{$row->acreage}}"></div>
                     </div>
 
                     <div class="hr-line-dashed"></div>
@@ -262,6 +273,9 @@
             radioClass: 'iradio_square-green'
         });
 
+        //下拉多选初始化
+        $(".chosen-select").chosen();
+
         //表单提交
         $("#roomSourceForm").on("submit", function(){
             var _findError = false;
@@ -273,7 +287,7 @@
             var _dataList = $(this).serializeArray();
             _dataList.push({name:"desc", value:aHTML});
             console.log(_dataList);
-            var _fields = {"name":"楼盘名称", "roomCategoryId":"楼盘类型", "avgPrice":"楼盘均价", "acreage":"楼盘面积", "houseType":"户型", "desc":"楼盘描述"};
+            var _fields = {"name":"名称", "roomCategoryId":"类型", "avgPrice":"均价", "acreage":"面积", "houseType":"户型", "desc":"描述"};
             var _keys = Object.keys(_fields);
             $(_dataList).each(function(k, item){
                 if (_keys.indexOf(item.name) > -1) {
@@ -288,6 +302,9 @@
             if (_findError) {
                 return false;
             }
+
+            //标签多选值数据
+            _dataList.push({name:"tagIds", value : $(".chosen-select").val()});
 
             //Ajax提交表单
             $.ajax({
