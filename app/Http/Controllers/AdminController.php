@@ -148,7 +148,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $model = new AdminModel();
-        $model->find($id)->delete();
+        $ok = $model->find($id)->delete();
         exit(json_encode(['code' => 0, 'msg' => '删除成功:']));
     }
 }
