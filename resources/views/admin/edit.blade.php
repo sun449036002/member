@@ -34,6 +34,18 @@
                             </div>
                             <div class="hr-line-dashed"></div>
 
+                            <div class="form-group"><label class="col-sm-2 control-label">引荐人</label>
+                                <div class="col-sm-10">
+                                    <select name="pid" class="form-control m-b">
+                                        <option value="0">请选择引荐人</option>
+                                        @foreach($adminList as $item)
+                                            <option value="{{$item->id}}" {{$item->id == $row->pid ? "selected='selected'" : ""}}>{{$item->name . "[" . $item->group_name . "]"}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">电话</label>

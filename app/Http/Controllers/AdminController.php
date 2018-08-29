@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    private $fields = ['id', "group_id", "name", "email", "created_at", "is_spread", "tel"];
+    private $fields = ['id', 'pid', "group_id", "name", "email", "created_at", "is_spread", "tel"];
 
     /**
      * Display a listing of the resource.
@@ -24,10 +24,22 @@ class AdminController extends Controller
         $list = $model->getList($this->fields, ['isDel' => 0]);
         $groupList = $groupModel->getList(['*'], ['isDel' => 0]);
         foreach ($list as $key => $item) {
+            //用户组
             foreach ($groupList as $group) {
                 if ($item->group_id == $group->id) {
                     $list[$key]->group_name = $group->name;
                     break;
+                }
+            }
+
+            //引荐人
+            $list[$key]->referrer = "";
+            if ($item->pid > 0) {
+                foreach ($list as $subItem) {
+                    if ($item->pid == $subItem->id) {
+                        $list[$key]->referrer = $subItem->name;
+                        break;
+                    }
                 }
             }
         }
@@ -66,6 +78,7 @@ class AdminController extends Controller
         }
 
         (new AdminModel())->insert([
+            'pid' => $data['pid'],
             'group_id' => $data['group_id'],
             'name' => $data['name'],
             'email' => $data['email'],
@@ -86,8 +99,22 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        $adminModel = new AdminModel();
+        $adminList = $adminModel->getList(['id', 'name', 'group_id'], ['isDel' => 0, ['id', '<>', $id]]);
+
         $groupModel = new AdminGroupModel();
         $groupList = $groupModel->getList(['*'], ['isDel' => 0]);
+
+        foreach ($adminList as $key => $item) {
+            foreach ($groupList as $group) {
+                if ($item->group_id == $group->id) {
+                    $adminList[$key]->group_name = $group->name;
+                    break;
+                }
+            }
+        }
+
+        $this->pageData['adminList'] = $adminList;
         $this->pageData['groupList'] = $groupList;
         $this->pageData['row'] = (new AdminModel())->getOne($this->fields, ['id' => $id]);
         return view('admin/edit', $this->pageData);
@@ -118,8 +145,9 @@ class AdminController extends Controller
 
         $model = new AdminModel();
         $model->updateData([
-            'name' => $data['name'],
+            'pid' => $data['pid'],
             'group_id' => $data['group_id'],
+            'name' => $data['name'],
             'tel' => $data['tel'],
             'is_spread' => $data['is_spread'] ?? 0,
         ], ['id' => $id]);

@@ -26,6 +26,7 @@
                             <th>用户组 </th>
                             <th>登录名 </th>
                             <th>电话 </th>
+                            <th>引荐人 </th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -37,6 +38,7 @@
                                 <td>{{$item->group_name ?? "未分配"}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>{{$item->tel}}</td>
+                                <td>{{$item->referrer}}</td>
                                 <td>
                                     @if(!empty($item->is_spread))
                                     <button type="button" class="btn btn-success btn-to-spread" data-toggle="modal" data-target="#myModal5" data-id="{{$item->id}}">推广链接</button>
@@ -73,6 +75,18 @@
                                 <option value="">请选择用户分组</option>
                                 @foreach($groupList as $group)
                                     <option value="{{$group->id}}">{{$group->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group"><label class="col-sm-2 control-label">引荐人</label>
+                        <div class="col-sm-10">
+                            <select name="pid" class="form-control m-b">
+                                <option value="0">请选择引荐人</option>
+                                @foreach($list as $item)
+                                    <option value="{{$item->id}}">{{$item->name . "[" . $item->group_name . "]"}}</option>
                                 @endforeach
                             </select>
                         </div>
