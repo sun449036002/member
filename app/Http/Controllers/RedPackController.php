@@ -14,6 +14,7 @@ use App\Model\CashbackModel;
 use App\Model\RedPackConfigModel;
 use App\Model\RedPackModel;
 use App\Model\UserModel;
+use App\Model\WithdrawModel;
 use Illuminate\Http\Request;
 
 class RedPackController extends Controller
@@ -110,6 +111,42 @@ class RedPackController extends Controller
         //更新申请状态
         $model->updateData(['status' => 1], ['id' => $id]);
         return ResultClientJson(0, '操作成功');
+    }
+
+    //提现申请列表
+    public function withdraw() {
+        $withdrawList = (new WithdrawModel())->getList(['*'], [], ['id', 'desc']);
+        $this->pageData['list'] = $withdrawList;
+
+        return SView('/redPack/withdraw', $this->pageData);
+    }
+
+    //提现申请详情
+    public function withdrawDetail(Request $request) {
+        $id = $request->get("id");
+        $row = (new WithdrawModel())->getOne(['*'], ['id' => $id]);
+        if (empty($row)) {
+            return back()->withErrors("不存在此返现详情");
+        }
+
+        //红包信息
+        $model = new RedPackModel();
+        if (!empty($row->redPackIds) || !empty($row->friendRedPackIds)) {
+            $redPackIds = explode(',', $row->redPackIds);
+            $redPackList = $model->getList(['id', 'userId', 'fromUserId', 'total', 'received', 'status', 'useExpiredTime'], [['id', 'in', $redPackIds]]);
+            $this->pageData['redPackList'] = $redPackList;
+        }
+
+        $row->createTime = date("Y-m-d H:i:s", $row->createTime);
+        $row->paymentMethodList = json_decode($row->paymentMethod) ?: [];
+        $this->pageData['row'] = $row;
+
+        return SView("/redPack/withdrawDetail", $this->pageData);
+    }
+
+    //提现申请审查
+    public function withdrawExamine(Request $request) {
+
     }
 
     /**

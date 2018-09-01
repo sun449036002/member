@@ -181,6 +181,10 @@ class Controller extends BaseController
                             'route' => '/redPack/cashBack',
                         ],
                         [
+                            'title' => '提现申请列表',
+                            'route' => '/redPack/withdraw',
+                        ],
+                        [
                             'title' => '红包数据统计',
                             'route' => '/redPack/statistics',
                         ]

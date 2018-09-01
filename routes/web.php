@@ -99,6 +99,9 @@ Route::post("/redPack/saveConfig", "RedPackController@saveConfig");
 Route::get("/redPack/cashBack", "RedPackController@cashBack");
 Route::get("/redPack/cashBackDetail", "RedPackController@cashBackDetail");
 Route::get("/redPack/statistics", "RedPackController@statistics");
+Route::get("/redPack/withdraw", "RedPackController@withdraw");
+Route::get("/redPack/withdrawDetail", "RedPackController@withdrawDetail");
+Route::post("/redPack/withdrawExamine", "RedPackController@withdrawExamine");
 
 //红包返现审核通过
 Route::post("/redPack/cashBackExamine", "RedPackController@cashBackExamine");
