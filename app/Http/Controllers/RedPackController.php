@@ -19,6 +19,7 @@ use App\Model\UserModel;
 use App\Model\WithdrawModel;
 use EasyWeChat\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RedPackController extends Controller
 {
@@ -175,9 +176,10 @@ class RedPackController extends Controller
         //发送模板消息给用户
         $isPass = $status == 1;
         $user = (new UserModel())->getOne(['openid'], ['id' => $row->userId]);
+        Log::info('user', [$user]);
         if (!empty($user->openid)) {
             $wxapp = Factory::officialAccount(getWxConfig());
-            $wxapp->template_message->send([
+            $ok = $wxapp->template_message->send([
                 'touser' => $user->openid,
                 'template_id' => WxConst::TEMPLATE_ID_FOR_WITHDRAW_NOTICE,
                 'url' => env('APP_URL') . "/my/balance",
@@ -195,6 +197,7 @@ class RedPackController extends Controller
                     'remark' => $remark
                 ],
             ]);
+            Log::info('send msg', [$ok]);
         }
 
         //更新余额日志状态
