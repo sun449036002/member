@@ -57,6 +57,14 @@
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">驳回原因</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="remark" value="" placeholder="驳回原因"></div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
                             <button class="btn btn-primary btn-withdraw btn-pass" data-status="1" type="button">通过</button>
                             <button class="btn btn-primary btn-withdraw btn-no-pass" data-status="2" type="button">不通过</button>
@@ -75,9 +83,19 @@
         $(".btn.btn-withdraw").on("click", function() {
             var self = $(this);
             var status = self.data("status");
+            var title = "通过";
+            var text = "通过后若有红包，则红包的状态将置为已使用状态，且不能恢复!";
+            if (status === 2) {
+                title = "驳回";
+                text = "驳回时，红包状态不变";
+                if($("input[name='remark']").val() === "") {
+                    swal("驳回原因不能为空");
+                    return false;
+                }
+            }
             swal({
-                title: "确定要通过审核吗?",
-                text: "通过后若有红包，则红包的状态将置为已使用状态，且不能恢复!",
+                title: "确定要" + title + "审核吗?",
+                text: text,
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",

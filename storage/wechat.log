@@ -1262,3 +1262,93 @@ Content-Length: 27
 {"errcode":0,"errmsg":"ok"}
 --------
 NULL  
+[2018-09-01 12:27:58] NULL.INFO: >>>>>>>>
+POST /cgi-bin/message/template/send?access_token=13_V4Op6lxbLDnW21CybwGD9Ja74CqDecY4lh3mDXNAZ6HJnwOYIFXGws353u0aeL_4wgVe2WoaR4VlfQs7D03zTc8zSoagjRbT8Tr-M6aLPQEd9b-CPliIr532O8BcnLaU6fhRN_zs3ucF9nAhMSEeAHAQWI HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 413
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"touser":"o1siQ0TJfaFjIdoAJvzxGQHCVQJM","template_id":"\tjhtDEOEiby3y2WyxY7K74rWxHPyqCzhm3Mvrexhczf0","url":"http:\/\/wxlocal.whatareu.top\/my\/balance","data":{"first":{"value":"您提交的提现申请被驳回了","color":"#169ADA"},"keyword1":{"value":"提现申请"},"keyword2":{"value":"审核未通过","color":"#d222e0"},"keyword3":{"value":"2018-09-01 12:27:58"},"remark":{"value":""}},"miniprogram":""}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sat, 01 Sep 2018 04:27:58 GMT
+Content-Length: 71
+
+{"errcode":40037,"errmsg":"invalid template_id hint: [1BnjOA00784123]"}
+--------
+NULL  
+[2018-09-01 12:27:58] NULL.INFO: >>>>>>>>
+POST /cgi-bin/message/template/send?access_token=13_qXPf5yNSu8U-FERtbwGD9Ja74CqDecY4lh3mDXNAZ6HJnwOYIFXGws353u2ekqInKhzsGjBWq6wFlaNIJiEcJjBIqchPwu9lUkNw2upovZInVI10BaJ_q0d--lRGwxx_upRViLL_F3hLSR_cSAEeAHALTX HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 413
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"touser":"o1siQ0TJfaFjIdoAJvzxGQHCVQJM","template_id":"\tjhtDEOEiby3y2WyxY7K74rWxHPyqCzhm3Mvrexhczf0","url":"http:\/\/wxlocal.whatareu.top\/my\/balance","data":{"first":{"value":"您提交的提现申请被驳回了","color":"#169ADA"},"keyword1":{"value":"提现申请"},"keyword2":{"value":"审核未通过","color":"#d222e0"},"keyword3":{"value":"2018-09-01 12:27:58"},"remark":{"value":""}},"miniprogram":""}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sat, 01 Sep 2018 04:27:58 GMT
+Content-Length: 71
+
+{"errcode":40037,"errmsg":"invalid template_id hint: [4wbdGA00783937]"}
+--------
+NULL  
+[2018-09-01 12:27:58] NULL.INFO: >>>>>>>>
+POST /cgi-bin/message/template/send?access_token=13_qXPf5yNSu8U-FERtbwGD9Ja74CqDecY4lh3mDXNAZ6HJnwOYIFXGws353u2ekqInKhzsGjBWq6wFlaNIJiEcJjBIqchPwu9lUkNw2upovZInVI10BaJ_q0d--lRGwxx_upRViLL_F3hLSR_cSAEeAHALTX HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 413
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"touser":"o1siQ0TJfaFjIdoAJvzxGQHCVQJM","template_id":"\tjhtDEOEiby3y2WyxY7K74rWxHPyqCzhm3Mvrexhczf0","url":"http:\/\/wxlocal.whatareu.top\/my\/balance","data":{"first":{"value":"您提交的提现申请被驳回了","color":"#169ADA"},"keyword1":{"value":"提现申请"},"keyword2":{"value":"审核未通过","color":"#d222e0"},"keyword3":{"value":"2018-09-01 12:27:58"},"remark":{"value":""}},"miniprogram":""}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sat, 01 Sep 2018 04:27:58 GMT
+Content-Length: 71
+
+{"errcode":40037,"errmsg":"invalid template_id hint: [rHk.tA0078shc2]"}
+--------
+NULL  
+[2018-09-01 12:27:59] NULL.INFO: >>>>>>>>
+POST /cgi-bin/message/template/send?access_token=13_gTeXaXE6Wq40BvxDbwGD9Ja74CqDecY4lh3mDXNAZ6HJnwOYIFXGws353u36zn-t5Hr7ICElPqUSjQdhr45V4MTT6IqxqLIhuQbyk_qkW0ASBPA8EoKGOmP06-1cVcH1JU1iHNydxHZTwGH7UTNeAHADCW HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 413
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"touser":"o1siQ0TJfaFjIdoAJvzxGQHCVQJM","template_id":"\tjhtDEOEiby3y2WyxY7K74rWxHPyqCzhm3Mvrexhczf0","url":"http:\/\/wxlocal.whatareu.top\/my\/balance","data":{"first":{"value":"您提交的提现申请被驳回了","color":"#169ADA"},"keyword1":{"value":"提现申请"},"keyword2":{"value":"审核未通过","color":"#d222e0"},"keyword3":{"value":"2018-09-01 12:27:58"},"remark":{"value":""}},"miniprogram":""}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sat, 01 Sep 2018 04:27:58 GMT
+Content-Length: 71
+
+{"errcode":40037,"errmsg":"invalid template_id hint: [.6bnOA00783946]"}
+--------
+NULL  
+[2018-09-01 12:27:59] NULL.INFO: >>>>>>>>
+POST /cgi-bin/message/template/send?access_token=13_odo5Nl4ghRL-w2KSbwGD9Ja74CqDecY4lh3mDXNAZ6HJnwOYIFXGws353u0mLay3WgttzzXc7084JPFAAjlkMeGafD5vQHykVe5i5JlWUhbmxOmus_W-XY2l2otUdP7wVCJBgPaDENN8xxxePSEeAHALOA HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 413
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"touser":"o1siQ0TJfaFjIdoAJvzxGQHCVQJM","template_id":"\tjhtDEOEiby3y2WyxY7K74rWxHPyqCzhm3Mvrexhczf0","url":"http:\/\/wxlocal.whatareu.top\/my\/balance","data":{"first":{"value":"您提交的提现申请被驳回了","color":"#169ADA"},"keyword1":{"value":"提现申请"},"keyword2":{"value":"审核未通过","color":"#d222e0"},"keyword3":{"value":"2018-09-01 12:27:56"},"remark":{"value":""}},"miniprogram":""}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sat, 01 Sep 2018 04:27:59 GMT
+Content-Length: 71
+
+{"errcode":40037,"errmsg":"invalid template_id hint: [ZbHicA00794129]"}
+--------
+NULL  

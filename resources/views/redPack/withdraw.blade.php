@@ -25,7 +25,7 @@
                             <td>{{$item->id}}</td>
                             <td>{{$item->name}}</td>
                             <td>{{$item->tel}}</td>
-                            <td>{{$item->status ? "已通过" : "未通过"}}</td>
+                            <td>{{$withdrawStatus[$item->status] ?? "未设定"}}</td>
                             <td>{{date("Y-m-d H:i:s", $item->createTime)}}</td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-to-detail" data-id="{{$item->id}}">查看详情</button>

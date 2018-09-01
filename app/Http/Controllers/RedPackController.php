@@ -10,15 +10,20 @@ namespace App\Http\Controllers;
 
 
 use App\Consts\StateConst;
+use App\Consts\WxConst;
 use App\Model\CashbackModel;
 use App\Model\RedPackConfigModel;
 use App\Model\RedPackModel;
 use App\Model\UserModel;
 use App\Model\WithdrawModel;
+use EasyWeChat\Factory;
 use Illuminate\Http\Request;
 
 class RedPackController extends Controller
 {
+    //提现申请状态
+    private $withdrawStatus = ["未审核", "通过", "驳回"];
+
     //获取配置
     public function config() {
         $model = new RedPackConfigModel();
@@ -117,6 +122,7 @@ class RedPackController extends Controller
     public function withdraw() {
         $withdrawList = (new WithdrawModel())->getList(['*'], [], ['id', 'desc']);
         $this->pageData['list'] = $withdrawList;
+        $this->pageData['withdrawStatus'] = $this->withdrawStatus;
 
         return SView('/redPack/withdraw', $this->pageData);
     }
@@ -131,7 +137,7 @@ class RedPackController extends Controller
 
         //红包信息
         $model = new RedPackModel();
-        if (!empty($row->redPackIds) || !empty($row->friendRedPackIds)) {
+        if (!empty($row->redPackIds)) {
             $redPackIds = explode(',', $row->redPackIds);
             $redPackList = $model->getList(['id', 'userId', 'fromUserId', 'total', 'received', 'status', 'useExpiredTime'], [['id', 'in', $redPackIds]]);
             $this->pageData['redPackList'] = $redPackList;
@@ -146,7 +152,54 @@ class RedPackController extends Controller
 
     //提现申请审查
     public function withdrawExamine(Request $request) {
+        $id = $request->post("id");
+        $status = $request->post("status");//1通过，2驳回
+        $remark = $request->post("remark", "");//驳回原因
 
+        $model = new WithdrawModel();
+        $row = $model->getOne(['userId', 'redPackIds'], ['id' => $id]);
+        if (empty($row)) {
+            return ResultClientJson(100, '不存在此返现申请数据');
+        }
+
+        //通过操作，则把红包置为已使用状态
+        if ($status == 1) {
+            //红包信息
+            if (!empty($row->redPackIds)) {
+                $redPackIds = explode(',', $row->redPackIds);
+                (new RedPackModel())->updateData(['status' => StateConst::RED_PACK_USED], [["id", 'in', $redPackIds]]);
+            }
+        }
+
+        //发送模板消息给用户
+        $user = (new UserModel())->getOne(['openid'], ['id' => $row->userId]);
+        if (!empty($user->openid)) {
+            $isPass = $status == 1;
+            $wxapp = Factory::officialAccount(getWxConfig());
+            $wxapp->template_message->send([
+                'touser' => $user->openid,
+                'template_id' => WxConst::TEMPLATE_ID_FOR_WITHDRAW_NOTICE,
+                'url' => env('APP_URL') . "/my/balance",
+                'data' => [
+                    'first' => [
+                        "value" => $isPass ? "您提交的提现申请已经审核通过" : "您提交的提现申请被驳回了",
+                        "color" => "#169ADA"
+                    ],
+                    'keyword1' => "提现申请",
+                    'keyword2' => [
+                        "value" => $isPass ? '审核通过' : "审核未通过",
+                        'color' => $isPass ? '#d22e20' : "#d222e0"
+                    ],
+                    'keyword3' => date("Y-m-d H:i:s"),
+                    'remark' => $remark
+                ],
+            ]);
+        }
+
+
+        //更新申请状态
+        $model->updateData(['status' => $status], ['id' => $id]);
+        return ResultClientJson(0, '操作成功');
     }
 
     /**
