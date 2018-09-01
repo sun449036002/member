@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 
 use App\Consts\StateConst;
 use App\Consts\WxConst;
+use App\Model\BalanceLogModel;
 use App\Model\CashbackModel;
 use App\Model\RedPackConfigModel;
 use App\Model\RedPackModel;
@@ -172,9 +173,9 @@ class RedPackController extends Controller
         }
 
         //发送模板消息给用户
+        $isPass = $status == 1;
         $user = (new UserModel())->getOne(['openid'], ['id' => $row->userId]);
         if (!empty($user->openid)) {
-            $isPass = $status == 1;
             $wxapp = Factory::officialAccount(getWxConfig());
             $wxapp->template_message->send([
                 'touser' => $user->openid,
@@ -196,7 +197,8 @@ class RedPackController extends Controller
             ]);
         }
 
-
+        //更新余额日志状态
+        (new BalanceLogModel())->updateData(['type' => $isPass ? 2 : 3], ['targetId' => $id]);
         //更新申请状态
         $model->updateData(['status' => $status], ['id' => $id]);
         return ResultClientJson(0, '操作成功');
