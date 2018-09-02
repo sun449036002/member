@@ -114,6 +114,8 @@ class HubController extends Controller
 
         //创建公众号菜单
         $this->createWxMenus();
+
+        return ResultClientJson(0, '删除成功');
     }
 
 

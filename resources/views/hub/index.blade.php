@@ -138,19 +138,31 @@ $(document).ready(function() {
 
     //TO 删除
     $(".btn.btn-to-del").on("click", function(){
-        $.ajax({
-            type : 'post',
-            url : "/weixin/custom-menu-del",
-            data : {
-                id : $(this).data("id") || 0
-            },
-            dataType : "json",
-            headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
-            success : function(res){
-                alert(res.msg);
-                window.location.reload();
-            }
+        var self = $(this);
+        swal({
+            title: "确定要删除吗?",
+            text: "删除后将不能恢复!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定!",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type : 'post',
+                url : "/hub/del",
+                data : {
+                    id : self.data("id") || 0
+                },
+                dataType : "json",
+                headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
+                success : function(res){
+                    swal(res.msg);
+                    window.location.reload();
+                }
+            });
         });
+
     });
 });
 </script>

@@ -134,3 +134,295 @@ Content-Length: 27
 {"errcode":0,"errmsg":"ok"}
 --------
 NULL  
+[2018-09-02 14:12:33] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_3zIJ0MB6YAd2LyHskOObW2DR-AWrvSnzQoWcsTwgGT2MS53ivTm-3blp5IPGhWrZ8oxUjbSKVTJg-mIxDg_7s56R18Lvus0CbPCvMRFOQ6Gi6QtDSB3_bWIK7YvrhfKBjuffXrSIQTWAS5m8EGXeAIAIKB HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Date: Sun, 02 Sep 2018 06:12:33 GMT
+Content-Type: application/json; encoding=utf-8
+Content-Length: 110
+
+{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [iNUl6a0753vr65!]"}
+--------
+NULL  
+[2018-09-02 14:12:33] NULL.DEBUG: Retrying with refreshed access token.  
+[2018-09-02 14:12:33] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_3zIJ0MB6YAd2LyHskOObW2DR-AWrvSnzQoWcsTwgGT2MS53ivTm-3blp5IPGhWrZ8oxUjbSKVTJg-mIxDg_7s56R18Lvus0CbPCvMRFOQ6Gi6QtDSB3_bWIK7YvrhfKBjuffXrSIQTWAS5m8EGXeAIAIKB HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:33 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:33] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_3zIJ0MB6YAd2LyHskOObW2DR-AWrvSnzQoWcsTwgGT2MS53ivTm-3blp5IPGhWrZ8oxUjbSKVTJg-mIxDg_7s56R18Lvus0CbPCvMRFOQ6Gi6QtDSB3_bWIK7YvrhfKBjuffXrSIQTWAS5m8EGXeAIAIKB HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:33 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:34] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=13_7i6eIrUmiDY3J8O9c6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C0PTN88lHpDv-4vAjiTGu3q8CpukHr9BVM33mNhw-j-uNB2pSmBqTI5CaTOjPvEv6UwGbmUwt2iqCa9tq_CCop-HUQjAEADQM HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 189
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"产品","url":"http:\/\/wxlocal.whatareu.top"},{"name":"首页","sub_button":[{"type":"view","name":"现金抢红包39","url":"http:\/\/www.baidu.com"}]}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:34 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:34] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_7i6eIrUmiDY3J8O9c6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C0PTN88lHpDv-4vAjiTGu3q8CpukHr9BVM33mNhw-j-uNB2pSmBqTI5CaTOjPvEv6UwGbmUwt2iqCa9tq_CCop-HUQjAEADQM HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:34 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:34] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_3zIJ0MB6YAd2LyHskOObW2DR-AWrvSnzQoWcsTwgGT2MS53ivTm-3blp5IPGhWrZ8oxUjbSKVTJg-mIxDg_7s56R18Lvus0CbPCvMRFOQ6Gi6QtDSB3_bWIK7YvrhfKBjuffXrSIQTWAS5m8EGXeAIAIKB HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Date: Sun, 02 Sep 2018 06:12:34 GMT
+Content-Type: application/json; encoding=utf-8
+Content-Length: 110
+
+{"errcode":40001,"errmsg":"invalid credential, access_token is invalid or not latest hint: [MVUSRa0754vr69!]"}
+--------
+NULL  
+[2018-09-02 14:12:34] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=13_7i6eIrUmiDY3J8O9c6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C0PTN88lHpDv-4vAjiTGu3q8CpukHr9BVM33mNhw-j-uNB2pSmBqTI5CaTOjPvEv6UwGbmUwt2iqCa9tq_CCop-HUQjAEADQM HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 189
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"产品","url":"http:\/\/wxlocal.whatareu.top"},{"name":"首页","sub_button":[{"type":"view","name":"现金抢红包39","url":"http:\/\/www.baidu.com"}]}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:34 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:34] NULL.DEBUG: Retrying with refreshed access token.  
+[2018-09-02 14:12:34] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=13_7i6eIrUmiDY3J8O9c6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C0PTN88lHpDv-4vAjiTGu3q8CpukHr9BVM33mNhw-j-uNB2pSmBqTI5CaTOjPvEv6UwGbmUwt2iqCa9tq_CCop-HUQjAEADQM HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 189
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"产品","url":"http:\/\/wxlocal.whatareu.top"},{"name":"首页","sub_button":[{"type":"view","name":"现金抢红包39","url":"http:\/\/www.baidu.com"}]}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:34 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:35] NULL.NOTICE: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_3zIJ0MB6YAd2LyHskOObW2DR-AWrvSnzQoWcsTwgGT2MS53ivTm-3blp5IPGhWrZ8oxUjbSKVTJg-mIxDg_7s56R18Lvus0CbPCvMRFOQ6Gi6QtDSB3_bWIK7YvrhfKBjuffXrSIQTWAS5m8EGXeAIAIKB HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+
+--------
+cURL error 28: Resolving timed out after 5506 milliseconds (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)  
+[2018-09-02 14:12:35] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:35 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:35] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 189
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"产品","url":"http:\/\/wxlocal.whatareu.top"},{"name":"首页","sub_button":[{"type":"view","name":"现金抢红包39","url":"http:\/\/www.baidu.com"}]}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:35 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:38] NULL.NOTICE: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_3zIJ0MB6YAd2LyHskOObW2DR-AWrvSnzQoWcsTwgGT2MS53ivTm-3blp5IPGhWrZ8oxUjbSKVTJg-mIxDg_7s56R18Lvus0CbPCvMRFOQ6Gi6QtDSB3_bWIK7YvrhfKBjuffXrSIQTWAS5m8EGXeAIAIKB HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+
+--------
+cURL error 28: Resolving timed out after 5522 milliseconds (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)  
+[2018-09-02 14:12:55] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:55 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:12:55] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 119
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"name":"首页","sub_button":[{"type":"view","name":"现金抢红包39","url":"http:\/\/www.baidu.com"}]}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:12:55 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:14:14] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:14:14 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:14:15] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 82
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[{"type":"view","name":"首页","url":"http:\/\/wxlocal.whatareu.top"}]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:14:15 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:14:19] NULL.INFO: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:14:19 GMT
+Content-Length: 27
+
+{"errcode":0,"errmsg":"ok"}
+--------
+NULL  
+[2018-09-02 14:14:19] NULL.INFO: >>>>>>>>
+POST /cgi-bin/menu/create?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+Content-Length: 13
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+Content-Type: application/json
+
+{"button":[]}
+<<<<<<<<
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json; encoding=utf-8
+Date: Sun, 02 Sep 2018 06:14:19 GMT
+Content-Length: 71
+
+{"errcode":40016,"errmsg":"invalid button size hint: [YnUwBa08593127]"}
+--------
+NULL  

@@ -50,13 +50,6 @@ Route::get('/', "IndexController@index");
 //重置管理员密码
 Route::post('/admins/resetPwd', "AdminController@resetPwd");
 
-//微信自定义菜单
-Route::get("/weixin/custom-menu", "CustomMenuController@index");
-Route::post("/weixin/custom-menu-create", "CustomMenuController@create");
-Route::post("/weixin/custom-menu-del", "CustomMenuController@del");
-Route::get("/weixin/custom-menu-edit", "CustomMenuController@edit");
-Route::post("/weixin/custom-menu-do-edit", "CustomMenuController@doEdit");
-
 //图片上传
 Route::post("/img/upload", "ImgController@upload");
 
