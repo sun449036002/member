@@ -29,8 +29,18 @@
                             <td>{{$item->id}}</td>
                             <td>{{$item->roomSourceName}}</td>
                             <td>{{$item->adminName}}</td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->tel}}</td>
+                            <td>
+                                {{$item->name}}
+                                @if(!empty($item->name2))
+                                    <br/>{{$item->name2}}
+                                @endif
+                            </td>
+                            <td>
+                                {{$item->tel}}
+                                @if(!empty($item->tel2))
+                                    <br/>{{$item->tel2}}
+                                @endif
+                            </td>
                             <td>{{$item->num}}</td>
                             <td>{{$item->address}}</td>
                             <td>{{$item->time}}</td>

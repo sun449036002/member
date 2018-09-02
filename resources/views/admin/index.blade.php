@@ -7,6 +7,10 @@
     #qrcode canvas {
         margin: auto;
     }
+
+    .qr-code-tips {
+        font-size:16px;
+    }
 </style>
 <script type="text/javascript" src="{{asset('js/jquery.qrcode.min.js')}}"></script>
 
@@ -142,7 +146,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title"></h4>
-                <small class="font-bold">这是您的推广二维码，微信扫码后分享后推广</small>
+                <small class="font-bold qr-code-tips">微信扫码领取500元现金大礼包</small>
             </div>
             <div class="modal-body">
                 <div id="qrcode"></div>

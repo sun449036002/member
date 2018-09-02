@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Logic\BespeakLogic;
+use App\Model\AdminModel;
 use App\Model\AreaModel;
 use App\Model\BespeakModel;
 use App\Model\HouseTypeModel;
@@ -17,6 +18,7 @@ use App\Model\RoomCategoryModel;
 use App\Model\RoomSourceModel;
 use App\Model\RoomTagModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RoomSourceController extends Controller
@@ -42,8 +44,15 @@ class RoomSourceController extends Controller
             $houseTypeArr[$houseType->id] = $houseType->name;
         }
 
+        $admins = [];
+        $adminList = (new AdminModel())->getList(['id', 'name'], ['isDel' => 0]);
+        foreach ($adminList as $admin) {
+            $admins[$admin->id] = $admin->name;
+        }
+
         $list = (new RoomSourceModel())->getList(['*'], ['isDel' => 0], ['id', "desc"]);
         foreach ($list as $item) {
+            $item->adminName = $admins[$item->adminId] ?? "未知";
             $item->area = $areaArr[$item->areaId] ?? "未知";
             $item->houseType = $houseTypeArr[$item->houseTypeId] ?? "未知";
         }
@@ -71,6 +80,7 @@ class RoomSourceController extends Controller
         }
         $model = new RoomSourceModel();
         $model->insert([
+            'adminId' => Auth::user()->getAuthIdentifier(),
             'name' => $data['name'],
             'type' => $data['type'],
             'areaId' => $data['areaId'],
@@ -145,6 +155,7 @@ class RoomSourceController extends Controller
 
         $model = new RoomSourceModel();
         $updateData = [
+            //更新时，添加的操作员ID不作变更
             'name' => $data['name'],
             'type' => $data['type'],
             'areaId' => $data['areaId'],
