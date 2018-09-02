@@ -32,11 +32,18 @@ class ImgController
         $thumbnail_file_dir = "/images/room-source-thumbnail/" . date("Ymd");
         Storage::makeDirectory($thumbnail_file_dir);
         if (!empty($data['cover'])) {
-            $filePath = $request->file("cover")->store($destinationPath);
+            $coverFile = $request->file('cover');
+            if (!$coverFile->isValid()) {
+                $result['code'] = 100;
+                $result['msg'] = $coverFile->getErrorMessage();
+                return $result;
+            }
+            $filePath = $coverFile->store($destinationPath);
             $result['imgs'][] = "/" . ltrim($filePath, "/");
 
             //缩略图
             $thumbnail_file_path = storage_path() .  "/app/" . str_replace("room-source", 'room-source-thumbnail', $filePath);
+//            dd($coverFile, $data['cover']);
             Image::make($data['cover'])->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($thumbnail_file_path);
@@ -44,18 +51,22 @@ class ImgController
             return $result;
         } else if (!empty($data['imgs'])) {
             $filePathList = [];
+            $errorMsgs = [];
             foreach ($data['imgs'] as $key => $img) {
-                // 判断图片上传中是否出错
-                if (!$img->isValid()) {
-                    $result['code'] = 100;
-                    $result['msg'] = '上传图片出错，请重试';
-                }
-                if(!empty($img)){//此处防止没有多文件上传的情况
+                if(!empty($img)){
+                    // 判断图片上传中是否出错
+                    if (!$img->isValid()) {
+                        $errorMsgs[] = $img->getErrorMessage();
+                        continue;
+                    }
+
+                    //此处防止没有多文件上传的情况
                     $allowed_extensions = ["png", "jpg", "gif"];
                     if ($img->getClientOriginalExtension() && !in_array($img->getClientOriginalExtension(), $allowed_extensions)) {
-                        $result['code'] = 100;
-                        $result['msg'] = '您只能上传PNG、JPG或GIF格式的图片！';
+                        $errorMsgs[] = '您只能上传PNG、JPG或GIF格式的图片！';
+                        continue;
                     }
+
                     $extension = $img->getClientOriginalExtension();   // 上传文件后缀
                     $fileName = date('YmdHis').mt_rand(100,999) . '.'.$extension; // 重命名
                     $filePath = $destinationPath.'/'.$fileName;
@@ -72,6 +83,14 @@ class ImgController
                     $filePathList[] = $filePath;
                 }
             }
+
+            //若有错误，直接显示错误
+            if (!empty($errorMsgs)) {
+                $result['code'] = 100;
+                $result['msg'] = join("#且#", $errorMsgs);
+                return $result;
+            }
+
             $result['imgs'] = $filePathList;
             return $result;
         }

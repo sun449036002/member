@@ -323,6 +323,7 @@ function initCover(successCallback, csrf_token, keyName) {
         autoProcessQueue: true,
         uploadMultiple: false,
         parallelUploads: 1,
+        allowedFileTypes:'jpg,png,gif',
         maxFiles: 1,
 
         // Dropzone settings
