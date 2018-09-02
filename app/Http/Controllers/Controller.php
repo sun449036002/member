@@ -125,20 +125,16 @@ class Controller extends BaseController
                     'title' => '首页',
                     'route' => '/'
                 ],
-            [
-                'title' => '公众号菜单管理',
-                'route' => '#',
-                'subMenuList' => [
-                    [
-                        'title' => '菜单列表',
-                        'route' => '/hub',
-                    ],
-                    [
-                        'title' => '添加分类',
-                        'route' => '/hub/add',
-                    ],
-                ]
-            ],
+                [
+                    'title' => '公众号菜单管理',
+                    'route' => '#',
+                    'subMenuList' => [
+                        [
+                            'title' => '菜单列表',
+                            'route' => '/hub',
+                        ]
+                    ]
+                ],
                 [
                     'title' => '房源分类管理',
                     'route' => '#',
