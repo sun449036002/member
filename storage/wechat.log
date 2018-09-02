@@ -426,3 +426,13 @@ Content-Length: 71
 {"errcode":40016,"errmsg":"invalid button size hint: [YnUwBa08593127]"}
 --------
 NULL  
+[2018-09-02 14:18:39] NULL.NOTICE: >>>>>>>>
+GET /cgi-bin/menu/delete?access_token=13_5MBjBpeyjvaqoPsac6cIHZwAu0KJNX8eNcwXASmlwyRnU-s-Fq95MqZ36C3af6Ob9teIP20bclAsoXJQ4BA76u14fSbgMbwgTT6EBEISSWovcRBYX11V9BT4p7weML8qD-7FQiRuCcWLOJi6OVYjAEAVCF HTTP/1.1
+Host: api.weixin.qq.com
+User-Agent: GuzzleHttp/6.3.3 curl/7.59.0 PHP/7.2.7
+
+
+<<<<<<<<
+
+--------
+cURL error 28: Resolving timed out after 5507 milliseconds (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)  

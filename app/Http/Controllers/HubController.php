@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Validator;
 
 class HubController extends Controller
 {
+    //一级栏目限制个数
+    private $maxRootButtonSize = 3;
+
+    //二级栏目限制个数
+    private $maxSecondButtonSize = 5;
+
     /**
      * 栏目列表
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -39,6 +45,12 @@ class HubController extends Controller
         $validate = Validator::make($data, $rule, $message);
         if (!$validate->passes()) {
             return back()->withErrors($validate);
+        }
+
+        //检测菜单数量限制
+        $checkResult = $this->checkButtonSize($data['pid']);
+        if (is_string($checkResult)) {
+            return back()->withErrors($checkResult);
         }
 
         $model = new HubModel();
@@ -95,6 +107,12 @@ class HubController extends Controller
             return back()->withErrors($validate);
         }
 
+        //检测菜单数量限制
+        $checkResult = $this->checkButtonSize($data['pid']);
+        if (is_string($checkResult)) {
+            return back()->withErrors($checkResult);
+        }
+
         $model = new HubModel();
         $model->updateData([
             'pid' => $data['pid'],
@@ -148,6 +166,23 @@ class HubController extends Controller
         $wxApp = Factory::officialAccount(getWxConfig());
         $wxApp->menu->delete();//先全部删除
         $wxApp->menu->create($buttons);//再全部重建
+    }
+
+    /**
+     * 检测菜单数量限制
+     * @param int $pid
+     * @return bool|string
+     */
+    private function checkButtonSize($pid = 0) {
+        $count = (new HubModel())->where("pid", $pid)->count();
+
+        $limitCount = $pid > 0 ? $this->maxSecondButtonSize : $this->maxRootButtonSize;
+
+        if ($count >= $limitCount) {
+            return ($pid > 0 ? "二" : "一") . "级栏目已达到最大个数({$limitCount}个)，不能再创建";
+        } else {
+            return true;
+        }
     }
 
 }
