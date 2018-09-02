@@ -13,7 +13,7 @@ class HubModel extends BaseModel
 {
     protected $table = "hubs";
 
-    private $columns = ["id", "name"];
+    private $columns = ['*'];
 
     public function getHubList($pid = 0) {
          return $this->getList($this->columns, ['pid' => $pid, 'isDel' => 0]);

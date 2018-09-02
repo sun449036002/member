@@ -9,10 +9,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Logic\HubLogic;
 use App\Model\HubModel;
+use EasyWeChat\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\CssSelector\Parser\Reader;
 
 class HubController extends Controller
 {
@@ -21,17 +22,10 @@ class HubController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        //一级栏目
-        $model = new HubModel();
-        $list = $model->getHubList();
+        $list = (new HubLogic())->getMenuList();
+        $this->pageData['list'] = $list;
 
-        if (!empty($list)) {
-            foreach ($list as $key => $hub) {
-                $list[$key]->sublist = $model->getHubList($hub->id);
-            }
-        }
-
-        return view('/hub/index', ['list' => $list]);
+        return view('/hub/index', $this->pageData);
     }
 
     public function doAdd(Request $request) {
@@ -49,9 +43,13 @@ class HubController extends Controller
 
         $model = new HubModel();
         $model->insert([
+            'pid' => $data['pid'],
             'name' => $data['name'],
-            'pid' => $data['pid']
+            'url' => $data['url']
         ]);
+
+        //创建公众号菜单
+        $this->createWxMenus($data);
 
         return redirect('/hub');
     }
@@ -64,10 +62,10 @@ class HubController extends Controller
         }
 
         $model = new HubModel();
-        $row = $model->getOne(['id', 'pid', 'name'], ['id' => $data['id']]);
+        $row = $model->getOne(['*'], ['id' => $data['id']]);
         if (!empty($row->pid)) {
             $subRow = $model->getOne(['name'], ['id' => $row->pid]);
-            $row['subName'] = $subRow->name;
+            $row->subName = $subRow->name;
         }
 
         //取得一级栏目名称 排除自身
@@ -76,7 +74,10 @@ class HubController extends Controller
             if ($val->id == $row->id) unset($list[$key]);
         }
 
-        return view("/hub/edit", ['row' => $row, 'list' => $list]);
+        $this->pageData['row'] = $row;
+        $this->pageData['list'] = $list;
+
+        return view("/hub/edit", $this->pageData);
     }
 
     public function doEdit(Request $request) {
@@ -96,15 +97,55 @@ class HubController extends Controller
 
         $model = new HubModel();
         $model->updateData([
+            'pid' => $data['pid'],
             'name' => $data['name'],
-            'pid' => $data['pid']
+            'url' => $data['url']
         ], ['id' => $data['id']]);
+
+        //创建公众号菜单
+        $this->createWxMenus();
 
         return redirect('/hub');
     }
 
-    public function del() {
+    public function del(Request $request) {
+        $id = $request->post("id");
+        (new HubModel())->updateData(['isDel' => 1], ['id' => $id]);
 
+        //创建公众号菜单
+        $this->createWxMenus();
+    }
+
+
+    /**
+     * 创建微信菜单
+     * @param array $data
+     */
+    private function createWxMenus($data = []) {
+        //创建公众号菜单
+        $buttons = (new HubLogic())->getMenuButtons();
+        if (!empty($data)) {
+            if (!empty($data['pid'])) {
+                $subs = $buttons[$data['pid']]['sub_button'] ?? [];
+                $subs[] = [
+                    'type' => 'view',
+                    'name' => $data['name'],
+                    'url' => $data['url'] ?: env('APP_URL')
+                ];
+                $buttons[$data['pid']]['sub_button'] = $subs;
+            } else {
+                $buttons[] = [
+                    'type' => 'view',
+                    'name' => $data['name'],
+                    'url' => $data['url'] ?: env('APP_URL')
+                ];
+            }
+        }
+
+        $buttons = array_values($buttons);
+        $wxApp = Factory::officialAccount(getWxConfig());
+        $wxApp->menu->delete();//先全部删除
+        $wxApp->menu->create($buttons);//再全部重建
     }
 
 }
