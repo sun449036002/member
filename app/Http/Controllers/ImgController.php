@@ -24,7 +24,7 @@ class ImgController
     public function upload(Request $request) {
         $result = ['code' => 0, 'msg' => 'ok', 'imgs' => []];
 
-        ini_set('memory_limit','100M');
+        ini_set('memory_limit','500M');
 
         $data = $request->all();
         $destinationPath = "/images/room-source/" . date("Ymd");
