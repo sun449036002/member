@@ -46,6 +46,8 @@
                                 <td>
                                     @if(!empty($item->is_spread))
                                     <button type="button" class="btn btn-success btn-to-spread" data-toggle="modal" data-target="#myModal5" data-id="{{$item->id}}">推广链接</button>
+                                    <button type="button" class="btn btn-success btn-to-users" data-id="{{$item->id}}">我的客户</button>
+                                    <button type="button" class="btn btn-success btn-transfer-users" data-toggle="modal" data-target="#myModal6" data-id="{{$item->id}}">客户转移</button>
                                     @endif
                                     <button type="button" class="btn btn-primary btn-to-reset" data-id="{{$item->id}}">重置密码</button>
                                     <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
@@ -140,6 +142,7 @@
 
 </div>
 
+{{-- 业务员专属推广二维码 --}}
 <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -159,6 +162,37 @@
     </div>
 </div>
 
+{{-- 业务员的资源用户转移 --}}
+<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <small class="font-bold qr-code-tips">客户资源从<span class="modal-title"></span>转移到另外一个业务员</small>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">转移到</label>
+                    <div class="col-sm-10">
+                        <select class="toAdminId" name="toAdminId" class="form-control m-b" required>
+                            <option value="">请选择转移到哪个用户下</option>
+                            @foreach($list as $item)
+                                <option value="{{$item->id}}">{{$item->name . "[" . $item->group_name . "]"}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sure-transfer">确认</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </div>
 </div>
 
@@ -166,25 +200,38 @@
 $(document).ready(function() {
     initDataTable();
 
+    var fromAdminId = 0;
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green'
     });
 
+    var tableSym = $(".dataTables-sym");
     //展示推广链接
-    $(".dataTables-sym").on("click", ".btn.btn-to-spread", function(){
-        $("#qrcode").empty();
+    tableSym.on("click", ".btn.btn-to-spread", function(){
         var name = $(this).parent().parent("tr").find(".td-name").html();
         $("#myModal5").find("h4").html(name);
-        $("#qrcode").qrcode('{{env('APP_URL') . "/cash-red-pack?adminId="}}' + $(this).data("id"));
+        $("#qrcode").empty().qrcode('{{env('APP_URL') . "/cash-red-pack?adminId="}}' + $(this).data("id"));
+    });
+
+    //更新转移用户的fromAdminID
+    tableSym.on("click", ".btn.btn-transfer-users", function(){
+        fromAdminId = $(this).data("id");
+        var name = $(this).parent().parent("tr").find(".td-name").html();
+        $("#myModal6").find(".modal-title").html(name);
     });
 
     //TO 编辑
-    $(".dataTables-sym").on("click", ".btn.btn-to-edit", function(){
+    tableSym.on("click", ".btn.btn-to-edit", function(){
        window.location.href = "/admins/" + $(this).data("id") + "/edit";
     });
 
+    //TO 由我推广获得的用户资源
+    tableSym.on("click", ".btn.btn-to-users", function(){
+        window.location.href = "/admins/resources?adminId=" + $(this).data("id");
+    });
+
     //重置密码
-    $(".dataTables-sym").on("click", ".btn.btn-to-reset", function(){
+    tableSym.on("click", ".btn.btn-to-reset", function(){
         var self = $(this);
         swal({
             title: "确定要重置密码吗?",
@@ -211,7 +258,7 @@ $(document).ready(function() {
     });
 
     //TO 删除
-    $(".dataTables-sym").on("click", ".btn.btn-to-del", function(){
+    tableSym.on("click", ".btn.btn-to-del", function(){
         var self = $(this);
         swal({
             title: "确定要删除吗?",
@@ -233,6 +280,46 @@ $(document).ready(function() {
                 }
             });
         });
+    });
+
+    //用户资源转移
+    $("#myModal6").on("click", ".btn-sure-transfer", function(){
+        swal({
+            title: "确定要转移吗?",
+            text: "确认后数据将不能恢复!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定!",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type : 'post',
+                url : "/adminResourceTransfer",
+                data : {
+                    fromAdminId : fromAdminId,
+                    toAdminId : $(".toAdminId").val()
+                },
+                dataType : "json",
+                headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
+                success : function(res){
+                    swal({
+                            title: res.msg,
+                            text: "",
+                            type: res.code ? "error" : "info",
+                            closeOnConfirm: true
+                        },
+                        function(){
+                            if(!res.code) {
+                                window.location.reload();
+                            }
+                        }
+                    );
+                }
+            });
+        });
+
     });
 });
 </script>

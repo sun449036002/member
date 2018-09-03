@@ -57,6 +57,22 @@
                                     <div>红包记录：{{$redPackCount}} 个</div>
                                 </div>
                             </div>
+                            <div class="feed-element">
+                                <div class="media-body ">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">推广员绑定</label>
+                                        <div class="col-sm-10">
+                                            <select class="toAdminId" name="toAdminId" class="form-control m-b" required>
+                                                <option value="">请选择绑定到哪个推广员</option>
+                                                @foreach($list ?? [] as $item)
+                                                    <option value="{{$item->id}}" {{$item->id == $row->admin_id ? "selected='selected'" : ""}}>{{$item->name . "[" . $item->group_name . "]"}}</option>
+                                                @endforeach
+                                            </select>
+                                            <button class="btn btn-primary btn-sm btn-change-admin-id">更换</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -66,3 +82,46 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function(){
+        $(".btn-change-admin-id").on("click", function(){
+            swal({
+                title: "确定要变更绑定吗?",
+                text: "确认后数据将不能恢复!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定!",
+                showLoaderOnConfirm: true,
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type : 'post',
+                    url : "/user/changeAdminId",
+                    data : {
+                        id : "{{$row->id}}",
+                        toAdminId : $(".toAdminId").val()
+                    },
+                    dataType : "json",
+                    headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
+                    success : function(res){
+                        swal({
+                                title: res.msg,
+                                text: "",
+                                type: res.code ? "error" : "info",
+                                closeOnConfirm: true
+                            },
+                            function(){
+                                if(!res.code) {
+                                    window.location.reload();
+                                }
+                            }
+                        );
+                    }
+                });
+            });
+        })
+    });
+</script>

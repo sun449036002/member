@@ -50,6 +50,8 @@ Route::get('/', "IndexController@index");
 //重置管理员密码
 Route::post('/admins/resetPwd', "AdminController@resetPwd");
 
+Route::post("/adminResourceTransfer", "AdminController@resourceTransfer");
+
 //图片上传
 Route::post("/img/upload", "ImgController@upload");
 
@@ -85,6 +87,7 @@ Route::get("/bespeak/change", "RoomSourceController@bespeakChange");
 Route::get("/user", "UserController@index");
 Route::get("/user/detail", "UserController@detail");
 Route::post("/user/lock", "UserController@lock");
+Route::post("/user/changeAdminId", "UserController@changeAdminId");
 
 //红包配置
 Route::get("/redPack/config", "RedPackController@config");

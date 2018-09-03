@@ -40,3 +40,16 @@ function SView($pagePath, $pageData = []) {
 function ResultClientJson($code, $msg = '', $data = []) {
     return json_encode(['code' => $code, 'msg' => $msg, 'data' => $data]);
 }
+
+/**
+ * 处理头像地址
+ * @param $headImgUrl
+ * @return string
+ */
+function headImgUrl($headImgUrl) {
+    if (strpos($headImgUrl, 'images/wxUserHead') === false) {
+        return $headImgUrl;
+    } else {
+        return env('APP_IMG_DOMAIN') . "/" . ltrim($headImgUrl, '/');
+    }
+}

@@ -8,6 +8,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\AdminGroupModel;
+use App\Model\AdminModel;
 use App\Model\RedPackModel;
 use App\Model\RedPackRecordModel;
 use App\Model\UserModel;
@@ -66,6 +68,22 @@ class UserController extends Controller
         $recordList = $recordModel->getList(['id'], ["userId" => $user->id]);
         $this->pageData['recordCount'] = count($recordList);
 
+        //需要绑定的管理员列表
+        $model = new AdminModel();
+        $groupModel = new AdminGroupModel();
+        $list = $model->getList(['id', "group_id", "name"], ['isDel' => 0]);
+        $groupList = $groupModel->getList(['*'], ['isDel' => 0]);
+        foreach ($list as $key => $item) {
+            //用户组
+            foreach ($groupList as $group) {
+                if ($item->group_id == $group->id) {
+                    $list[$key]->group_name = $group->name;
+                    break;
+                }
+            }
+        }
+        $this->pageData['list'] = $list;
+
         return SView("user/detail", $this->pageData);
     }
 
@@ -89,6 +107,29 @@ class UserController extends Controller
         $model->updateData(['lock' => !$row->lock], $where);
 
         return ResultClientJson(0, '操作成功');
+    }
+
+    /**
+     * 推广员的绑定关系的变更
+     * @param Request $request
+     * @return string
+     */
+    public function changeAdminId(Request $request) {
+        $id = $request->post("id");
+        $toAdminId = $request->post("toAdminId");
+        if (empty($id) || empty($toAdminId)) {
+            return ResultClientJson(100, '缺少必要参数');
+        }
+
+        //检测TO ADMIN ID 是否开通了推广功能
+        $admin = (new AdminModel())->getOne(['name', 'is_spread'], ['id' => $toAdminId]);
+        if (empty($admin->is_spread)) {
+            return ResultClientJson(100, $admin->name . ' 未开通推广功能，请先开通推广功能再转移');
+        }
+
+        (new UserModel())->updateData(['admin_id' => $toAdminId], ['id' => $id]);
+
+        return ResultClientJson(0, '绑定关系变更成功');
     }
 
 }

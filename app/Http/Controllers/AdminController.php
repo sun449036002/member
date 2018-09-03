@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\AdminGroupModel;
 use App\Model\AdminModel;
+use App\Model\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -179,5 +180,45 @@ class AdminController extends Controller
         $model = new AdminModel();
         $model->find($id)->delete();
         exit(json_encode(['code' => 0, 'msg' => '删除成功:']));
+    }
+
+    /**
+     * 我推广的资源
+     */
+    public function show(Request $request) {
+        $adminId = $request->get("adminId");
+        $userModel = new UserModel();
+        $userList = $userModel->getList(['id', 'username', 'avatar_url', 'subscribe_time'], ['admin_id' => $adminId]);
+        foreach ($userList as $user) {
+            $user->avatar_url = headImgUrl($user->avatar_url);
+            $user->subscribe_time = date("Y-m-d H:i:s", $user->subscribe_time);
+        }
+
+        $this->pageData['list'] = $userList;
+
+        return SView('/admin/resources', $this->pageData);
+    }
+
+    public function resourceTransfer(Request $request) {
+        $fromAdminId = $request->post("fromAdminId");
+        $toAdminId = $request->post("toAdminId");
+
+        if (empty($fromAdminId) || empty($toAdminId)) {
+            return ResultClientJson(100, '缺少必要参数');
+        }
+
+        //检测TO ADMIN ID 是否开通了推广功能
+        $admin = (new AdminModel())->getOne(['name', 'is_spread'], ['id' => $toAdminId]);
+        if (empty($admin->is_spread)) {
+            return ResultClientJson(100, $admin->name . ' 未开通推广功能，请先开通推广功能再转移');
+        }
+
+        //显示转移多少用户
+        $userModel = new UserModel();
+        $count = $userModel->where("admin_id", $fromAdminId)->count();
+
+        $userModel->updateData(['admin_id' => $toAdminId], ['admin_id' => $fromAdminId]);
+
+        return ResultClientJson(0, '转移成功，共转移' . $count . "个用户资源");
     }
 }
