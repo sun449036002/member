@@ -19,6 +19,7 @@ class UserModel extends BaseModel
     public function getUserAllInfo($userId) {
         $row = parent::getOne(["*"], ['id' => $userId]);
         $row->info = json_decode($row->user_json);
+        $row->avatar_url = headImgUrl($row->avatar_url);
         return $row;
     }
 
