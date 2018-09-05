@@ -416,3 +416,18 @@ function initDataTable(orderIndex) {
         }
     });
 }
+
+/**
+ * TextArea自适应高度
+ * @param target
+ * @constructor
+ */
+function TextAreaAutoHeight(target) {
+    //textarea自适应高度
+    $(target).each(function () {
+        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    }).on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+}

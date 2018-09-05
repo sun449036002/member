@@ -145,7 +145,9 @@
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">报备模板</label>
-                        <div class="col-sm-5"><input type="text" class="form-control" name="reportTemplate" value="{{$row->reportTemplate}}"></div>
+                        <div class="col-sm-5">
+                            <textarea class="form-control report-template" name="reportTemplate">{{$row->reportTemplate}}</textarea>
+                        </div>
                     </div>
 
                     <div class="hr-line-dashed"></div>
@@ -289,6 +291,9 @@
 
         //下拉多选初始化
         $(".chosen-select").chosen();
+
+        //自适应高度
+        TextAreaAutoHeight(".report-template");
 
         //表单提交
         $("#roomSourceForm").on("submit", function(){
