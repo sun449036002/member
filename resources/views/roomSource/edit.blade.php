@@ -132,8 +132,7 @@
                         <label class="col-sm-2 control-label">首付金额</label>
                         <div class="col-sm-4">
                             <div class="input-group m-b">
-                                <input type="number" class="form-control" name="firstPay" value="{{$row->firstPay}}">
-                                <span class="input-group-addon">万元</span>
+                                <input type="text" class="form-control" name="firstPay" value="{{$row->firstPay}}">
                             </div>
                         </div>
                     </div>
@@ -162,7 +161,7 @@
 
                     <div class="hr-line-dashed"></div>
                     <div class="form-group"><label class="col-sm-2 control-label">佣金</label>
-                        <div class="col-sm-5"><input type="number" class="form-control" name="commission" value="{{$row->commission}}"></div>
+                        <div class="col-sm-5"><input type="text" class="form-control" name="commission" value="{{$row->commission}}"></div>
                     </div>
 
                     <div class="hr-line-dashed"></div>
