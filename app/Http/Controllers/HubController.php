@@ -174,7 +174,7 @@ class HubController extends Controller
      * @return bool|string
      */
     private function checkButtonSize($pid = 0) {
-        $count = (new HubModel())->where("pid", $pid)->count();
+        $count = (new HubModel())->where("pid", $pid)->where("isDel", 0)->count();
 
         $limitCount = $pid > 0 ? $this->maxSecondButtonSize : $this->maxRootButtonSize;
 
