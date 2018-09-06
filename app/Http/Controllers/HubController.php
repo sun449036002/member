@@ -57,11 +57,12 @@ class HubController extends Controller
         $model->insert([
             'pid' => $data['pid'],
             'name' => $data['name'],
+            'order' => $data['order'] ?: 0,
             'url' => $data['url']
         ]);
 
         //创建公众号菜单
-        $this->createWxMenus($data);
+        $this->createWxMenus();
 
         return redirect('/hub');
     }
@@ -111,6 +112,7 @@ class HubController extends Controller
         $model->updateData([
             'pid' => $data['pid'],
             'name' => $data['name'],
+            'order' => $data['order'] ?: 0,
             'url' => $data['url']
         ], ['id' => $data['id']]);
 
@@ -133,29 +135,10 @@ class HubController extends Controller
 
     /**
      * 创建微信菜单
-     * @param array $data
      */
-    private function createWxMenus($data = []) {
+    private function createWxMenus() {
         //创建公众号菜单
         $buttons = (new HubLogic())->getMenuButtons();
-        if (!empty($data)) {
-            if (!empty($data['pid'])) {
-                $subs = $buttons[$data['pid']]['sub_button'] ?? [];
-                $subs[] = [
-                    'type' => 'view',
-                    'name' => $data['name'],
-                    'url' => $data['url'] ?: env('APP_URL')
-                ];
-                $buttons[$data['pid']]['sub_button'] = $subs;
-            } else {
-                $buttons[] = [
-                    'type' => 'view',
-                    'name' => $data['name'],
-                    'url' => $data['url'] ?: env('APP_URL')
-                ];
-            }
-        }
-
         $buttons = array_values($buttons);
         $wxApp = Factory::officialAccount(getWxConfig());
         $wxApp->menu->delete();//先全部删除

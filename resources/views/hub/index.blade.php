@@ -19,7 +19,7 @@
                 <table class="table table-striped table-bordered table-hover dataTables-sym">
                     <thead>
                     <tr>
-                        <th>栏目ID </th>
+                        <th>排序值 </th>
                         <th>栏目名称 </th>
                         <th>子级栏目 </th>
                         <th>链接地址 </th>
@@ -29,14 +29,14 @@
                     <tbody>
                     @foreach($list as $item)
                         <tr>
-                            <td>{{$item->id}}</td>
+                            <td>{{$item->order}}</td>
                             <td>{{$item->name}}</td>
                             <td>
                                 @if(!empty($item->sublist))
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>栏目ID </th>
+                                        <th>排序值 </th>
                                         <th>栏目名称 </th>
                                         <th>链接地址 </th>
                                         <th>操作</th>
@@ -46,7 +46,7 @@
 
                                     @foreach($item->sublist as $subItem)
                                         <tr>
-                                            <td>{{$subItem->id}}</td>
+                                            <td>{{$subItem->order}}</td>
                                             <td>{{$subItem->name}}</td>
                                             <td>{{$subItem->url}}</td>
                                             <td>
@@ -99,6 +99,11 @@
 
                 <div class="form-group"><label class="col-sm-2 control-label">链接地址</label>
                     <div class="col-sm-3"><input type="text" class="form-control" name="url"></div>
+                </div>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group"><label class="col-sm-2 control-label">排序值</label>
+                    <div class="col-sm-3"><input type="number" class="form-control" name="order" placeholder="排序值越大的，显示在越前面或者越上面"></div>
                 </div>
                 <div class="hr-line-dashed"></div>
 

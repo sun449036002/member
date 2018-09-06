@@ -16,6 +16,7 @@ class HubModel extends BaseModel
     private $columns = ['*'];
 
     public function getHubList($pid = 0) {
-         return $this->getList($this->columns, ['pid' => $pid, 'isDel' => 0]);
+        $order = ["order", "DESC"];
+         return $this->getList($this->columns, ['pid' => $pid, 'isDel' => 0], $order);
     }
 }

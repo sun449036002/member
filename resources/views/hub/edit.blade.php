@@ -30,6 +30,11 @@
                             </div>
                             <div class="hr-line-dashed"></div>
 
+                            <div class="form-group"><label class="col-sm-2 control-label">排序值</label>
+                                <div class="col-sm-3"><input type="number" class="form-control" name="order" value="{{$row->order}}"></div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
                             <div class="form-group"><label class="col-sm-2 control-label">上级栏目名称</label>
                                 <div class="col-sm-10">
                                     <select class="form-control m-b" name="pid">
