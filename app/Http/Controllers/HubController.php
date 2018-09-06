@@ -107,12 +107,6 @@ class HubController extends Controller
             return back()->withErrors($validate);
         }
 
-        //检测菜单数量限制
-        $checkResult = $this->checkButtonSize($data['pid']);
-        if (is_string($checkResult)) {
-            return back()->withErrors($checkResult);
-        }
-
         $model = new HubModel();
         $model->updateData([
             'pid' => $data['pid'],
