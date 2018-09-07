@@ -128,7 +128,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">报备模板</label>
                                 <div class="col-sm-5">
-                                    <textarea class="form-control report-template" name="reportTemplate"></textarea>
+                                    <textarea class="form-control area-auto-height" name="reportTemplate"></textarea>
                                 </div>
                             </div>
 
@@ -149,7 +149,9 @@
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">奖励政策</label>
-                                <div class="col-sm-5"><input type="text" class="form-control" name="rewardPolicy" value=""></div>
+                                <div class="col-sm-5">
+                                    <textarea class="form-control area-auto-height" name="rewardPolicy"></textarea>
+                                </div>
                             </div>
 
                             <div class="hr-line-dashed"></div>
@@ -209,7 +211,7 @@
         $(".chosen-select").chosen();
 
         //自适应高度
-        TextAreaAutoHeight(".report-template");
+        TextAreaAutoHeight(".area-auto-height");
 
         //表单提交
         $("#roomSourceForm").on("submit", function(){
