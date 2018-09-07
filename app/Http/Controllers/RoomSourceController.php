@@ -55,6 +55,12 @@ class RoomSourceController extends Controller
             $item->adminName = $admins[$item->adminId] ?? "未知";
             $item->area = $areaArr[$item->areaId] ?? "未知";
             $item->houseType = $houseTypeArr[$item->houseTypeId] ?? "未知";
+
+            $imgs = json_decode($item->imgJson, true);
+
+            $item->hasCover = !empty($imgs['cover']);
+            $item->hasLoopImg = !empty($imgs['imgs']);
+            $item->hasHouseTypeImg = !empty($imgs['houseTypeImgs']);
         }
         $this->pageData['list'] = $list;
         return SView("roomSource/index", $this->pageData);

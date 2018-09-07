@@ -19,6 +19,7 @@
                         <th>楼盘均价 </th>
                         <th>创建人 </th>
                         <th>更新时间 </th>
+                        <th>图片状态 </th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -33,6 +34,17 @@
                             <td>{{$item->avgPrice}}</td>
                             <td>{{$item->adminName}}</td>
                             <td>{{date("Y-m-d H:i:s", $item->updateTime)}}</td>
+                            <td>
+                                @if(empty($item->hasCover))
+                                    <span class="badge badge-warning">暂无封面</span>
+                                @endif
+                                @if(empty($item->hasLoopImg))
+                                    <span class="badge">暂无轮播图</span>
+                                @endif
+                                @if(empty($item->hasHouseTypeImg))
+                                    <span class="badge badge-success">暂无户型图</span>
+                                @endif
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-primary btn-to-edit" data-id="{{$item->id}}">编辑</button>
                                 <button type="button" class="btn btn-primary btn-to-del" data-id="{{$item->id}}">删除</button>
