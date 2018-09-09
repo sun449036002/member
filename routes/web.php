@@ -78,6 +78,7 @@ Route::post("/roomSource/doAdd", "RoomSourceController@doAdd");
 Route::get("/roomSource/edit", "RoomSourceController@edit");
 Route::post("/roomSource/doEdit", "RoomSourceController@doEdit");
 Route::post("/roomSource/del", "RoomSourceController@del");
+Route::get("/roomSource/checkSameName", "RoomSourceController@checkSameName");
 
 //预约管理
 Route::get("/bespeak", "RoomSourceController@bespeakList");

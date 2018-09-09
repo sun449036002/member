@@ -238,6 +238,21 @@ class RoomSourceController extends Controller
     }
 
     /**
+     * 同名房源检测
+     */
+    public function checkSameName(Request $request) {
+        $name = $request->get("name");
+        if (!empty($name)) {
+            $total = (new RoomSourceModel())->where("name", $name)->count();
+            if ($total > 0) {
+                return ResultClientJson(100, '存在相同名称的房源');
+            }
+        }
+
+        return ResultClientJson(0);
+    }
+
+    /**
      * 地域列表
      * @return array
      */

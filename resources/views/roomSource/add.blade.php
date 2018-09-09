@@ -216,6 +216,15 @@
         //自适应高度
         TextAreaAutoHeight(".area-auto-height");
 
+        //同名房源检测
+        $("input[name='name']").on("blur", function(){
+            $.getJSON("/roomSource/checkSameName", {name : $(this).val()}, function(res){
+                if (res.code) {
+                    swal(res.msg);
+                }
+            })
+        });
+
         //表单提交
         $("#roomSourceForm").on("submit", function(){
             var _findError = false;
