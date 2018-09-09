@@ -143,8 +143,11 @@
                             </div>
 
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">佣金</label>
-                                <div class="col-sm-5"><input type="text" class="form-control" name="commission" value=""></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">佣金</label>
+                                <div class="col-sm-5">
+                                    <textarea class="form-control area-auto-height" name="commission"></textarea>
+                                </div>
                             </div>
 
                             <div class="hr-line-dashed"></div>

@@ -135,6 +135,12 @@ class RoomSourceController extends Controller
 
         $model = new RoomSourceModel();
         $row = $model->getOne(['*'], ['id' => $data['id']]);
+        if (!empty($row->desc)) {
+            //处理内容中隐藏的\r\n，否则应用到JS后，脚本出错
+            $row->desc = preg_replace_callback("/[\n\r]/", function($res){
+                return '';
+            }, $row->desc);
+        }
         $this->pageData['row'] = $row;
 
         $this->pageData['roomTagIds'] = empty($row->roomTagIds) ? [] : explode(",", $row->roomTagIds);
