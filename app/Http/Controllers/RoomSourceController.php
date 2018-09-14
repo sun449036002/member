@@ -13,6 +13,7 @@ use App\Logic\BespeakLogic;
 use App\Model\AdminModel;
 use App\Model\AreaModel;
 use App\Model\BespeakModel;
+use App\Model\BrokerApplyModel;
 use App\Model\HouseTypeModel;
 use App\Model\RoomCategoryModel;
 use App\Model\RoomSourceModel;
@@ -250,6 +251,15 @@ class RoomSourceController extends Controller
         }
 
         return ResultClientJson(0);
+    }
+
+    /**
+     * 经纪人列表
+     */
+    public function brokerList() {
+        $this->pageData['list'] = (new BrokerApplyModel())->getList(['*'], null);
+
+        return SView('/roomSource/brokerlist', $this->pageData);
     }
 
     /**

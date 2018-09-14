@@ -166,6 +166,10 @@ class Controller extends BaseController
                             'route' => '/bespeak',
                         ],
                         [
+                            'title' => '经纪人报名列表',
+                            'route' => '/brokerList',
+                        ],
+                        [
                             'title' => '地域列表',
                             'route' => '/area',
                         ],
