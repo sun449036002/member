@@ -26,7 +26,6 @@
                             <td>{{$item->username}}</td>
                             <td>{{date("Y-m-d H:i:s", $item->subscribe_time)}}</td>
                             <td>{{$item->cancel_subscribe_time ? date("Y-m-d H:i:s", $item->cancel_subscribe_time ?? 0) : ""}}</td>
-                            <td>{{$item->openid}}</td>
                             <td>
                                 <span class="badge {{$item->is_subscribe ? "badge-success" : ""}}">{{$item->is_subscribe ? "已关注" : "未关注"}}</span>
                                 <span class="badge {{$item->lock ? "badge-warning" : "badge-success"}}">{{$item->lock ? "冻结中" : "正常"}}</span>
