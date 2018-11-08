@@ -12,9 +12,9 @@
                     <thead>
                     <tr>
                         <th>用户ID </th>
-                        <th>用户URI </th>
                         <th>用户名称 </th>
-                        <th>openid </th>
+                        <th>关注时间 </th>
+                        <th>取消关注时间 </th>
                         <th>状态 </th>
                         <th>操作</th>
                     </tr>
@@ -23,8 +23,9 @@
                     @foreach($list as $item)
                         <tr>
                             <td>{{$item->id}}</td>
-                            <td>{{$item->uri}}</td>
                             <td>{{$item->username}}</td>
+                            <td>{{date("Y-m-d H:i:s", $item->subscribe_time)}}</td>
+                            <td>{{date("Y-m-d H:i:s", $item->cancel_subscribe_time ?? 0)}}</td>
                             <td>{{$item->openid}}</td>
                             <td>
                                 <span class="badge {{$item->is_subscribe ? "badge-success" : ""}}">{{$item->is_subscribe ? "已关注" : "未关注"}}</span>
