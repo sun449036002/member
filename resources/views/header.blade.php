@@ -87,8 +87,30 @@
                     toastr.error('{{$value}}', '错误提示');
                 @endforeach
             @endif
+
+            //
+            $("#page-wrapper .toggle-menu-li").on("click", function(){
+                $("nav.navbar-default").toggleClass("phone")
+            })
         });
     </script>
+
+    <style>
+        .toggle-menu-li {
+            float: right;
+            padding: 10px;
+            padding-right: 30px;
+        }
+
+        nav.navbar-default.phone {
+            display: block;
+            position: fixed;
+            width:auto;
+            top: 0;
+            bottom: 0;
+            background-color: #2f4050;
+        }
+    </style>
 
 </head>
 
@@ -142,6 +164,7 @@
                             {{csrf_field()}}
                         </form>
                     </li>
+                    <li class="toggle-menu-li"><button class="btn btn-primary btn-circle" type="button"><i class="fa fa-list"></i></button></li>
                 </ul>
 
             </nav>
