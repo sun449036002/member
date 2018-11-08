@@ -40,9 +40,17 @@ class RoomSourceController extends Controller
             $areaArr[$area->id] = $area->name;
         }
 
+        //户型
         $houseTypeArr = [];
         foreach ($this->pageData['houseTypeList'] as $houseType) {
             $houseTypeArr[$houseType->id] = $houseType->name;
+        }
+
+        //分类
+        $categoryNameArr = [];
+        $categoryList = (new RoomCategoryModel())->getList(['*'], ['isDel' => 0]);
+        foreach ($categoryList as $item) {
+            $categoryNameArr[$item->id] = $item->name;
         }
 
         $admins = [];
@@ -56,6 +64,7 @@ class RoomSourceController extends Controller
             $item->adminName = $admins[$item->adminId] ?? "未知";
             $item->area = $areaArr[$item->areaId] ?? "未知";
             $item->houseType = $houseTypeArr[$item->houseTypeId] ?? "未知";
+            $item->categoryName = $categoryNameArr[$item->roomCategoryId] ?? "未知";
 
             $imgs = json_decode($item->imgJson, true);
 
