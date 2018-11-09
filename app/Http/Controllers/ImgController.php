@@ -61,9 +61,10 @@ class ImgController
                     }
 
                     //此处防止没有多文件上传的情况
-                    $allowed_extensions = ["png", "jpg", "gif"];
+                    $video_extensions = ["mp4", "aiv", "mov", "wmv", "3gp", "rmvb", "flv"];
+                    $allowed_extensions = array_merge(["png", "jpg", "gif"], $video_extensions);
                     if ($img->getClientOriginalExtension() && !in_array($img->getClientOriginalExtension(), $allowed_extensions)) {
-                        $errorMsgs[] = '您只能上传PNG、JPG或GIF格式的图片！';
+                        $errorMsgs[] = '您只能上传PNG、JPG或GIF格式的图片以及常见的格式视频！';
                         continue;
                     }
 
@@ -71,11 +72,13 @@ class ImgController
                     $fileName = date('YmdHis').mt_rand(100,999) . '.'.$extension; // 重命名
                     $filePath = $destinationPath.'/'.$fileName;
 
-                    //缩略图
-                    $thumbnail_file_path = storage_path() .  "/app/" . str_replace("room-source", 'room-source-thumbnail', $filePath);
-                    Image::make($img)->resize(200, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($thumbnail_file_path);
+                    //图片缩略图
+                    if(!in_array(strtolower($extension), $video_extensions)) {
+                        $thumbnail_file_path = storage_path() .  "/app/" . str_replace("room-source", 'room-source-thumbnail', $filePath);
+                        Image::make($img)->resize(200, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })->save($thumbnail_file_path);
+                    }
 
                     //移动保存原始图片
                     $img->move(storage_path() . "/app" . $destinationPath, $fileName);
