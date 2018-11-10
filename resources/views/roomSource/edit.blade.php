@@ -207,7 +207,11 @@
                                     @foreach($row->imgs as $key => $img)
                                     <div class="item {{$key == 0 ? 'active' : ''}}">
                                         <input type="hidden" name="imgs[]" value="{{$row->originImgs[$key]}}"/>
+                                        @if(in_array(last(explode(".", $img)), ["jpg", "jpeg", "gif", "png"]))
                                         <img alt="image"  class="img-responsive" src="{{$img}}">
+                                        @else
+                                        <video src="{{$img}}" width="100%" height="100%" controls autoplay></video>
+                                        @endif
                                     </div>
                                     @endforeach
                                 </div>
