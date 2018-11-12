@@ -24,10 +24,16 @@ use Illuminate\Support\Facades\Validator;
 
 class RoomSourceController extends Controller
 {
+    /**
+     * 不限制修改房源信息的用户，其他用户(只能编辑自己上传的房源)
+     * @var array
+     */
+    private $superAdminId = [8];
+
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->pageData['areaList'] = $this->getAreaList();
         $this->pageData['houseTypeList'] = $this->getHouseTypeList();
         $this->pageData['roomTags'] = $this->getTags();
@@ -176,6 +182,12 @@ class RoomSourceController extends Controller
         }
 
         $model = new RoomSourceModel();
+        $where = ['id' => $data['id']];
+        $adminId = Auth::user()->getAuthIdentifier();
+        $row = $model->getOne(['adminId'], $where);
+        if (!in_array($adminId, $this->superAdminId) && $adminId != $row->adminId) {
+            return json_encode(['code' => 100, 'msg' => '您没有权限修改此房源'],JSON_UNESCAPED_UNICODE);
+        }
         $updateData = [
             //更新时，添加的操作员ID不作变更
             'name' => $data['name'],
@@ -204,7 +216,7 @@ class RoomSourceController extends Controller
         ];
 
 
-        $model->updateData($updateData, ['id' => $data['id']]);
+        $model->updateData($updateData, $where);
 
         return json_encode(['code' => 0, 'msg' => '房源编辑成功'],JSON_UNESCAPED_UNICODE);
     }

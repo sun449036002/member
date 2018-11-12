@@ -338,8 +338,12 @@
                 dataType : "json",
                 headers : {"X-CSRF-TOKEN" : "{{csrf_token()}}"},
                 success : function(res){
-                    swal(res.msg);
-                    window.location.href = "/roomSource";
+                    swal({
+                        title:res.msg,
+                        timer:1000
+                    }, function(){
+                        window.location.href = "/roomSource";
+                    });
                 }
             });
 
