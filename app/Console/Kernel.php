@@ -26,6 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command("test:cron")->everyMinute()->appendOutputTo("/home/log/test.log");
+        $schedule->command("test:cron2")->everyMinute()->appendOutputTo("/home/log/test.log");
+        $schedule->command("test:cron3")->everyMinute()->appendOutputTo("/home/log/test.log");
     }
 
     /**
